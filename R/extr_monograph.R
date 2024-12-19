@@ -30,7 +30,6 @@ extr_monograph <- function(ids, search_type = "casrn", verbose = TRUE) {
     cli::cli_abort("The argument {.field search_type} needs to be either `casrn` or `name`.")
   }
 
-  check_internet(verbose = verbose)
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Extracting WHO IARC monographs...\nLast updated: 2024-11-29 5:08pm (CET)")
@@ -48,7 +47,7 @@ extr_monograph <- function(ids, search_type = "casrn", verbose = TRUE) {
   }
 
   if (ncol(out) == 0) {
-    cli::cli_alert_info("No monographs found.")
+    cli::cli_alert_info("No monograph found.")
     # out <- NULL
   } else {
     out

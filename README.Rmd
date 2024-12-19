@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
-[![DEV version](https://img.shields.io/badge/devel%20version-0.1.1-blue.svg)](https://github.com/c1au6i0/extractox)
+[![DEV version](https://img.shields.io/badge/devel%20version-0.1.9001-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying various chemical, toxicological, and biological databases such as the Comparative Toxicogenomics Database (CTP) of the  MDI Biological Laboratory and NC State University, the Integrated Chemical Environment (ICE) of the National Toxicology Program (NTP), the Integrated Risk Information System (IRIS) of the Environmental Protection Agency (EPA), the CompTox Chemicals Dashboard Resource Hub (CompTox) of EPA, and PubChem of the National Center for Biotechnology Information/National Institures Of Health (NCBI, NIH). The package facilitates interaction with APIs, providing curated and user-friendly outputs.

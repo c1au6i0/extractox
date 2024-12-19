@@ -650,13 +650,19 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.2.2",
+      "Version": "2.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "openssl",
+      "RemoteRef": "openssl",
+      "RemoteRepos": "https://ftp.osuosl.org/pub/cran",
+      "RemotePkgPlatform": "x86_64-apple-darwin20",
+      "RemoteSha": "2.3.0",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "d413e0fef796c9401a4419485f709ca1"
+      "Hash": "5bfe2927efa9f87766ca9605301ea48f"
     },
     "openxlsx": {
       "Package": "openxlsx",

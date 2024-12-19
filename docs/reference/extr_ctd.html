@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,18 +176,11 @@ The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CTD database...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> Timeout was reached [ctdbase.org]: SSL</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> connection timeout</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	30106 obs. of  9 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x_input      : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_name: chr  "Formaldehyde" "Formaldehyde" "Formaldehyde" "Formaldehyde" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_id  : chr  "D005557" "D005557" "D005557" "D005557" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ cas_rn       : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_symbol  : chr  "A4GALT" "AAK1" "AAMDC" "ABCA11P" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_id      : int  53947 22848 28971 79963 26154 10351 5243 8714 10057 5825 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism     : chr  "Homo sapiens" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism_id  : int  9606 9606 9606 9606 9606 9606 9606 9606 9606 9606 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pub_med_ids  : chr  "27664576" "23649840" "23649840" "20655997" ...</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'dat' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get expresssion data</span></span></span>
 <span class="r-in"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu">extr_ctd</span><span class="op">(</span></span></span>
@@ -199,21 +192,12 @@ The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CTD database...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> Timeout was reached [ctdbase.org]: SSL</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> connection timeout</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	36112 obs. of  11 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ x_input            : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_name      : chr  "Formaldehyde" "Formaldehyde" "Formaldehyde" "Formaldehyde" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_id        : chr  "D005557" "D005557" "D005557" "D005557" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ cas_rn             : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_symbol        : chr  "A4GALT" "AAK1" "AAMDC" "ABCA11P" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_id            : int  53947 22848 28971 79963 26154 10351 5243 8714 10057 5825 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism           : chr  "Homo sapiens" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism_id        : int  9606 9606 9606 9606 9606 9606 9606 9606 9606 9606 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ interaction        : chr  "Formaldehyde results in decreased expression of A4GALT mRNA" "Formaldehyde results in increased expression of AAK1 mRNA" "Formaldehyde results in increased expression of AAMDC mRNA" "Formaldehyde results in decreased expression of ABCA11P mRNA" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ interaction_actions: chr  "decreases^expression" "increases^expression" "increases^expression" "decreases^expression" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pub_med_i_ds       : chr  "27664576" "23649840" "23649840" "20655997" ...</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'dat2' not found</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
