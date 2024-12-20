@@ -93,6 +93,128 @@ check_internet <- function(verbose = TRUE) {
 }
 
 
+
+
+#' Save an object to the package cache
+#'
+#' This function saves an R object to the cache directory of the `extractox` package
+#' using the `.rds` file format. If a file with the same name already exists in the cache,
+#' it will be overwritten.
+#'
+#' @param obj Any R object to be saved.
+#' @param file_name A character string specifying the name of the file (without extension).
+#' @param verbose A logical value indicating whether to print detailed messages. Default is FALSE.
+#' @return Invisibly returns the full path of the saved file.
+#' @details The cache directory is determined using [tools::R_user_dir()] with the `cache` subdirectory
+#' for the `extractox` package. If the directory does not exist, it is created automatically.
+#' The function will overwrite any existing file with the same name.
+#' @noRd
+save_to_cache <- function(obj, file_name, verbose = FALSE) {
+  cache_dir <- tools::R_user_dir("extractox", which = "cache")
+
+  if (!dir.exists(cache_dir)) {
+    dir.create(cache_dir, recursive = TRUE)
+  }
+
+  file_path <- file.path(cache_dir, paste0(file_name, ".rds"))
+
+  if (all(file.exists(file_path), verbose)) {
+    cli::cli_alert_info("Overwriting cache.")
+  } else {
+    if (isTRUE(verbose)) {
+      cli::cli_alert_info("Saving data in the cache.")
+    }
+  }
+
+  saveRDS(obj, file_path)
+
+  invisible(file_path)
+}
+
+#' Read an object from the package cache
+#'
+#' This function reads an R object from the cache directory of the `extractox` package
+#' using the `.rds` file format. If the file does not exist, it stops.
+#'
+#' @param file_name A character string specifying the name of the file (without extension).
+#' @param verbose A logical value indicating whether to print detailed messages. Default is FALSE.
+#' @return The R object read from the cache, or NULL if the file does not exist.
+#' @details The cache directory is determined using [tools::R_user_dir()] with the `cache` subdirectory
+#' for the `extractox` package. If the file does not exist, a message is printed if verbose is TRUE.
+#' @noRd
+read_from_cache <- function(file_name, verbose = FALSE) {
+  cache_dir <- tools::R_user_dir("extractox", which = "cache")
+  file_path <- file.path(cache_dir, paste0(file_name, ".rds"))
+
+  if (file.exists(file_path)) {
+    out <- readRDS(file_path)
+    if (verbose) {
+      cli::cli_alert_success("Successfully load. {.file file_name} from cache.")
+    }
+  } else {
+    cli::cli_abort("File not found in cache.")
+  }
+  out
+}
+
+#' Download and Process Data from a URL
+#'
+#' Downloads data from a specified URL, processes the response, and returns a cleaned
+#' data frame. The function handles HTTP requests, saves temporary files, and extracts
+#' table data from HTML content. Initially developed for EPA's PPRTVS data extraction
+#' but designed to be generalizable for similar use cases.
+#'
+#' @param url Character string specifying the URL to download data from
+#' @param url_query_param List of query parameters to be added to the URL
+#' @param file_name Character string specifying the name for the downloaded file
+#' @param file_ext Character string specifying the file extension. Default is "file".
+#' @param verbose Logical indicating whether to display progress messages. Default is FALSE.
+#' @return A data frame containing:
+#'   * The processed table data from the HTML content
+#'   * Clean column names (via janitor::clean_names)
+#'   * An additional column 'date_downloaded' with the response timestamp
+#' @keywords internal
+#' @noRd
+download_db <- function(url,
+                        url_query_param,
+                        file_name,
+                        file_ext = "file",
+                        verbose = TRUE) {
+  check_internet(verbose = verbose)
+
+  # Perform the request and get a response
+  if (isTRUE(verbose)) {
+    cli::cli_alert_info("Downloading data from {.url {url}}.")
+  }
+
+  req <- httr2::request(url) |>
+    httr2::req_url_query(
+      !!!url_query_param,
+      multi = "explore"
+    ) |>
+    httr2::req_perform()
+
+  dat_file <- tempfile(fileext = file_ext)
+
+  req |>
+    httr2::resp_body_raw() |>
+    writeBin(dat_file)
+
+  out <- dat_file |>
+    rvest::read_html() |>
+    rvest::html_nodes("table") |>
+    rvest::html_table(fill = TRUE)
+
+  out_cl <- out[[1]] |>
+    janitor::clean_names()
+
+  out_cl[, "date_downloaded"] <- httr2::resp_date(req)
+
+  out_cl
+}
+
+
+
 #' Selection of assays of iris
 
 #' @keywords internal
@@ -146,7 +268,6 @@ ice_assays <- function() {
     "Offspring Survival Early"
   )
 
-
   list(
     ice_carc_woe = ice_carc_woe,
     ice_invivo_acute_tox = ice_invivo_acute_tox,
@@ -155,5 +276,28 @@ ice_assays <- function() {
     ice_invivo_endocrine = ice_invivo_endocrine,
     ice_cancer = ice_cancer,
     ice_dart = ice_dart
+  )
+}
+
+
+#' Run Code in a Temporary Sandbox Environment
+#'
+#' This function creates a temporary directory and sets it as `R_USER_CACHE_DIR`
+#' before executing the provided code block. It is used for testing or running
+#' code without affecting the user's default cache directory as required by CRAN for the examples .
+#' This function is not  designed to be used by package users. Shamelessly "inspired" by
+#' some @luciorq code.
+#' @param code The code to be executed inside the sandbox. Should be an expression.
+#' @return The result of the executed code.
+#' @export
+#' @examples
+#' with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
+#' with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
+with_extr_sandbox <- function(code) {
+  withr::with_envvar(
+    new = c("R_USER_CACHE_DIR" = tempdir()),
+    code = {
+      eval(substitute(code), envir = parent.frame())
+    }
   )
 }
