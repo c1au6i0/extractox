@@ -28,7 +28,8 @@ Imports:
     pingr,
     readxl,
     rvest,
-    webchem
+    webchem,
+    withr
 Suggests: 
     openxlsx,
     testthat (>= 3.0.0)
