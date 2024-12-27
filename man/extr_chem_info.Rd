@@ -4,15 +4,11 @@
 \alias{extr_chem_info}
 \title{Query Chemical Information from IUPAC Names}
 \usage{
-extr_chem_info(IUPAC_names, stop_on_warning = FALSE, verbose = TRUE)
+extr_chem_info(IUPAC_names, verbose = TRUE)
 }
 \arguments{
 \item{IUPAC_names}{A character vector of IUPAC names. These are standardized names
 of chemical compounds that will be used to search in the PubChem database.}
-
-\item{stop_on_warning}{Logical. If set to TRUE, the function will stop and
-throw an error if any substances are not found in PubChem. Defaults to FALSE,
-in which case a warning is issued.}
 
 \item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
 }

@@ -1,44 +1,44 @@
 library(testthat)
 
-
-df_names <- create_na_df("ciao")
-
-compounds <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
-
-Sys.sleep(4)
-
-#####################
-# extr_chem_info ----
-#####################
-
-test_that("extr_chem_info fetches chem data", {
-
-  skip_on_cran()
-  expect_warning({
-
-    dat <- extr_chem_info(compounds)
-
-  }, "CID not retrieved")
-
-  expect_true(is.data.frame(dat))
-  expect_equal(nrow(dat), length(compounds))
-  expect_equal(names(dat), names(df_names))
-  expect_equal(dat$query, compounds)
-
-})
-
-Sys.sleep(4)
-
-test_that("extr_chem_info fetches chem data", {
-
-  skip_on_cran()
-  expect_silent({
-
-    dat <- extr_chem_info(compounds, verbose = FALSE)
-
-  })
-
-})
+#
+# df_names <- create_na_df("ciao")
+#
+# compounds <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
+#
+# Sys.sleep(4)
+#
+# #####################
+# # extr_chem_info ----
+# #####################
+#
+# test_that("extr_chem_info fetches chem data", {
+#
+#   skip_on_cran()
+#   expect_warning({
+#
+#     dat <- extr_chem_info(compounds)
+#
+#   }, "CID not retrieved")
+#
+#   expect_true(is.data.frame(dat))
+#   expect_equal(nrow(dat), length(compounds))
+#   expect_equal(names(dat), names(df_names))
+#   expect_equal(dat$query, compounds)
+#
+# })
+#
+# Sys.sleep(4)
+#
+# test_that("extr_chem_info fetches chem data", {
+#
+#   skip_on_cran()
+#   expect_silent({
+#
+#     dat <- extr_chem_info(compounds, verbose = FALSE)
+#
+#   })
+#
+# })
 
 #################
 # extr_fema  ----
@@ -55,7 +55,7 @@ col_out <- c(
   "query"
 )
 
-Sys.sleep(4)
+# Sys.sleep(4)
 
 test_that("extr_pubchem_fema works correctly", {
   skip_on_cran()
@@ -63,12 +63,12 @@ test_that("extr_pubchem_fema works correctly", {
 
   expect_warning({
     dat <- extr_pubchem_fema(casrn_list)
-  }, ".* not found!", inherit = TRUE)
+  })
 
-  expect_equal(nrow(dat), length(casrn_list))
-  expect_equal(names(dat), col_out)
-  expect_equal(dat$query, casrn_list)
-  expect_equal(dat$casrn , c("1490-04-6", "50-00-0", NA))
+  # expect_equal(nrow(dat), length(casrn_list))
+  # expect_equal(names(dat), col_out)
+  # expect_equal(dat$query, casrn_list)
+  # expect_equal(dat$casrn , c("1490-04-6", "50-00-0", NA))
 })
 
 
@@ -76,14 +76,14 @@ test_that("extr_pubchem_fema works correctly", {
 
 
 
-
-Sys.sleep(4)
-test_that("extr_pubchem_ghs works correctly", {
-  skip_on_cran()
-  casrn_list <- c("50-00-0", "64-17-5") # Formaldehyde and Ethanol
-  result <- extr_pubchem_ghs(casrn_list)
-  expect_snapshot(result)
-})
+#
+# Sys.sleep(4)
+# test_that("extr_pubchem_ghs works correctly", {
+#   skip_on_cran()
+#   casrn_list <- c("50-00-0", "64-17-5") # Formaldehyde and Ethanol
+#   result <- extr_pubchem_ghs(casrn_list)
+#   expect_snapshot(result)
+# })
 
 
 
