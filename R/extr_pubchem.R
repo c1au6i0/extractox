@@ -169,7 +169,10 @@ extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
 extr_pubchem_fema <- function(casrn, verbose = TRUE) {
   check_internet(verbose = verbose)
   dat <- lapply(casrn, extr_pubchem_fema_, verbose = verbose)
-  do.call(rbind, dat)
+
+  out  <- do.call(rbind, dat)
+  out
+
 }
 
 
@@ -200,7 +203,7 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
     out_df$other <- "casrn not found"
 
     if (isTRUE(verbose)) {
-      cli::cli_alert_info("CASRN {.field {casrn}} not found!")
+      cli::cli_warn("CASRN {.field {casrn}} not found!")
       cli::cli_div()
     }
   } else {
@@ -227,7 +230,7 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
       out_df$other <- "FEMA info not found"
 
       if (isTRUE(verbose)) {
-        cli::cli_alert_info("FEMA for {.field {casrn}} not found!")
+        cli::cli_warn("FEMA for {.field {casrn}} not found!")
         cli::cli_div()
       }
 
@@ -236,9 +239,9 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
       out_df <- merge(dat_cid, dat, by = "cid")
       out_df[, "other"] <- NA
       out_df$result <- gsub("Flavor and Extract Manufacturers Association \\(FEMA\\)", "", out_df$result)
-      out_df[, "query"] <-  casrn
+      out_df[, "query"] <- casrn
       names(out_df) <- col_out
-    }
+  }
   }
 
   out_df
