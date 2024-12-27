@@ -40,15 +40,42 @@ test_that("extr_chem_info fetches chem data", {
 
 })
 
+#################
+# extr_fema  ----
+#################
+
+col_out <- c(
+  "cid",
+  "casrn",
+  "IUPAC_name",
+  "result",
+  "source_name",
+  "source_id",
+  "other",
+  "query"
+)
 
 Sys.sleep(4)
 
 test_that("extr_pubchem_fema works correctly", {
   skip_on_cran()
-  casrn_list <- c("64-17-5", "50-00-0") # Ethanol and Formaldehyde
-  result <- extr_pubchem_fema(casrn_list)
-  expect_snapshot(result)
+  casrn_list <- c("1490-04-6", "50-00-0", "bella_ciao")
+
+  expect_warning({
+    dat <- extr_pubchem_fema(casrn_list)
+  }, ".* not found!", inherit = TRUE)
+
+  expect_equal(nrow(dat), length(casrn_list))
+  expect_equal(names(dat), col_out)
+  expect_equal(dat$query, casrn_list)
+  expect_equal(dat$casrn , c("1490-04-6", "50-00-0", NA))
 })
+
+
+
+
+
+
 
 Sys.sleep(4)
 test_that("extr_pubchem_ghs works correctly", {
@@ -57,3 +84,13 @@ test_that("extr_pubchem_ghs works correctly", {
   result <- extr_pubchem_ghs(casrn_list)
   expect_snapshot(result)
 })
+
+
+
+
+
+
+
+
+
+
