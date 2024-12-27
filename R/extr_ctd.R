@@ -133,7 +133,11 @@ extr_ctd <- function(
   out <- utils::read.csv(csv_file) |>
     janitor::clean_names()
 
+  names(out)[names(out) %in% c("pub_med_i_ds", "pub_med_ids")] <- "pubmed_ids"
   unlink(csv_file)
+  if (all(isTRUE(grepl("not found", out$x_input[1])), verbose)) {
+    cli::cli_warn("The chem {.field {input_terms}} was not found.")
+  }
 
   out
 }
@@ -291,7 +295,7 @@ extr_tetramer_ <- function(
   unlink(tab_file)
 
   # if no chem is found it returns a dataframe with one single column
-  if (ncol(out) == 1) {
+  if (ncol(out) == 1 && isTRUE(verbose)) {
     cli::cli_warn("The chem {.field {chem}} was not found.")
     out <- data.frame(
       query = chem,
