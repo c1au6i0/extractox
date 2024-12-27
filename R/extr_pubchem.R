@@ -1,3 +1,40 @@
+#' Generate a dataframe with Specified Columns and NAs
+#'
+#' Used internally to handle no results queries of extr_casrn_from_cid
+#'
+#' @param missing_chem Vector of missing chemical names.
+#'
+#' @return A dataframe with the specified columns and all NAs.
+#' @keywords internal
+#' @noRd
+create_na_df <- function(missing_chem) {
+  column_names <- c("cid", "iupac_name", "cas_rn", "cid_all", "cas_rn_all",
+               "molecular_formula", "molecular_weight", "canonical_smiles",
+               "isomeric_smiles", "in_ch_i", "in_ch_i_key", "iupac_name_y",
+               "x_log_p", "exact_mass", "monoisotopic_mass", "tpsa",
+               "complexity", "charge", "h_bond_donor_count",
+               "h_bond_acceptor_count", "rotatable_bond_count",
+               "heavy_atom_count", "isotope_atom_count", "atom_stereo_count",
+               "defined_atom_stereo_count", "undefined_atom_stereo_count",
+               "bond_stereo_count", "defined_bond_stereo_count",
+               "undefined_bond_stereo_count", "covalent_unit_count",
+               "volume3d", "x_steric_quadrupole3d", "y_steric_quadrupole3d",
+               "z_steric_quadrupole3d", "feature_count3d",
+               "feature_acceptor_count3d", "feature_donor_count3d",
+               "feature_anion_count3d", "feature_cation_count3d",
+               "feature_ring_count3d", "feature_hydrophobe_count3d",
+               "conformer_model_rmsd3d", "effective_rotor_count3d",
+               "conformer_count3d", "fingerprint2d", "query")
+
+  # Create the dataframe with all NAs
+  out <- data.frame(matrix(NA, nrow = length(missing_chem), ncol = length(column_names)))
+  names(out) <- column_names
+
+  out$query <- missing_chem
+
+  out
+}
+
 #' Retrieve CASRN for PubChem CIDs
 #'
 #' This function retrieves the CASRN for a given set of PubChem Compound Identifiers (CID).
@@ -36,10 +73,8 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
   colnames(cas_rn_data)[colnames(cas_rn_data) == "CID"] <- "cid"
 
   cas_rn_data <- cas_rn_data[c("cid", "cas_rn", "IUPACName")]
-  return(cas_rn_data)
+  cas_rn_data
 }
-
-
 
 
 #' Query Chemical Information from IUPAC Names
@@ -51,9 +86,6 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
 #'
 #' @param IUPAC_names A character vector of IUPAC names. These are standardized names
 #' of chemical compounds that will be used to search in the PubChem database.
-#' @param stop_on_warning Logical. If set to TRUE, the function will stop and
-#' throw an error if any substances are not found in PubChem. Defaults to FALSE,
-#' in which case a warning is issued.
 #' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
 #' @return A data frame with information on the queried compounds, including:
 #' \describe{
@@ -67,7 +99,7 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
 #' # Example with formaldehyde and aflatoxin
 #' extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
-extr_chem_info <- function(IUPAC_names, stop_on_warning = FALSE, verbose = TRUE) {
+extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
   check_internet(verbose = verbose)
 
   iupac_cid <- webchem::get_cid(IUPAC_names, domain = "compound", verbose = verbose)
@@ -81,11 +113,11 @@ extr_chem_info <- function(IUPAC_names, stop_on_warning = FALSE, verbose = TRUE)
   if (any(is.na(iupac_cid$cid))) {
     missing_c <- iupac_cid$constituent[is.na(iupac_cid$cid)]
 
-    if (stop_on_warning) {
-      cli::cli_abort(paste("CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
-    } else {
-      cli::cli_warn(paste("CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
-    }
+  if (isTRUE(verbose)){
+        cli::cli_warn(paste0("!", " CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
+  }
+
+  missing_df <- create_na_df(missing_c)
   }
 
 
@@ -113,7 +145,11 @@ extr_chem_info <- function(IUPAC_names, stop_on_warning = FALSE, verbose = TRUE)
   colnames(out)[colnames(out) == "query_x"] <- "query"
   out_clean <- out[, !colnames(out) %in% c("constituent_x", "query_y", "constituent_y", "constituent")]
 
-  out_clean
+  if (any(is.na(iupac_cid$cid))) {
+    out_clean <- rbind(missing_df, out_clean)
+  }
+
+  out_clean[match(IUPAC_names, out_clean$query),  ]
 }
 
 
@@ -148,18 +184,19 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
   col_out <- c(
     "cid",
     "casrn",
-    "name",
+    "IUPAC_name",
     "result",
     "source_name",
     "source_id",
-    "other"
+    "other",
+    "query"
   )
 
   if (is.na(dat_cid$cid)) {
-    na_matrix <- matrix(NA, nrow = 1, ncol = 7)
+    na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
     out_df <- as.data.frame(na_matrix)
     colnames(out_df) <- col_out
-    out_df$casrn <- casrn
+    out_df[, "query"] <- casrn
     out_df$other <- "casrn not found"
 
     if (isTRUE(verbose)) {
@@ -167,6 +204,7 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
       cli::cli_div()
     }
   } else {
+
     names(dat_cid)[1] <- "casrn"
     dat <- janitor::clean_names(webchem::pc_sect(dat_cid$cid,
       verbose = verbose,
@@ -174,21 +212,32 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
     ))
 
     if (length(dat) == 0) {
-      na_matrix <- matrix(NA, nrow = 1, ncol = 7)
+
+
+      names_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
+      na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
       out_df <- as.data.frame(na_matrix)
       colnames(out_df) <- col_out
+
       out_df$casrn <- casrn
+      out_df$cid <- dat_cid$cid
+      out_df$query <- casrn
+      out_df$IUPAC_name <- names_casrn$Result[[1]]
+
       out_df$other <- "FEMA info not found"
 
       if (isTRUE(verbose)) {
         cli::cli_alert_info("FEMA for {.field {casrn}} not found!")
         cli::cli_div()
       }
-      out_df$cid <- dat_cid$cid
+
     } else {
+
       out_df <- merge(dat_cid, dat, by = "cid")
       out_df[, "other"] <- NA
       out_df$result <- gsub("Flavor and Extract Manufacturers Association \\(FEMA\\)", "", out_df$result)
+      out_df[, "query"] <-  casrn
+      names(out_df) <- col_out
     }
   }
 
