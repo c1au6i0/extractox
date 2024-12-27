@@ -59,6 +59,10 @@ create_na_df <- function(missing_chem) {
 #' extr_casrn_from_cid(cids)
 #' }
 extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
+
+  if (missing(pubchem_id)) {
+    cli::cli_abort("The argument {.field {pubchem_id}} is required.")
+  }
   check_internet(verbose = verbose)
 
   if (isTRUE(verbose)) {
@@ -100,6 +104,11 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
 #' extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
 extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
+
+  if (missing(IUPAC_names)) {
+    cli::cli_abort("The argument {.field {IUPAC_names}} is required.")
+  }
+
   check_internet(verbose = verbose)
 
   iupac_cid <- webchem::get_cid(IUPAC_names, domain = "compound", verbose = verbose)
@@ -114,7 +123,7 @@ extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
     missing_c <- iupac_cid$constituent[is.na(iupac_cid$cid)]
 
   if (isTRUE(verbose)){
-        cli::cli_warn(paste0("!", " CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
+        cli::cli_warn(paste0("CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
   }
 
   missing_df <- create_na_df(missing_c)
@@ -155,11 +164,14 @@ extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
 
 #' Extract FEMA from PubChem
 #'
-#' This function retrieves FEMA (Flavor and Extract Manufacturers Association) flavor profile information for a list of CAS Registry Numbers (CASRN) from the PubChem database using the `webchem` package. It applies the function `extr_fema_pubchem_` to each CASRN in the input vector and combines the results into a single data frame.
-#'
+#' This function retrieves FEMA (Flavor and Extract Manufacturers Association)
+#'   flavor profile information for a list of CAS Registry Numbers (CASRN) from
+#'   the PubChem database using the `webchem` package.
 #' @param casrn A vector of CAS Registry Numbers (CASRN) as atomic vectors.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @return A data frame containing the FEMA flavor profile information for each CASRN. If no information is found for a particular CASRN, the output will include a row indicating this.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'    Default is TRUE.
+#' @return A data frame containing the FEMA flavor profile information for each
+#'   CASRN. If no information is found for a particular CASRN, the output will include a row indicating this.
 #' @seealso \href{https://pubchem.ncbi.nlm.nih.gov/}{PubChem}
 #' @export
 #' @examples
@@ -167,84 +179,8 @@ extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
 #' extr_pubchem_fema(c("83-67-0", "1490-04-6"))
 #' }
 extr_pubchem_fema <- function(casrn, verbose = TRUE) {
-  check_internet(verbose = verbose)
-  dat <- lapply(casrn, extr_pubchem_fema_, verbose = verbose)
 
-  out  <- do.call(rbind, dat)
-  out
-
-}
-
-
-#' extr_pubchem_fema_
-#'
-#' @param casrn Atomic Vector.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @noRd
-#' @keywords internal
-extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
-  dat_cid <- webchem::get_cid(casrn, match = "first", verbose = verbose)
-  col_out <- c(
-    "cid",
-    "casrn",
-    "IUPAC_name",
-    "result",
-    "source_name",
-    "source_id",
-    "other",
-    "query"
-  )
-
-  if (is.na(dat_cid$cid)) {
-    na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
-    out_df <- as.data.frame(na_matrix)
-    colnames(out_df) <- col_out
-    out_df[, "query"] <- casrn
-    out_df$other <- "casrn not found"
-
-    if (isTRUE(verbose)) {
-      cli::cli_warn("CASRN {.field {casrn}} not found!")
-      cli::cli_div()
-    }
-  } else {
-
-    names(dat_cid)[1] <- "casrn"
-    dat <- janitor::clean_names(webchem::pc_sect(dat_cid$cid,
-      verbose = verbose,
-      section = "FEMA Flavor Profile"
-    ))
-
-    if (length(dat) == 0) {
-
-
-      names_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
-      na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
-      out_df <- as.data.frame(na_matrix)
-      colnames(out_df) <- col_out
-
-      out_df$casrn <- casrn
-      out_df$cid <- dat_cid$cid
-      out_df$query <- casrn
-      out_df$IUPAC_name <- names_casrn$Result[[1]]
-
-      out_df$other <- "FEMA info not found"
-
-      if (isTRUE(verbose)) {
-        cli::cli_warn("FEMA for {.field {casrn}} not found!")
-        cli::cli_div()
-      }
-
-    } else {
-
-      out_df <- merge(dat_cid, dat, by = "cid")
-      out_df[, "other"] <- NA
-      out_df$result <- gsub("Flavor and Extract Manufacturers Association \\(FEMA\\)", "", out_df$result)
-      out_df[, "query"] <- casrn
-      names(out_df) <- col_out
-  }
-  }
-
-  out_df
+  extr_pubchem_section(casrn, section = "FEMA Flavor Profile", verbose = verbose)
 }
 
 
@@ -262,74 +198,102 @@ extr_pubchem_fema_ <- function(casrn, verbose = TRUE) {
 #' extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
 #' }
 extr_pubchem_ghs <- function(casrn, verbose = TRUE) {
-  check_internet(verbose = verbose)
-  dat <- lapply(casrn, extr_pubchem_ghs_, verbose = verbose)
-  do.call(rbind, dat)
+  extr_pubchem_section(casrn, section = "GHS Classification", verbose = verbose)
 }
 
 
-#' extr_ghs_pubchem_
+#' Extract PubChem Section Data
 #'
-#' Extract GHS codes from PubChem. The function relay on the package `webchem` to interact with pubchem.
+#' A generalized function to extract specific section data (e.g., FEMA or GHS) from PubChem for a given CASRN.
 #'
-#' @param casrn Atomic character vector of casrn.
+#' @param casrn A character vector of CAS Registry Numbers (CASRN).
+#' @param section A character string specifying the PubChem section to query (e.g., "FEMA Flavor Profile" or "GHS Classification").
 #' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @noRd
+#' @return A dataframe containing the queried section information for each CASRN.
 #' @keywords internal
-#' @return Dataframe of GHS info.
-extr_pubchem_ghs_ <- function(casrn, verbose = TRUE) {
+#' @noRd
+extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
   if (missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 
-  # Check if online
+  check_internet(verbose = verbose)
 
-  if (isTRUE(verbose)) {
-    cli::cli_alert_info("Getting PubChem IDS...")
-    cli::cli_div()
-  }
+  dat <- lapply(casrn, function(cas) {
+    extr_pubchem_section_(cas, section, verbose)
+  })
+
+  do.call(rbind, dat)
+}
+
+#' Internal Helper Function for `extr_pubchem_section`
+#'
+#' @param casrn A single CASRN.
+#' @param section A character string specifying the PubChem section to query.
+#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#' @noRd
+#' @keywords internal
+extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
+
   dat_cid <- webchem::get_cid(casrn, match = "first", verbose = verbose)
 
+  col_out <- c(
+    "cid",
+    "casrn",
+    "IUPAC_name",
+    "result",
+    "source_name",
+    "source_id",
+    "other",
+    "query"
+  )
 
-  col_out <- c("cid", "casrn", "name", "GHS", "source_name", "source_id", "other")
-
+  # Handle no CID retrieved
   if (is.na(dat_cid$cid)) {
-    na_matrix <- matrix(NA, nrow = length(casrn), ncol = 7)
+
+    names_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
+    na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
     out_df <- as.data.frame(na_matrix)
     colnames(out_df) <- col_out
-    if (isTRUE(verbose)) {
-      cli::cli_alert_info("CASRN {.field {casrn}} not found!")
-      cli::cli_div()
-    }
-
-    out_df$casrn <- casrn
+    out_df$casrn <- NA
+    out_df$query <- casrn
     out_df$other <- "CASRN not found"
-  } else {
-    names(dat_cid)[1] <- "casrn"
 
-    dat <- webchem::pc_sect(dat_cid$cid, section = "GHS Classification", verbose = verbose) |>
-      janitor::clean_names()
-
-    if (length(dat) == 0) {
-      na_matrix <- matrix(NA, nrow = 1, ncol = 7)
-      out_df <- as.data.frame(na_matrix)
-      colnames(out_df) <- col_out
-      out_df$casrn <- casrn
-      out_df$other <- "GHS info not found"
-
-      if (isTRUE(verbose)) {
-        cli::cli_alert_info("GHS for {.field {casrn}} not found!")
-        cli::cli_div()
-      }
-      out_df$cid <- dat_cid$cid
-    } else {
-      dat_f <- dat[dat$result != "          ", ]
-
-      names(dat_f)[3] <- "GHS"
-      out_df <- merge(dat_cid, dat_f, by = "cid")
-      out_df[, "other"] <- NA
+    if (isTRUE(verbose)) {
+      cli::cli_warn("CASRN {.field {casrn}} not found!")
     }
+    return(out_df)
   }
 
+  dat_section <- webchem::pc_sect(dat_cid$cid, section = section, verbose = verbose) |>
+    janitor::clean_names()
+
+
+  # Handle empty results for section
+  if (ncol(dat_section) == 0) {
+
+    name_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
+    na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
+    out_df <- as.data.frame(na_matrix)
+    colnames(out_df) <- col_out
+    out_df$IUPAC_name <- name_casrn$Name[[1]]
+    out_df$cid <- dat_cid$cid
+    out_df$casrn <- casrn
+    out_df$query <- casrn
+    out_df$other <- paste(section, "info not found")
+
+    if (isTRUE(verbose)) {
+      cli::cli_warn("{section} for {.field {casrn}} not found!")
+    }
+    return(out_df)
+  }
+
+  # Clean and format the results
+  out_df <- merge(dat_cid, dat_section, by = "cid")
+  out_df$result <- gsub(paste0("^", section, ".*"), "", out_df$result)
+  out_df[, "other"] <- NA
+
+  names(out_df)[names(out_df) %in% c("query", "name")] <- c("casrn", "IUPAC_name")
+  out_df[, "query"] <- casrn
   out_df
 }

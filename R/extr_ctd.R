@@ -188,6 +188,12 @@ extr_tetramer <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
+
+
+  if (missing(chem)) {
+    cli::cli_abort("The argument {.field {chem}} is required.")
+  }
+
   check_internet(verbose = verbose)
 
   if (length(chem) > 1) {
@@ -236,9 +242,6 @@ extr_tetramer_ <- function(
     verify_ssl = FALSE,
     verbose = verbose,
     ...) {
-  if (missing(chem)) {
-    cli::cli_abort("The argument {.field {chem}} is required.")
-  }
 
   # Define the base URL
   base_url <- "https://ctdbase.org/query.go"
