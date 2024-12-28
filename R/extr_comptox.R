@@ -186,11 +186,14 @@ extr_comptox <- function(ids,
 
   sheet_names <- readxl::excel_sheets(xlsx_file)
 
+  suppressMessages(
   dat_list <- lapply(sheet_names, readxl::read_excel, path = xlsx_file)
+  )
+
   names(dat_list) <- paste0("comptox_", gsub(" ", "_", tolower(sheet_names)))
   unlink(xlsx_file)
 
-  dat_list
+  lapply(dat_list, janitor::clean_names)
 }
 
 #' @inherit extr_comptox title description
@@ -261,7 +264,6 @@ extr_comptox_ <- function(ids,
 
   # base url for download
   base_url_down <- "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
-
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Getting info from CompTox...")
