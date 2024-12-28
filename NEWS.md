@@ -9,7 +9,7 @@
 * Fixed `extr_casrn_from_cid`:
   - stop_at_warning removed to be more consistent with other functions.  Now when query doesnt find results NA are reported.
   - bug: when no results at all, then the function was failing.
-    
+* Fixed `extr_comptox` now outputs a list of dataframes with "clean" names.
 * Enhancement: now all the `extr` functions accepts the arg `verbose` (#18). 
 * Feature: introduced `extr_ice_assay_names` to retrieve ice assay names  (#16).
 * Feature: introduced `extr_monograph` to check if a substance is listed in WHO IARC monograph and return the details of it.
