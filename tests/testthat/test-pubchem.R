@@ -55,16 +55,15 @@ col_out <- c(
   "query"
 )
 
-# Sys.sleep(4)
+Sys.sleep(4)
 
 test_that("extr_pubchem_fema works correctly", {
   skip_on_cran()
   casrn_list <- c("1490-04-6", "50-00-0", "bella_ciao")
 
-  suppressWarnings(
-  expect_warning({
-    dat <- extr_pubchem_fema(casrn_list)
-  }))
+  expect_silent({
+    dat <- extr_pubchem_fema(casrn_list, verbose = FALSE)
+  })
 
   expect_equal(nrow(dat), length(casrn_list))
   expect_equal(names(dat), col_out)
@@ -72,19 +71,47 @@ test_that("extr_pubchem_fema works correctly", {
   expect_equal(dat$casrn , c("1490-04-6", "50-00-0", NA))
 })
 
+Sys.sleep(4)
 
+test_that("extr_pubchem_fema produce CASRN warning", {
+  skip_on_cran()
+  expect_warning({
+      dat <- extr_pubchem_fema("bella_ciao", verbose = TRUE)
+    }, "CASRN .*not found")
+})
 
+Sys.sleep(4)
 
+test_that("extr_pubchem_fema produce FEMA warning", {
+  skip_on_cran()
+  expect_warning({
+    dat <- extr_pubchem_fema("50-00-0", verbose = TRUE)
+  }, "FEMA .*not found")
+})
 
+Sys.sleep(4)
 
-#
-# Sys.sleep(4)
-# test_that("extr_pubchem_ghs works correctly", {
-#   skip_on_cran()
-#   casrn_list <- c("50-00-0", "64-17-5") # Formaldehyde and Ethanol
-#   result <- extr_pubchem_ghs(casrn_list)
-#   expect_snapshot(result)
-# })
+test_that("extr_pubchem_ghs works correctly", {
+  skip_on_cran()
+  casrn_list <- c("1490-04-6", "50-00-0", "bella_ciao")
+
+  expect_silent({
+    dat <- extr_pubchem_ghs(casrn_list, verbose = FALSE)
+  })
+
+  expect_equal(unique(dat$query), casrn_list)
+  expect_equal(names(dat), col_out)
+  expect_equal(unique(dat$casrn) , c("1490-04-6", "50-00-0", NA))
+})
+
+Sys.sleep(4)
+
+test_that("extr_pubchem_ghs produce warning", {
+  skip_on_cran()
+  expect_warning({
+    dat <- extr_pubchem_ghs("bella_ciao", verbose = TRUE)
+  }, "not found")
+})
 
 
 
