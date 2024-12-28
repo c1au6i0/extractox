@@ -33,9 +33,7 @@ test_that("extr_chem_info fetches chem data", {
 
   skip_on_cran()
   expect_silent({
-
     dat <- extr_chem_info(compounds, verbose = FALSE)
-
   })
 
 })
