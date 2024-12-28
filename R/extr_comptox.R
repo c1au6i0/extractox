@@ -193,7 +193,17 @@ extr_comptox <- function(ids,
   names(dat_list) <- paste0("comptox_", gsub(" ", "_", tolower(sheet_names)))
   unlink(xlsx_file)
 
-  lapply(dat_list, janitor::clean_names)
+  out <- lapply(dat_list, janitor::clean_names)
+
+  # This is to get the ids that were not retrieved
+  dat <- out$comptox_main_data
+  ids_not_found <- dat$input[grepl("Found 0|fails checksum", dat$found_by)]
+
+  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
+  }
+
+  out
 }
 
 #' @inherit extr_comptox title description
