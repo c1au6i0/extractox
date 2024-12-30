@@ -63,9 +63,12 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
   full_path_cache_file <- fs::path(tools::R_user_dir("extractox",
                                                      which = "cache"),
                                                      file_name)
-  full_path_cache_file <- normalizePath(full_path_cache_file)
+
   cache_present <- fs::file_exists(full_path_cache_file)
-  # fs::dir_exists('Sys.getenv("R_USER_CACHE_DIR")')
+
+  full_path_cache_file <- normalizePath(full_path_cache_file, mustWork = FALSE)
+
+  # fs::dir_exists(Sys.getenv("R_USER_CACHE_DIR"))
 
   if (any(isTRUE(force), !cache_present, isTRUE(get_all))) {
     check_internet(verbose = verbose)
@@ -77,8 +80,8 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
 
       # get eveything
       if (get_all == TRUE) return(dat)
-
       path_cache <- save_to_cache(dat, file_name, verbose = verbose)
+
   } else {
     dat <- read_from_cache(file_name = file_name, verbose = verbose)
 
@@ -97,47 +100,15 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
                  "pprtv_assessment", "iris_link", "rf_c_value", "rf_d_value",
                  "woe", "date_downloaded", "query")
 
-  out <- search_and_match(dat = dat, ids = ids,
+  out <- search_and_match(
+                   dat = dat,
+                   ids = ids,
                    search_type = search_type,
                    col_names = col_names,
                    chemical_col = "chemical"
                    )
 
-  # results <- lapply(ids, function(id) {
-  #   # Unfortunatelly we need to do this one at time
-  #   if (search_type == "casrn") {
-  #     match <- dat[dat$casrn == id, ]
-  #   } else if (search_type == "name") {
-  #     match <- dat[grepl(id, dat$chemical), ]
-  #   }
-  #
-  #   if (nrow(match) == 0) {
-  #     match <- data.frame(matrix(NA, nrow = 1, ncol = length(col_names)))
-  #     names(match) <- col_names
-  #   }
-  #
-  #   match$query <- id
-  #   match
-  # })
-  #
-  # out <- do.call(rbind, results)
-  #
-  # #  NA rows for missing
-  # out <- merge(data.frame(query = ids, stringsAsFactors = FALSE), out,
-  #              by = "query", all.x = TRUE)
-  # out <- out[, col_names]
-
-  # missing ids warning
-  ids_not_found <- out$query[is.na(out$chemical)]
-  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
-    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
-  }
-
-
-  if (all(isTRUE(verbose), all(nrow(out) == 0))) {
-    cli::cli_alert_info("No info found.")
-    return(NULL)
-  }
+  check_na_values(dat = out, col_to_check  = "chemical", verbose = verbose)
 
   out
 

@@ -145,10 +145,7 @@ extr_ctd <- function(
   # Lets clean up
   out$query <- gsub(" \\[Object not found\\]", "", out$query)
 
-  ids_not_found <- out$query[is.na(out$gene_id)]
-  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
-    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
-  }
+  check_na_values(dat = out,col_to_check = "gene_id", verbose = verbose)
 
   unlink(csv_file)
   out
@@ -237,10 +234,7 @@ extr_tetramer <- function(
     )
   }
 
-  ids_not_found <- out$query[is.na(out$gene_id)]
-  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
-    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
-  }
+  check_na_values(dat = out,col_to_check = "gene_id", verbose = verbose)
 
   out
 }
@@ -336,3 +330,5 @@ extr_tetramer_ <- function(
 
   out
 }
+
+

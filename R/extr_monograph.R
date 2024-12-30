@@ -35,21 +35,25 @@ extr_monograph <- function(ids, search_type = "casrn", verbose = TRUE) {
     cli::cli_alert_info("Extracting WHO IARC monographs...\nLast updated: 2024-11-29 5:08pm (CET)")
   }
 
-  if (search_type == "casrn") {
-    out <- who_iarc_monographs[who_iarc_monographs$casrn %in% ids, ]
-  } else if (search_type == "name") {
-    if (length(ids) > 1) {
-      tot_pattern <- paste(ids, collapse = "|")
-    } else {
-      tot_pattern <- ids
-    }
-    out <- who_iarc_monographs[grepl(tot_pattern, who_iarc_monographs$agent), ]
+  col_names <-  c(names(who_iarc_monographs), "query")
+
+  out <- search_and_match(dat = who_iarc_monographs,
+                   ids = ids,
+                   search_type = search_type,
+                   col_names = col_names,
+                   chemical_col = "name"
+                    )
+
+  ids_not_found <- out$query[is.na(out$chemical)]
+  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
   }
 
-  if (ncol(out) == 0) {
-    cli::cli_alert_info("No monograph found.")
-    # out <- NULL
-  } else {
-    out
+
+  if (all(isTRUE(verbose), all(nrow(out) == 0))) {
+    cli::cli_alert_info("No info found.")
+    return(NULL)
   }
+  out
+
 }

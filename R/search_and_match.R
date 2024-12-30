@@ -42,3 +42,24 @@ search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "c
 
   return(out)
 }
+
+
+
+#' Check for NA values in a specific column of a dataframe
+#'
+#' Checks for NA values in a specified column of a dataframe and optionally warns if any are found.
+#'
+#' @param dat A dataframe that contains the data.
+#' @param col_to_check The name of the column to check for NA values.
+#' @param verbose Logical indicating whether to show a warning if NAs are found. Default is TRUE.
+#' @importFrom cli cli_warn
+#' @keywords internal
+#' @noRd
+check_na_values <- function(dat, col_to_check, verbose = TRUE) {
+
+  ids_not_found <- dat$query[is.na(dat[[col_to_check]])]
+
+  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
+  }
+}
