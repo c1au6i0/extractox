@@ -94,7 +94,6 @@ test_that("extr_ctd no results with song (verbose = FALSE)", {
 # Check out
 Sys.sleep(3)
 
-
 test_that("extr_tetramer return NAS for unknown ids", {
   skip_on_cran()
   expect_warning({

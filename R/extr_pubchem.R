@@ -223,7 +223,9 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
     extr_pubchem_section_(cas, section, verbose)
   })
 
-  do.call(rbind, dat)
+  out <-  do.call(rbind, dat)
+  check_na_values(dat = out, col_to_check = "IUPAC_name", verbose = verbose)
+  out
 }
 
 #' Internal Helper Function for `extr_pubchem_section`
@@ -259,9 +261,6 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
     out_df$query <- casrn
     out_df$other <- "CASRN not found"
 
-    if (isTRUE(verbose)) {
-      cli::cli_warn("CASRN {.field {casrn}} not found!")
-    }
     return(out_df)
   }
 

@@ -74,8 +74,8 @@ Sys.sleep(4)
 test_that("extr_pubchem_fema produce CASRN warning", {
   skip_on_cran()
   expect_warning({
-      dat <- extr_pubchem_fema("bella_ciao", verbose = TRUE)
-    }, "CASRN .*not found")
+      dat <- extr_pubchem_fema(c("bella", "ciao"), verbose = TRUE)
+    }, "Chemical.*not found!")
 })
 
 Sys.sleep(4)
@@ -107,7 +107,7 @@ Sys.sleep(4)
 test_that("extr_pubchem_ghs produce warning", {
   skip_on_cran()
   expect_warning({
-    dat <- extr_pubchem_ghs("bella_ciao", verbose = TRUE)
+    dat <- extr_pubchem_ghs(c("bella", "ciao"), verbose = TRUE)
   }, "not found")
 })
 
