@@ -41,7 +41,10 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE)
 
   file_name <- "epa_pprtvs" # Filename for caching
 
-  if (isTRUE(force)) {
+  full_path_cache_file <- fs::path(tools::R_user_dir("extractox", which = "cache"), file_name)
+  cache_present <- fs::file_exists(full_path_cache_file)
+
+  if (isTRUE(force) | !cache_present) {
     dat <- download_db(
       url = "https://cfpub.epa.gov/ncea/pprtv/atoz.cfm",
       url_query_param = list(excel = "yes"),
