@@ -1,10 +1,5 @@
 library(testthat)
 
-# extr_pprtv(c("112-27-6", "ciao"), search_type = "casrn", force = FALSE)
-
-library(testthat)
-
-
 temp_dir <- tempdir()
 
 test_that("extr_pprtv casrn hit and not hit, verbose,  force = TRUE", {
