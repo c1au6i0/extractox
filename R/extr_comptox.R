@@ -198,7 +198,6 @@ extr_comptox <- function(ids,
   # This is to get the ids that were not retrieved
   dat <- out$comptox_main_data
 
-  browser()
   ids_not_found <- dat$input[grepl("Found 0|fails checksum", dat$found_by)]
 
   if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
