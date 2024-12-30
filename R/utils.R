@@ -1,34 +1,3 @@
-#' Write Dataframes to Excel
-#'
-#' This function creates an Excel file with each dataframe in a list as a separate sheet.
-#'
-#' @param df_list A named list of dataframes to write to the Excel file.
-#' @param filename The name of the Excel file to create.
-#' @return No return value. The function prints a message indicating the completion of the Excel file writing.
-#' @export
-#' @examples
-#' \donttest{
-#' tox_dat <- extr_tox("50-00-0")
-#' temp_file <- tempfile(fileext = ".xlsx")
-#' write_dataframes_to_excel(tox_dat, filename = temp_file)
-#' }
-write_dataframes_to_excel <- function(df_list, filename) {
-  if (isFALSE(requireNamespace("openxlsx", quietly = TRUE))) {
-    cli::cli_abort(message = "{.pkg  openxlsx} not installed. Install it with: `install.packages('openxlsx')`")
-  }
-
-  wb <- openxlsx::createWorkbook()
-
-  for (name in names(df_list)) {
-    openxlsx::addWorksheet(wb, name)
-    openxlsx::writeData(wb, sheet = name, df_list[[name]])
-  }
-
-  # Save the workbook
-  openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
-  cli::cli_alert_info("Excell file written in {filename}...")
-}
-
 #' Verify SSL
 #'
 #' @param verify_ssl Boolean.
@@ -43,53 +12,6 @@ set_ssl <- function(verify_ssl, ...) {
     libcurl_opt[["ssl_verifypeer"]] <- 0
   }
   libcurl_opt
-}
-
-#' Check the status code of an HTTP response
-#'
-#' This function checks the status code of an HTTP response and provides
-#' appropriate messages based on the status.
-#'
-#' @param resp An HTTP response object from the httr2 package.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @keywords internal
-#' @noRd
-#' @return This function does not return a value. It is used for its side effects.
-check_status_code <- function(resp, verbose = TRUE) {
-  status_code <- httr2::resp_status(resp)
-  if (!status_code %in% c(200L, 202L)) {
-    cli::cli_abort("Request failed with status code: {status_code}")
-  } else {
-    if (isTRUE(verbose)) {
-      cli::cli_alert_info("Request succeeded with status code: {status_code}")
-    }
-  }
-}
-
-
-#' Check Internet
-#'
-#' Wrapper around `pingr::is_online` to print message
-#' a better message.
-#'
-#' @param verbose Boolean to display messages.
-#' @keywords internal
-#' @noRd
-check_internet <- function(verbose = TRUE) {
-  if (isTRUE(verbose)) {
-    cli::cli_alert_info("Checking Internet Connection...")
-  }
-
-  if (isFALSE(pingr::is_online())) {
-    cli::cli_abort("It seems that you are not connected to internet!")
-    out <- FALSE
-  } else {
-    if (isTRUE(verbose)) {
-      cli::cli_alert_info("Internet connection OK...")
-    }
-    out <- TRUE
-  }
-  invisible(out)
 }
 
 
@@ -149,6 +71,53 @@ download_db <- function(url,
   out_cl
 }
 
+
+#' Search and Match Data
+#'
+#' This function searches for matches in a dataframe based on a given list of ids and search type,
+#' then combines the results into a single dataframe, making sure that NA rows are added for any missing ids.
+#' The column `query` is a the end of the dataframe.
+#'
+#' @param dat The dataframe to be searched.
+#' @param ids A vector of ids to search for.
+#' @param search_type The type of search: "casrn" or "name".
+#' @param col_names Column names to be used when creating a new dataframe in case of no matches.
+#' @param chemical_col The name of the column in dat where chemical names are stored.
+#' @return A dataframe with search results.
+#' @internal
+#'
+#' @details This function is used in `extr_pprtv` and `extr_monograph`.
+#'
+#' @seealso
+#' \code{\link{extr_pprtv}}, \code{\link{extr_monograph}}
+search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "chemical") {
+  results <- lapply(ids, function(id) {
+    if (search_type == "casrn") {
+      match <- dat[dat$casrn == id, ]
+    } else if (search_type == "name") {
+      match <- dat[grepl(id, dat[[chemical_col]]), ]
+    }
+
+    if (nrow(match) == 0) {
+      match <- data.frame(matrix(NA, nrow = 1, ncol = length(col_names)))
+      names(match) <- col_names
+    }
+
+    match$query <- id
+    match
+  })
+
+  out <- do.call(rbind, results)
+
+  # Add NA rows for missing ids
+  out <- merge(data.frame(query = ids, stringsAsFactors = FALSE), out,
+               by = "query", all.x = TRUE)
+  out <- out[, col_names]
+
+  return(out)
+}
+
+
 #' Run Code in a Temporary Sandbox Environment
 #'
 #' This function creates a temporary directory and sets it as `R_USER_CACHE_DIR`
@@ -171,3 +140,36 @@ with_extr_sandbox <- function(code, temp_dir = tempdir()) {
     }
   )
 }
+
+
+#' Write Dataframes to Excel
+#'
+#' This function creates an Excel file with each dataframe in a list as a separate sheet.
+#'
+#' @param df_list A named list of dataframes to write to the Excel file.
+#' @param filename The name of the Excel file to create.
+#' @return No return value. The function prints a message indicating the completion of the Excel file writing.
+#' @export
+#' @examples
+#' \donttest{
+#' tox_dat <- extr_tox("50-00-0")
+#' temp_file <- tempfile(fileext = ".xlsx")
+#' write_dataframes_to_excel(tox_dat, filename = temp_file)
+#' }
+write_dataframes_to_excel <- function(df_list, filename) {
+  if (isFALSE(requireNamespace("openxlsx", quietly = TRUE))) {
+    cli::cli_abort(message = "{.pkg  openxlsx} not installed. Install it with: `install.packages('openxlsx')`")
+  }
+
+  wb <- openxlsx::createWorkbook()
+
+  for (name in names(df_list)) {
+    openxlsx::addWorksheet(wb, name)
+    openxlsx::writeData(wb, sheet = name, df_list[[name]])
+  }
+
+  # Save the workbook
+  openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
+  cli::cli_alert_info("Excell file written in {filename}...")
+}
+
