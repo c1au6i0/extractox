@@ -108,13 +108,18 @@ check_internet <- function(verbose = TRUE) {
 #' The function will overwrite any existing file with the same name.
 #' @noRd
 save_to_cache <- function(obj, file_name, verbose = FALSE) {
+
+  # Sys.getenv("R_USER_CACHE_DIR")
+
   cache_dir <- tools::R_user_dir("extractox", which = "cache")
+
+  cache_dir <- normalizePath(cache_dir)
 
   if (!dir.exists(cache_dir)) {
     dir.create(cache_dir, recursive = TRUE)
   }
 
-  file_path <- file.path(cache_dir, paste0(file_name, ".rds"))
+  file_path <- fs::path(cache_dir, file_name)
 
   if (all(file.exists(file_path), verbose)) {
     cli::cli_alert_info("Overwriting cache.")
@@ -142,7 +147,8 @@ save_to_cache <- function(obj, file_name, verbose = FALSE) {
 #' @noRd
 read_from_cache <- function(file_name, verbose = FALSE) {
   cache_dir <- tools::R_user_dir("extractox", which = "cache")
-  file_path <- file.path(cache_dir, paste0(file_name, ".rds"))
+  cache_dir <- normalizePath(cache_dir)
+  file_path <- fs::path(cache_dir, file_name)
 
   if (file.exists(file_path)) {
     out <- readRDS(file_path)
@@ -286,14 +292,15 @@ ice_assays <- function() {
 #' This function is not  designed to be used by package users. Shamelessly "inspired" by
 #' some @luciorq code.
 #' @param code The code to be executed inside the sandbox. Should be an expression.
+#' @param temp_dir A temporary directory created using `temdir()`.
 #' @return The result of the executed code.
 #' @export
 #' @examples
 #' with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
 #' with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
-with_extr_sandbox <- function(code) {
+with_extr_sandbox <- function(code, temp_dir = tempdir()) {
   withr::with_envvar(
-    new = c("R_USER_CACHE_DIR" = tempdir()),
+    new = c("R_USER_CACHE_DIR" = temp_dir),
     code = {
       eval(substitute(code), envir = parent.frame())
     }
