@@ -224,7 +224,7 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
   })
 
   out <-  do.call(rbind, dat)
-  check_na_values(dat = out, col_to_check = "IUPAC_name", verbose = verbose)
+  check_na_warn(dat = out, col_to_check = "IUPAC_name", verbose = verbose)
   out
 }
 

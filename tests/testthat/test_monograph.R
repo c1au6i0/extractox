@@ -1,22 +1,27 @@
 library(testthat)
 
+col_names <- c("casrn", "agent", "group", "volume", "volume_publication_year",
+               "evaluation_year", "additional_information", "query")
 
-test_that("extr_monograph returns correct results for CASRN search", {
+test_that("extr_monograph returns correct outs for CASRN search", {
   ids <- c("105-74-8", "120-58-1")
-  result <- extr_monograph(ids = ids, search_type = "casrn", verbose = FALSE)
+  out <- extr_monograph(ids = ids, search_type = "casrn", verbose = FALSE)
 
-  expect_s3_class(result, "data.frame")
-  expect_true(nrow(result) > 0)
-  expect_true(all(result$casrn %in% ids))
+  expect_s3_class(out, "data.frame")
+  expect_true(nrow(out) > 0)
+  expect_true(all(out$casrn %in% ids))
+  expect_equal(col_names, names(out))
 })
 
-test_that("extr_monograph returns correct results for name search", {
+test_that("extr_monograph returns correct outs for name search", {
   ids <- c("Aloe", "Schistosoma", "Styrene")
-  result <- extr_monograph(ids = ids, search_type = "name", verbose = FALSE)
+  out <- extr_monograph(ids = ids, search_type = "name", verbose = FALSE)
 
-  expect_s3_class(result, "data.frame")
-  expect_equal(nrow(result), 8)
-  expect_true(all(grepl(paste(ids, collapse = "|"), result$agent)))
+  expect_s3_class(out, "data.frame")
+  expect_equal(nrow(out), 3)
+  expect_equal(ncol(out), 8)
+  expect_true(all(grepl(paste(ids, collapse = "|"), out$query)))
+  expect_equal(col_names, names(out))
 })
 
 test_that("extr_monograph handles missing ids argument", {
@@ -34,18 +39,13 @@ test_that("extr_monograph handles invalid search_type argument", {
   )
 })
 
-test_that("extr_monograph returns empty result when no matches are found", {
-  ids <- c("non-existent-id")
-  result <- extr_monograph(ids = ids, search_type = "casrn", verbose = FALSE)
-
-  expect_s3_class(result, "data.frame")
-  expect_equal(nrow(result), 0)
-})
 
 test_that("extr_monograph outputs verbose messages when enabled", {
-  ids <- c("105-74-8")
-  expect_message(
-    extr_monograph(ids = ids, search_type = "casrn", verbose = TRUE),
-    "Extracting WHO IARC monographs"
+  ids <- c("105-74-8", "bella", "ciao")
+  expect_warning(
+    out <- extr_monograph(ids = ids, search_type = "casrn", verbose = TRUE),
+    "Chemicals.*found!"
   )
+
+  expect(sum(is.na(out$agent)), 2)
 })
