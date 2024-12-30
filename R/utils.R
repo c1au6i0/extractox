@@ -153,7 +153,7 @@ read_from_cache <- function(file_name, verbose = FALSE) {
   if (file.exists(file_path)) {
     out <- readRDS(file_path)
     if (verbose) {
-      cli::cli_alert_success("Successfully load. {.file file_name} from cache.")
+      cli::cli_alert_success("Successfully load. {.file {file_name}} from cache.")
     }
   } else {
     cli::cli_abort("File not found in cache.")
