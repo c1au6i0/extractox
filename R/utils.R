@@ -93,8 +93,6 @@ check_internet <- function(verbose = TRUE) {
 }
 
 
-
-
 #' Save an object to the package cache
 #'
 #' This function saves an R object to the cache directory of the `extractox` package

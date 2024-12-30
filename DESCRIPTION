@@ -23,6 +23,7 @@ Depends:
     R (>= 4.1)
 Imports: 
     cli,
+    fs,
     httr2,
     janitor,
     pingr,
