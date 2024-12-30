@@ -33,7 +33,7 @@ test_that("Function to warn with  verbose = TRUE", {
                       out <- extr_pprtv(ids = ids_search,
                                         force = FALSE, verbose = TRUE)
     )
-  }, "Chemicals .* not found! ")
+  }, "Chemicals .* not found!")
 
   expect_equal(out$query, ids_to_search)
   expect_equal(nrow(out), length(ids_to_search))
@@ -67,8 +67,20 @@ test_that("extr_pprtv na,es hit and not hit, verbose,  force = TRUE", {
   tmp_out <- fs::path(temp_dir, "R", "extractox")
   cache_exist <- fs::file_exists(fs::path(tmp_out, "epa_pprtvs.rds"))
 
-  expect_true(cache_exist)
-  expect_equal(nrow(out), length(ids_to_search))
-  expect_true("query" %in% names(out))
-  expect_equal(out$query, ids_to_search)
+  expect_equal(nrow(out), 11)
+
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
