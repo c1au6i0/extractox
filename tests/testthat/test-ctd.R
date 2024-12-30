@@ -6,7 +6,12 @@ set.seed(1)
 
 input_terms <- c("50-00-0", "64-17-5", "methanal", "ethanol")
 
-song <- "bella ciao bella ciao bella ciao ciao ciao"
+song <- c("bella", "ciao bella ciao", "bella ciao ciao ciao")
+
+expected_columns <- c("chemical_name", "chemical_id", "casrn", "gene_symbol",
+                      "gene_id", "organism", "organism_id", "pubmed_ids",
+                      "query")
+
 
 # @@@@@@@@@@@@@
 # extr_ctd ----
@@ -26,11 +31,6 @@ test_that("extr_ctd fetches valid expression data", {
 
 
   expect_true(is.data.frame(dat))
-  expected_columns <- c(
-    "x_input", "chemical_name", "chemical_id", "cas_rn",
-    "gene_symbol", "gene_id", "organism", "organism_id",
-    "interaction", "interaction_actions", "pubmed_ids"
-  )
 
   expect_true(all(expected_columns %in% colnames(dat)))
   expect_gt(nrow(dat), 0)
@@ -51,9 +51,6 @@ test_that("extr_ctd fetches other data", {
     )
     expect_true(is.data.frame(dat))
 
-    expected_columns <- c("x_input", "chemical_name", "chemical_id", "cas_rn", "gene_symbol",
-      "gene_id", "organism", "organism_id", "pubmed_ids")
-
     expect_true(all(expected_columns %in% colnames(dat)))
     expect_gt(nrow(dat), 0)
 })
@@ -70,9 +67,9 @@ test_that("extr_ctd no results", {
       input_term_search_type = "directAssociations",
       action_types = "ANY",
       ontology = c("go_bp", "go_cc")
-  )},  "The chem .* was not found")
+  )}, "Chemicals .*not found!")
 
-    expect_equal(nrow(dat), 1)
+    expect_equal(nrow(dat), 3)
 })
 
 Sys.sleep(3)
@@ -92,6 +89,25 @@ test_that("extr_ctd no results with song (verbose = FALSE)", {
       verbose = FALSE
     )
   })
+})
+
+# Check out
+Sys.sleep(3)
+
+
+test_that("extr_tetramer return NAS for unknown ids", {
+  skip_on_cran()
+  expect_warning({
+    dat <- extr_ctd(
+      input_terms = c("50-00-0", "64-17-5","methanal", "ethanol", "bella", "ciao",
+                    "50-0000000"), category = "chem", report_type = "genes_curated",
+      input_term_search_type = "directAssociations",
+      action_types = "ANY",
+      ontology = c("go_bp", "go_cc"))
+    }, "Chemicals .*not found!")
+
+  expect_equal(sum(is.na(dat$gene_id)), 3)
+
 })
 
 
@@ -114,8 +130,8 @@ test_that("extr_tetramer fetches tetramers data", {
     )
     expect_true(is.data.frame(dat))
 
-    expected_columns <- c("query", "chemical", "chemical_id", "gene", "gene_id", "phenotype",
-                          "phenotype_id", "disease", "disease_id")
+    expected_columns <- c("chemical", "chemical_id", "gene", "gene_id", "phenotype",
+                          "phenotype_id", "disease", "disease_id", "query")
 
     expect_true(all(expected_columns %in% colnames(dat)))
     expect_gt(nrow(dat), 0)
@@ -133,12 +149,10 @@ test_that("extr_tetramer no results", {
       go = "",
       input_term_search_type = "directAssociations",
       qt_match_type = "equals"
-    )}, "The chem .* was not found")
-
+    )}, "Chemicals .*not found!")
 
     expect_true(is.data.frame(dat))
-
-    expect_equal(nrow(dat), 1)
+    expect_equal(nrow(dat), 3)
 })
 
 Sys.sleep(3)
@@ -159,4 +173,7 @@ test_that("extr_tetramer no results with song (verbose = FALSE)", {
     )
   })
 })
+
+
+
 

@@ -80,6 +80,9 @@ extr_ctd <- function(
   check_internet(verbose = verbose)
 
 
+  col_names <- c("chemical_name", "chemical_id", "casrn", "gene_symbol",
+                 "gene_id",   "organism", "organism_id", "pubmed_ids", "query")
+
   params <- list(
     inputType = category,
     inputTerms = NULL, # this is add after
@@ -133,13 +136,23 @@ extr_ctd <- function(
   out <- utils::read.csv(csv_file) |>
     janitor::clean_names()
 
-  names(out)[names(out) %in% c("pub_med_i_ds", "pub_med_ids")] <- "pubmed_ids"
-  unlink(csv_file)
-  if (all(isTRUE(grepl("not found", out$x_input[1])), verbose)) {
-    cli::cli_warn("The chem {.field {input_terms}} was not found.")
+  names(out)[names(out) == "x_input"] <- "query"
+  out <- out[c(setdiff(names(out), "query"), "query")]
+  names(out) <- col_names
+
+  out[out == ""] <- NA
+
+  # Lets clean up
+  out$query <- gsub(" \\[Object not found\\]", "", out$query)
+
+  ids_not_found <- out$query[is.na(out$gene_id)]
+  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
   }
 
+  unlink(csv_file)
   out
+
 }
 
 #' Extract Tetramer Data from the CTD API
@@ -224,6 +237,11 @@ extr_tetramer <- function(
     )
   }
 
+  ids_not_found <- out$query[is.na(out$gene_id)]
+  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
+  }
+
   out
 }
 
@@ -297,9 +315,8 @@ extr_tetramer_ <- function(
 
   unlink(tab_file)
 
-  # if no chem is found it returns a dataframe with one single column
-  if (ncol(out) == 1 && isTRUE(verbose)) {
-    cli::cli_warn("The chem {.field {chem}} was not found.")
+  # if no chem is found it returns a dataframe with one single row
+  if (ncol(out) == 1) {
     out <- data.frame(
       query = chem,
       chemical = NA,
@@ -314,6 +331,8 @@ extr_tetramer_ <- function(
   } else {
     out <- cbind(query = chem, out)
   }
+
+  out <- out[c(setdiff(names(out), "query"), "query")]
 
   out
 }
