@@ -19,9 +19,8 @@
 #' @param force Logical indicating whether to force a fresh download of the
 #'   database. Default is TRUE.
 #' @param get_all Logical. If TRUE ignore all the other ignore `ids`,
-#'   `search_type`,
-#'   set  `force = TRUE` and get the all dataset. This is was introduced for
-#'   debugging purposes.
+#'   `search_type`, set  `force = TRUE` and get the all dataset.
+#'   This is was introduced for debugging purposes.
 #' @return A data frame with extracted information matching the specified
 #'   identifiers, or NULL if no matches are found.
 #' @export
@@ -108,7 +107,7 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
                    chemical_col = "chemical"
                    )
 
-  check_na_values(dat = out, col_to_check  = "chemical", verbose = verbose)
+  check_na_warn(dat = out, col_to_check  = "chemical", verbose = verbose)
 
   out
 

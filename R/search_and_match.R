@@ -55,11 +55,13 @@ search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "c
 #' @importFrom cli cli_warn
 #' @keywords internal
 #' @noRd
-check_na_values <- function(dat, col_to_check, verbose = TRUE) {
+check_na_warn <- function(dat, col_to_check, verbose = TRUE) {
 
   ids_not_found <- dat$query[is.na(dat[[col_to_check]])]
 
   if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
     cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
   }
+
+  invisible(ids_not_found)
 }

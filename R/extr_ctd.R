@@ -145,7 +145,7 @@ extr_ctd <- function(
   # Lets clean up
   out$query <- gsub(" \\[Object not found\\]", "", out$query)
 
-  check_na_values(dat = out,col_to_check = "gene_id", verbose = verbose)
+  check_na_warn(dat = out,col_to_check = "gene_id", verbose = verbose)
 
   unlink(csv_file)
   out
@@ -234,7 +234,7 @@ extr_tetramer <- function(
     )
   }
 
-  check_na_values(dat = out,col_to_check = "gene_id", verbose = verbose)
+  check_na_warn(dat = out,col_to_check = "gene_id", verbose = verbose)
 
   out
 }

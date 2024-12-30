@@ -3,13 +3,21 @@
 #' This function retrieves information regarding Monographs from the World Health Organization (WHO) International
 #' Agency for Research on Cancer (IARC)  based on CAS Registry Number or Name of the chemical.
 #'
-#' @param search_type A character string specifying the type of search to perform. Valid options are "cas_rn" (CAS Registry Number)
-#'   and "name" (name of the chemical). If `search_type` is "casrn", the function filters by the CAS Registry Number.
-#'   If `search_type` is "name", the function performs a partial match search for the chemical name.
+#' @param search_type A character string specifying the type of search to
+#'   perform. Valid options are "cas_rn" (CAS Registry Number) and "name"
+#'.  (name of the chemical). If `search_type` is "casrn", the function filters
+#'.  by the CAS Registry Number.
+#'   If `search_type` is "name", the function performs a partial match search
+#'   for the chemical name.
 #' @param ids A character vector of IDs to search for.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @return A data frame containing the relevant information from the WHO IARC, including Monograph `volume`, `volume_publication_year`,
-#'    `evaluation_year`, and `additional_information` where the chemical was described.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'.   Default is TRUE.
+#' @param get_all Logical. If TRUE ignore all the other ignore `ids`,
+#'   `search_type`, set  `force = TRUE` and get the all dataset.
+#'   This is was introduced for debugging purposes.
+#' @return A data frame containing the relevant information from the WHO IARC,
+#'.  including Monograph `volume`, `volume_publication_year`, `evaluation_year`,
+#'.  and `additional_information` where the chemical was described.
 #' @seealso \url{https://monographs.iarc.who.int/list-of-classifications/}
 #' @export
 #' @examples
@@ -18,16 +26,27 @@
 #'   str(dat)
 #'
 #'   # Example usage for name search
-#'   dat2 <- extr_monograph(search_type = "name", ids = c("Aloe", "Schistosoma", "Styrene"))
+#'   dat2 <- extr_monograph(search_type = "name",
+#'                           ids = c("Aloe", "Schistosoma",
+#'.                         "Styrene")
+#'.  )
 #'   str(dat2)
 #' }
-extr_monograph <- function(ids, search_type = "casrn", verbose = TRUE) {
+extr_monograph <- function(ids,
+                           search_type ="casrn",
+                           verbose = TRUE,
+                           get_all = FALSE) {
+  if(isTRUE(get_all)) {
+    return(who_iarc_monographs)
+  }
+
   if (missing(ids)) {
     cli::cli_abort("The argument {.field ids} is required.")
   }
 
   if (!search_type %in% c("casrn", "name")) {
-    cli::cli_abort("The argument {.field search_type} needs to be either `casrn` or `name`.")
+    cli::cli_abort("The argument {.field search_type} needs to be either `casrn`
+                   or `name`.")
   }
 
 
@@ -44,16 +63,7 @@ extr_monograph <- function(ids, search_type = "casrn", verbose = TRUE) {
                    chemical_col = "name"
                     )
 
-  ids_not_found <- out$query[is.na(out$chemical)]
-  if (all(isTRUE(verbose), length(ids_not_found) != 0)) {
-    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
-  }
+  check_na_warn(dat = out, col_to_check =  "agent", verbose = verbose)
 
-
-  if (all(isTRUE(verbose), all(nrow(out) == 0))) {
-    cli::cli_alert_info("No info found.")
-    return(NULL)
-  }
   out
-
 }
