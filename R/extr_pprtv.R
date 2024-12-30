@@ -97,29 +97,35 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
                  "pprtv_assessment", "iris_link", "rf_c_value", "rf_d_value",
                  "woe", "date_downloaded", "query")
 
-  results <- lapply(ids, function(id) {
-    # Unfortunatelly we need to do this one at time
-    if (search_type == "casrn") {
-      match <- dat[dat$casrn == id, ]
-    } else if (search_type == "name") {
-      match <- dat[grepl(id, dat$chemical), ]
-    }
+  out <- search_and_match(dat = dat, ids = ids,
+                   search_type = search_type,
+                   col_names = col_names,
+                   chemical_col = "chemical"
+                   )
 
-    if (nrow(match) == 0) {
-      match <- data.frame(matrix(NA, nrow = 1, ncol = length(col_names)))
-      names(match) <- col_names
-    }
-
-    match$query <- id
-    match
-  })
-
-  out <- do.call(rbind, results)
-
-  #  NA rows for missing
-  out <- merge(data.frame(query = ids, stringsAsFactors = FALSE), out,
-               by = "query", all.x = TRUE)
-  out <- out[, col_names]
+  # results <- lapply(ids, function(id) {
+  #   # Unfortunatelly we need to do this one at time
+  #   if (search_type == "casrn") {
+  #     match <- dat[dat$casrn == id, ]
+  #   } else if (search_type == "name") {
+  #     match <- dat[grepl(id, dat$chemical), ]
+  #   }
+  #
+  #   if (nrow(match) == 0) {
+  #     match <- data.frame(matrix(NA, nrow = 1, ncol = length(col_names)))
+  #     names(match) <- col_names
+  #   }
+  #
+  #   match$query <- id
+  #   match
+  # })
+  #
+  # out <- do.call(rbind, results)
+  #
+  # #  NA rows for missing
+  # out <- merge(data.frame(query = ids, stringsAsFactors = FALSE), out,
+  #              by = "query", all.x = TRUE)
+  # out <- out[, col_names]
 
   # missing ids warning
   ids_not_found <- out$query[is.na(out$chemical)]
