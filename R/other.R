@@ -21,7 +21,10 @@ ice_assays <- function() {
     )
 
 
-  ice_invivo_sensitization <- c("Human Maximization Test", "Human Repeat Insult Patch Test", "LLNA", "Guinea Pig Maximization/Buehler")
+  ice_invivo_sensitization <- c("Human Maximization Test",
+                                "Human Repeat Insult Patch Test",
+                                "LLNA",
+                                "Guinea Pig Maximization/Buehler")
 
   ice_invivo_irritation <- c(
     "Draize Skin Irritation/Corrosion Test",

@@ -42,7 +42,6 @@ test_that("extr_monograph handles invalid search_type argument", {
   )
 })
 
-
 test_that("extr_monograph outputs verbose messages when enabled", {
   ids <- c("105-74-8", "bella", "ciao")
   expect_warning(

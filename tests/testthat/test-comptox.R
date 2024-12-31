@@ -54,7 +54,6 @@ test_that("extr_comptox when download_items is set to one val", {
   )
 })
 
-
 test_that("extr_comptox warn for unknown ids", {
   expect_warning(
     {
