@@ -13,8 +13,9 @@
 * Enhancement: now all the `extr` functions accepts the arg `verbose` (#18). 
 * Feature: introduced `extr_ice_assay_names` to retrieve ice assay names  (#16).
 * Feature: introduced `extr_monograph` to check if a substance is listed in WHO IARC monograph and return the details of it.
-#19. *Breaking change*: note that now `extr_tox` runs also `extr_monograph` and so output one more dataframe.
-
+#19. 
+* Change: `extr_iris` argument `cancer_types` was removed.
+*Breaking change*: note that now `extr_tox` runs also `extr_monograph` and so output one more dataframe.
 
 # extractox 0.1.0
 
