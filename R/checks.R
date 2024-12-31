@@ -1,5 +1,5 @@
-" Check for NA values in a specific column of a dataframe
-#"
+#' Check for NA values in a specific column of a dataframe
+#'
 #' Checks for NA values in a specified column of a dataframe and optionally warns if any are found.
 #'
 #' @param dat A dataframe that contains the data.

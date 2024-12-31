@@ -1,8 +1,4 @@
 library(testthat)
-set.seed(1)
-
-
-
 
 input_terms <- c("50-00-0", "64-17-5", "methanal", "ethanol")
 
@@ -13,7 +9,6 @@ expected_columns <- c(
   "gene_id", "organism", "organism_id", "pubmed_ids",
   "query"
 )
-
 
 # @@@@@@@@@@@@@
 # extr_ctd ----
@@ -31,13 +26,11 @@ test_that("extr_ctd fetches valid expression data", {
     action_types = "expression"
   )
 
-
   expect_true(is.data.frame(dat))
 
   expect_true(all(expected_columns %in% colnames(dat)))
   expect_gt(nrow(dat), 0)
 })
-
 
 Sys.sleep(3)
 

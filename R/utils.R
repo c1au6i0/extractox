@@ -74,9 +74,10 @@ download_db <- function(url,
 
 #' Search and Match Data
 #'
-#' This function searches for matches in a dataframe based on a given list of ids and search type,
-#' then combines the results into a single dataframe, making sure that NA rows are added for any missing ids.
-#' The column `query` is a the end of the dataframe.
+#' This function searches for matches in a dataframe based on a given list of ids
+#' and search type, then combines the results into a single dataframe, making sure
+#' that NA rows are added for any missing ids. The column `query` is a the end of
+#' the dataframe.
 #'
 #' @param dat The dataframe to be searched.
 #' @param ids A vector of ids to search for.
@@ -116,30 +117,6 @@ search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "c
   out <- out[, col_names]
 
   return(out)
-}
-
-
-#' Run Code in a Temporary Sandbox Environment
-#'
-#' This function creates a temporary directory and sets it as `R_USER_CACHE_DIR`
-#' before executing the provided code block. It is used for testing or running
-#' code without affecting the user's default cache directory as required by CRAN for the examples .
-#' This function is not  designed to be used by package users. Shamelessly "inspired" by
-#' some @luciorq code.
-#' @param code The code to be executed inside the sandbox. Should be an expression.
-#' @param temp_dir A temporary directory created using `temdir()`.
-#' @return The result of the executed code.
-#' @export
-#' @examples
-#' with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
-#' with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
-with_extr_sandbox <- function(code, temp_dir = tempdir()) {
-  withr::with_envvar(
-    new = c("R_USER_CACHE_DIR" = temp_dir),
-    code = {
-      eval(substitute(code), envir = parent.frame())
-    }
-  )
 }
 
 

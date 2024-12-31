@@ -40,11 +40,13 @@ create_na_df <- function(missing_chem) {
 #' Retrieve CASRN for PubChem CIDs
 #'
 #' This function retrieves the CASRN for a given set of PubChem Compound Identifiers (CID).
-#' It queries PubChem through the `webchem` package and extracts the CASRN from the depositor-supplied synonyms.
+#' It queries PubChem through the `webchem` package and extracts the CASRN from
+#' the depositor-supplied synonyms.
 #'
 #' @param pubchem_ids A numeric vector of PubChem CIDs. These are unique identifiers
-#' for chemical compounds in the PubChem database.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#'   for chemical compounds in the PubChem database.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'   Default is TRUE.
 #' @return A data frame containing the CID, CASRN, and IUPAC name of the compound.
 #' The returned data frame includes three columns:
 #' \describe{
@@ -104,13 +106,16 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 #' a unique row with the CID, CASRN, and additional chemical properties.
 #'
 #' @param iupac_names A character vector of IUPAC names. These are standardized names
-#' of chemical compounds that will be used to search in the PubChem database.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @return A data frame with information on the queried compounds, including:
+#'   of chemical compounds that will be used to search in the PubChem database.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'   Default is TRUE.
+#' @return A data frame with phisio-chemical information on the queried compounds,
+#'   including but not limited to:
 #' \describe{
 #'   \item{iupac_name}{The IUPAC name of the compound.}
 #'   \item{cid}{The PubChem Compound Identifier (CID).}
-#'   \item{isomeric_smiles}{The SMILES string (Simplified Molecular Input Line Entry System).}
+#'   \item{isomeric_smiles}{The SMILES string (Simplified Molecular Input Line
+#'       Entry System).}
 #' }
 #' @export
 #' @examples
@@ -139,7 +144,6 @@ extr_chem_info <- function(iupac_names, verbose = TRUE) {
     missing_c <- iupac_cid$query[is.na(iupac_cid$cid)]
     missing_df <- create_na_df(missing_c)
   }
-
 
   iupac_cid_clean <- iupac_cid[!is.na(iupac_cid$cid), ]
 
@@ -274,7 +278,6 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
 
   dat_section <- webchem::pc_sect(dat_cid$cid, section = section, verbose = verbose) |>
     janitor::clean_names()
-
 
   # Handle empty results for section
   if (ncol(dat_section) == 0) {

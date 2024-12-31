@@ -62,7 +62,6 @@ test_that("extr_ice generate results with 2 casrn", {
   expect_equal(nrow(out), 2)
 })
 
-
 # @@@@@@@@@@@@@@@@@@@@@@
 # TEST FIND ASSAYS. ---
 # @@@@@@@@@@@@@@@@@@@@@@

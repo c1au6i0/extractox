@@ -57,7 +57,6 @@ test_that("Function verbose = FALSE", {
   })
 })
 
-
 test_that("extr_pprtv na,es hit and not hit, verbose,  force = TRUE", {
   ids_search <- c("Ace", "Acetophenone")
 

@@ -1,8 +1,9 @@
 #' Extract Toxicological Information from Multiple Databases
 #'
-#' This wrapper function retrieves toxicological information for specified chemicals by calling several external
-#' functions to query multiple databases, including PubChem, the Integrated Chemical Environment (ICE), CompTox
-#' Chemicals Dashboard, and the Integrated Risk Information System (IRIS).
+#' This wrapper function retrieves toxicological information for specified chemicals
+#' by calling several external functions to query multiple databases, including PubChem,
+#' the Integrated Chemical Environment (ICE), CompTox Chemicals Dashboard,
+#' and the Integrated Risk Information System (IRIS) and other.
 #'
 #' Specifically, this function:
 #'   \itemize{
@@ -46,7 +47,6 @@ extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 
-
   ghs_dat <- extr_pubchem_ghs(casrn, verbose = verbose)
 
   comptox_list <- extr_comptox(casrn, verbose = verbose)
@@ -56,7 +56,6 @@ extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
     assays = NULL,
     verbose = verbose
   )
-
 
   iris_filt <- extr_iris(casrn = casrn, verbose = verbose)
 
