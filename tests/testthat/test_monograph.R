@@ -11,6 +11,7 @@ test_that("extr_monograph returns correct outs for CASRN search", {
   expect_true(nrow(out) > 0)
   expect_true(all(out$casrn %in% ids))
   expect_equal(col_names, names(out))
+  expect_equal(sum(is.na(out$agent)), 0)
 })
 
 test_that("extr_monograph returns correct outs for name search", {
