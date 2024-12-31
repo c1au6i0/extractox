@@ -8,13 +8,16 @@ library(testthat)
 
 col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
-test_that("extr_ice generate results with 2 cid, one wrong", {
+test_that("extr_casrn_from_cid generate results with 2 cid, one wrong", {
   skip_on_cran()
 
   ids_search <- c("bella", "712")
-  expect_warning({
-    out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
-  }, "Chemical .* found!")
+  expect_warning(
+    {
+      out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
+    },
+    "Chemical .* found!"
+  )
 
   expect_equal(sum(is.na(out$casrn)), 1)
   expect_true(is.data.frame(out))
@@ -24,13 +27,16 @@ test_that("extr_ice generate results with 2 cid, one wrong", {
 
 Sys.sleep(4)
 
-test_that("extr_ice generate results with all wrong", {
+test_that("extr_casrn_from_cid generate results with all wrong", {
   skip_on_cran()
 
   ids_search <- c("bella", "ciao")
-  expect_warning({
-    out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
-  }, "Chemicals .* found!")
+  expect_warning(
+    {
+      out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
+    },
+    "Chemicals .* found!"
+  )
 
   expect_equal(sum(is.na(out$casrn)), 2)
   expect_true(is.data.frame(out))
@@ -40,14 +46,13 @@ test_that("extr_ice generate results with all wrong", {
 
 Sys.sleep(4)
 
-test_that("extr_ice generate results with all wrong", {
+test_that("extr_casrn_from_cid generate results with all wrong", {
   skip_on_cran()
 
   ids_search <- c("bella", "ciao")
   expect_silent({
     out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = FALSE)
   })
-
 })
 
 
@@ -60,7 +65,6 @@ Sys.sleep(4)
 df_names <- create_na_df("ciao")
 
 test_that("extr_chem_info fetches chem outa", {
-
   ids_search <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
   skip_on_cran()
   expect_warning({
@@ -76,7 +80,6 @@ test_that("extr_chem_info fetches chem outa", {
 Sys.sleep(4)
 
 test_that("extr_chem_info wrong only, silent", {
-
   ids_search <- "bella ciao"
   skip_on_cran()
   expect_silent({
@@ -87,7 +90,6 @@ test_that("extr_chem_info wrong only, silent", {
   expect_equal(nrow(out), length(ids_search))
   expect_equal(names(out), names(df_names))
   expect_true(all(out$query %in% ids_search))
-
 })
 
 # @@@@@@@@@@@@@@@
@@ -118,25 +120,31 @@ test_that("extr_pubchem_fema works correctly", {
   expect_equal(nrow(out), length(casrn_list))
   expect_equal(names(out), col_names)
   expect_equal(out$query, casrn_list)
-  expect_equal(out$casrn , c("1490-04-6", "50-00-0", NA))
+  expect_equal(out$casrn, c("1490-04-6", "50-00-0", NA))
 })
 
 Sys.sleep(4)
 
 test_that("extr_pubchem_fema produce CASRN warning", {
   skip_on_cran()
-  expect_warning({
+  expect_warning(
+    {
       out <- extr_pubchem_fema(c("bella", "ciao"), verbose = TRUE)
-    }, "Chemical.*not found!")
+    },
+    "Chemical.*not found!"
+  )
 })
 
 Sys.sleep(4)
 
 test_that("extr_pubchem_fema produce FEMA warning", {
   skip_on_cran()
-  expect_warning({
-    out <- extr_pubchem_fema("50-00-0", verbose = TRUE)
-  }, "FEMA .*not found")
+  expect_warning(
+    {
+      out <- extr_pubchem_fema("50-00-0", verbose = TRUE)
+    },
+    "FEMA .*not found"
+  )
 })
 
 Sys.sleep(4)
@@ -151,15 +159,17 @@ test_that("extr_pubchem_ghs works correctly", {
 
   expect_equal(unique(out$query), casrn_list)
   expect_equal(names(out), col_names)
-  expect_equal(unique(out$casrn) , c("1490-04-6", "50-00-0", NA))
+  expect_equal(unique(out$casrn), c("1490-04-6", "50-00-0", NA))
 })
 
 Sys.sleep(4)
 
 test_that("extr_pubchem_ghs produce warning", {
   skip_on_cran()
-  expect_warning({
-    out <- extr_pubchem_ghs(c("bella", "ciao"), verbose = TRUE)
-  }, "not found")
+  expect_warning(
+    {
+      out <- extr_pubchem_ghs(c("bella", "ciao"), verbose = TRUE)
+    },
+    "not found"
+  )
 })
-

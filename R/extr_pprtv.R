@@ -31,8 +31,10 @@
 #'   extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
 #'
 #'   # Extract data for a chemical name
-#'   extr_pprtv(ids = "Acrolein", search_type = "name", verbose = TRUE,
-#'   force = FALSE)
+#'   extr_pprtv(
+#'     ids = "Acrolein", search_type = "name", verbose = TRUE,
+#'     force = FALSE
+#'   )
 #'
 #'   # Extract data for multiple identifiers
 #'   extr_pprtv(
@@ -45,13 +47,11 @@
 #' }
 extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
                        get_all = FALSE) {
-
-
   if (all(missing(ids), !isTRUE(get_all))) {
     cli::cli_abort("The argument {.field ids} is required.")
   }
 
-  if (all(!search_type %in% c("casrn", "name"),!isTRUE(get_all))) {
+  if (all(!search_type %in% c("casrn", "name"), !isTRUE(get_all))) {
     cli::cli_abort("The argument {.field search_type} needs to be either `casrn`
                    or `name`.")
   }
@@ -59,9 +59,12 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
   file_name <- "epa_pprtvs.rds" # Filename for caching
 
   # Check if path is present otherwise it download it again
-  full_path_cache_file <- fs::path(tools::R_user_dir("extractox",
-                                                     which = "cache"),
-                                                     file_name)
+  full_path_cache_file <- fs::path(
+    tools::R_user_dir("extractox",
+      which = "cache"
+    ),
+    file_name
+  )
 
   cache_present <- fs::file_exists(full_path_cache_file)
 
@@ -75,12 +78,14 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
       url = "https://cfpub.epa.gov/ncea/pprtv/atoz.cfm",
       url_query_param = list(excel = "yes"),
       file_name = file_name,
-      verbose = verbose)
+      verbose = verbose
+    )
 
-      # get eveything
-      if (get_all == TRUE) return(dat)
-      path_cache <- save_to_cache(dat, file_name, verbose = verbose)
-
+    # get eveything
+    if (get_all == TRUE) {
+      return(dat)
+    }
+    path_cache <- save_to_cache(dat, file_name, verbose = verbose)
   } else {
     dat <- read_from_cache(file_name = file_name, verbose = verbose)
 
@@ -95,20 +100,21 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
     cli::cli_alert_info("Extracting EPA PPRTVs.")
   }
 
-  col_names <- c("pprtv_substance_id", "chemical", "casrn", "last_revision",
-                 "pprtv_assessment", "iris_link", "rf_c_value", "rf_d_value",
-                 "woe", "date_downloaded", "query")
+  col_names <- c(
+    "pprtv_substance_id", "chemical", "casrn", "last_revision",
+    "pprtv_assessment", "iris_link", "rf_c_value", "rf_d_value",
+    "woe", "date_downloaded", "query"
+  )
 
   out <- search_and_match(
-                   dat = dat,
-                   ids = ids,
-                   search_type = search_type,
-                   col_names = col_names,
-                   chemical_col = "chemical"
-                   )
+    dat = dat,
+    ids = ids,
+    search_type = search_type,
+    col_names = col_names,
+    chemical_col = "chemical"
+  )
 
-  check_na_warn(dat = out, col_to_check  = "chemical", verbose = verbose)
+  check_na_warn(dat = out, col_to_check = "chemical", verbose = verbose)
 
   out
-
 }

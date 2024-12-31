@@ -4,10 +4,12 @@
 \alias{with_extr_sandbox}
 \title{Run Code in a Temporary Sandbox Environment}
 \usage{
-with_extr_sandbox(code)
+with_extr_sandbox(code, temp_dir = tempdir())
 }
 \arguments{
 \item{code}{The code to be executed inside the sandbox. Should be an expression.}
+
+\item{temp_dir}{A temporary directory created using \code{temdir()}.}
 }
 \value{
 The result of the executed code.

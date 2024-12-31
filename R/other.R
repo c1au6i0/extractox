@@ -1,4 +1,3 @@
-
 #' Selection of assays of iris
 
 #' @keywords internal

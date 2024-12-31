@@ -187,7 +187,7 @@ extr_comptox <- function(ids,
   sheet_names <- readxl::excel_sheets(xlsx_file)
 
   suppressMessages(
-  dat_list <- lapply(sheet_names, readxl::read_excel, path = xlsx_file)
+    dat_list <- lapply(sheet_names, readxl::read_excel, path = xlsx_file)
   )
 
   names(dat_list) <- paste0("comptox_", gsub(" ", "_", tolower(sheet_names)))

@@ -4,20 +4,29 @@
 \alias{extr_monograph}
 \title{Retrieve WHO IARC Monograph Information}
 \usage{
-extr_monograph(ids, search_type = "casrn", verbose = TRUE)
+extr_monograph(ids, search_type = "casrn", verbose = TRUE, get_all = FALSE)
 }
 \arguments{
 \item{ids}{A character vector of IDs to search for.}
 
-\item{search_type}{A character string specifying the type of search to perform. Valid options are "cas_rn" (CAS Registry Number)
-and "name" (name of the chemical). If \code{search_type} is "casrn", the function filters by the CAS Registry Number.
-If \code{search_type} is "name", the function performs a partial match search for the chemical name.}
+\item{search_type}{A character string specifying the type of search to
+perform. Valid options are "cas_rn" (CAS Registry Number) and "name"
+.  (name of the chemical). If \code{search_type} is "casrn", the function filters
+.  by the CAS Registry Number.
+If \code{search_type} is "name", the function performs a partial match search
+for the chemical name.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+.   Default is TRUE.}
+
+\item{get_all}{Logical. If TRUE ignore all the other ignore \code{ids},
+\code{search_type}, set  \code{force = TRUE} and get the all dataset.
+This is was introduced for debugging purposes.}
 }
 \value{
-A data frame containing the relevant information from the WHO IARC, including Monograph \code{volume}, \code{volume_publication_year},
-\code{evaluation_year}, and \code{additional_information} where the chemical was described.
+A data frame containing the relevant information from the WHO IARC,
+.  including Monograph \code{volume}, \code{volume_publication_year}, \code{evaluation_year},
+.  and \code{additional_information} where the chemical was described.
 }
 \description{
 This function retrieves information regarding Monographs from the World Health Organization (WHO) International
@@ -29,7 +38,10 @@ Agency for Research on Cancer (IARC)  based on CAS Registry Number or Name of th
   str(dat)
 
   # Example usage for name search
-  dat2 <- extr_monograph(search_type = "name", ids = c("Aloe", "Schistosoma", "Styrene"))
+  dat2 <- extr_monograph(search_type = "name",
+                          ids = c("Aloe", "Schistosoma",
+.                         "Styrene")
+.  )
   str(dat2)
 }
 }

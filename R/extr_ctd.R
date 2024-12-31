@@ -80,8 +80,10 @@ extr_ctd <- function(
   check_internet(verbose = verbose)
 
 
-  col_names <- c("chemical_name", "chemical_id", "casrn", "gene_symbol",
-                 "gene_id",   "organism", "organism_id", "pubmed_ids", "query")
+  col_names <- c(
+    "chemical_name", "chemical_id", "casrn", "gene_symbol",
+    "gene_id", "organism", "organism_id", "pubmed_ids", "query"
+  )
 
   params <- list(
     inputType = category,
@@ -145,11 +147,10 @@ extr_ctd <- function(
   # Lets clean up
   out$query <- gsub(" \\[Object not found\\]", "", out$query)
 
-  check_na_warn(dat = out,col_to_check = "gene_id", verbose = verbose)
+  check_na_warn(dat = out, col_to_check = "gene_id", verbose = verbose)
 
   unlink(csv_file)
   out
-
 }
 
 #' Extract Tetramer Data from the CTD API
@@ -198,8 +199,6 @@ extr_tetramer <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-
-
   if (missing(chem)) {
     cli::cli_abort("The argument {.field {chem}} is required.")
   }
@@ -234,7 +233,7 @@ extr_tetramer <- function(
     )
   }
 
-  check_na_warn(dat = out,col_to_check = "gene_id", verbose = verbose)
+  check_na_warn(dat = out, col_to_check = "gene_id", verbose = verbose)
 
   out
 }
@@ -254,7 +253,6 @@ extr_tetramer_ <- function(
     verify_ssl = FALSE,
     verbose = verbose,
     ...) {
-
   # Define the base URL
   base_url <- "https://ctdbase.org/query.go"
 
@@ -330,5 +328,3 @@ extr_tetramer_ <- function(
 
   out
 }
-
-

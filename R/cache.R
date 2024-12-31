@@ -13,7 +13,6 @@
 #' The function will overwrite any existing file with the same name.
 #' @noRd
 save_to_cache <- function(obj, file_name, verbose = FALSE) {
-
   # Sys.getenv("R_USER_CACHE_DIR")
 
   cache_dir <- tools::R_user_dir("extractox", which = "cache")

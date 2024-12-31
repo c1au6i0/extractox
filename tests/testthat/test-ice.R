@@ -4,11 +4,13 @@ library(testthat)
 # ICE ----
 # @@@@@@@@@
 
-col_names <- c("assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
-               "value", "unit", "species", "receptor_species", "route", "sex",
-               "strain", "life_stage", "tissue", "lesion", "location",
-               "assay_source", "in_vitro_assay_format", "reference",
-               "reference_url", "dtxsid", "substance_name", "pubmed_id", "query")
+col_names <- c(
+  "assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
+  "value", "unit", "species", "receptor_species", "route", "sex",
+  "strain", "life_stage", "tissue", "lesion", "location",
+  "assay_source", "in_vitro_assay_format", "reference",
+  "reference_url", "dtxsid", "substance_name", "pubmed_id", "query"
+)
 
 Sys.sleep(4)
 

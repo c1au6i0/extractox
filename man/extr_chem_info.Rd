@@ -4,10 +4,10 @@
 \alias{extr_chem_info}
 \title{Query Chemical Information from IUPAC Names}
 \usage{
-extr_chem_info(IUPAC_names, verbose = TRUE)
+extr_chem_info(iupac_names, verbose = TRUE)
 }
 \arguments{
-\item{IUPAC_names}{A character vector of IUPAC names. These are standardized names
+\item{iupac_names}{A character vector of IUPAC names. These are standardized names
 of chemical compounds that will be used to search in the PubChem database.}
 
 \item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
@@ -29,6 +29,6 @@ a unique row with the CID, CASRN, and additional chemical properties.
 \examples{
 \donttest{
 # Example with formaldehyde and aflatoxin
-extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
+extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 }
 }

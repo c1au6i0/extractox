@@ -1,7 +1,9 @@
 library(testthat)
 
-col_names <- c("casrn", "agent", "group", "volume", "volume_publication_year",
-               "evaluation_year", "additional_information", "query")
+col_names <- c(
+  "casrn", "agent", "group", "volume", "volume_publication_year",
+  "evaluation_year", "additional_information", "query"
+)
 
 test_that("extr_monograph returns correct outs for CASRN search", {
   ids <- c("105-74-8", "120-58-1")
