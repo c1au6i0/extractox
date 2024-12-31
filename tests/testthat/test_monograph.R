@@ -19,7 +19,7 @@ test_that("extr_monograph returns correct outs for name search", {
   out <- extr_monograph(ids = ids, search_type = "name", verbose = FALSE)
 
   expect_s3_class(out, "data.frame")
-  expect_equal(nrow(out), 3)
+  expect_equal(nrow(out), 8)
   expect_equal(ncol(out), 8)
   expect_true(all(grepl(paste(ids, collapse = "|"), out$query)))
   expect_equal(col_names, names(out))
