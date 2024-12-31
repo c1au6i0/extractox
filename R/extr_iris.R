@@ -19,7 +19,6 @@ extr_iris <- function(casrn = NULL, cancer_types = c("non_cancer", "cancer"), ve
   }
 
   # Check if online
-  base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/"
   check_internet(verbose = verbose)
 
   if (length(casrn) > 1) {
@@ -32,7 +31,9 @@ extr_iris <- function(casrn = NULL, cancer_types = c("non_cancer", "cancer"), ve
   out_cl <- out |>
     janitor::clean_names()
 
-  out_cl[out_cl$casrn %in% casrn, ]
+  check_na_warn(out_cl, col_to_check = )
+
+  # out_cl[out_cl$casrn %in% casrn, ]
 }
 
 #' @inherit extr_iris title description params return seealso
@@ -99,5 +100,10 @@ extr_iris_ <- function(casrn = NULL,
     }
   )
 
-  dat[dat$CASRN %in% casrn, ]
+  out <- dat[dat$CASRN %in% casrn, ]
+
+
+  out[1, "query"] <- casrn
+
+  out
 }
