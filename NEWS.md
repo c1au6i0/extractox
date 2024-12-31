@@ -36,11 +36,14 @@
      the `query` values contains all the ids found (not single id).
    - now the results  contains rows with NAs values for all columns except
      `query`
-
+* All unit tests have been improved and extended.
 * Fixed `extr_comptox` now outputs a list of dataframes with "clean" names.
 * Fixed `extr_ctd` names: column `pub_med_ids` or `pub_med_i_ds` are now `pubmed_ids`.
+* Cache ...........
+* More general function for extr_pubchem_section_
+* added checks check_na_warn, with_r_sandbox, search_and_match
 
-*Breaking change*: note that now `extr_tox` runs also `extr_monograph` and so output one more dataframe.
+*Breaking change*: note that now `extr_tox`.,
 
 # extractox 0.1.0
 
