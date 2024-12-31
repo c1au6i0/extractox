@@ -4,11 +4,14 @@
 \alias{extr_ice_assay_names}
 \title{Extract Assay Names from the ICE Database}
 \usage{
-extr_ice_assay_names(regex = NULL)
+extr_ice_assay_names(regex = NULL, verbose = TRUE)
 }
 \arguments{
 \item{regex}{A character string containing the regular expression to search for,
 or \code{NULL} to retrieve all assay names.}
+
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
 }
 \value{
 A character vector of matching assay names.

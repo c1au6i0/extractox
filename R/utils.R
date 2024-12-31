@@ -111,7 +111,8 @@ search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "c
 
   # Add NA rows for missing ids
   out <- merge(data.frame(query = ids, stringsAsFactors = FALSE), out,
-               by = "query", all.x = TRUE)
+    by = "query", all.x = TRUE
+  )
   out <- out[, col_names]
 
   return(out)
@@ -172,4 +173,3 @@ write_dataframes_to_excel <- function(df_list, filename) {
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   cli::cli_alert_info("Excell file written in {filename}...")
 }
-

@@ -9,21 +9,25 @@ extr_ice(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, ...)
 \arguments{
 \item{casrn}{A character vector specifying the CASRNs for the search.}
 
-\item{assays}{A character vector specifying the assays to include in the search. Default is NULL,
-meaning all assays are included. If you don't know the exact assay name, you can use the
-\code{extr_ice_assay_names()} function to search for assay names that match a pattern you're interested in.}
+\item{assays}{A character vector specifying the assays to include in the
+search. Default is NULL, meaning all assays are included. If you don't
+know the exact assay name, you can use the \code{extr_ice_assay_names()}
+function to search for assay names that match a pattern you're interested in.}
 
 \item{verify_ssl}{Boolean to control of SSL should be verified or not.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
 
-\item{...}{Any other arguments to be supplied to \code{req_option} and thus to \code{libcurl}.}
+\item{...}{Any other arguments to be supplied to \code{req_option} and
+thus to \code{libcurl}.}
 }
 \value{
 A data frame containing the extracted data from the ICE API.
 }
 \description{
-The \code{extr_ice} function sends a POST request to the ICE API to search for information based on specified chemical IDs and assays.
+The \code{extr_ice} function sends a POST request to the ICE API to search for
+information based on specified chemical IDs and assays.
 }
 \examples{
 \donttest{

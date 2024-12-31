@@ -8,23 +8,25 @@
 #' @keywords internal
 #' @noRd
 create_na_df <- function(missing_chem) {
-  column_names <- c("cid", "iupac_name", "casrn", "cid_all", "casrn_all",
-               "molecular_formula", "molecular_weight", "canonical_smiles",
-               "isomeric_smiles", "inchi", "inchi_key", "iupac_name",
-               "x_log_p", "exact_mass", "monoisotopic_mass", "tpsa",
-               "complexity", "charge", "h_bond_donor_count",
-               "h_bond_acceptor_count", "rotatable_bond_count",
-               "heavy_atom_count", "isotope_atom_count", "atom_stereo_count",
-               "defined_atom_stereo_count", "undefined_atom_stereo_count",
-               "bond_stereo_count", "defined_bond_stereo_count",
-               "undefined_bond_stereo_count", "covalent_unit_count",
-               "volume3d", "x_steric_quadrupole3d", "y_steric_quadrupole3d",
-               "z_steric_quadrupole3d", "feature_count3d",
-               "feature_acceptor_count3d", "feature_donor_count3d",
-               "feature_anion_count3d", "feature_cation_count3d",
-               "feature_ring_count3d", "feature_hydrophobe_count3d",
-               "conformer_model_rmsd3d", "effective_rotor_count3d",
-               "conformer_count3d", "fingerprint2d", "query")
+  column_names <- c(
+    "cid", "iupac_name", "casrn", "cid_all", "casrn_all",
+    "molecular_formula", "molecular_weight", "canonical_smiles",
+    "isomeric_smiles", "inchi", "inchi_key", "iupac_name",
+    "x_log_p", "exact_mass", "monoisotopic_mass", "tpsa",
+    "complexity", "charge", "h_bond_donor_count",
+    "h_bond_acceptor_count", "rotatable_bond_count",
+    "heavy_atom_count", "isotope_atom_count", "atom_stereo_count",
+    "defined_atom_stereo_count", "undefined_atom_stereo_count",
+    "bond_stereo_count", "defined_bond_stereo_count",
+    "undefined_bond_stereo_count", "covalent_unit_count",
+    "volume3d", "x_steric_quadrupole3d", "y_steric_quadrupole3d",
+    "z_steric_quadrupole3d", "feature_count3d",
+    "feature_acceptor_count3d", "feature_donor_count3d",
+    "feature_anion_count3d", "feature_cation_count3d",
+    "feature_ring_count3d", "feature_hydrophobe_count3d",
+    "conformer_model_rmsd3d", "effective_rotor_count3d",
+    "conformer_count3d", "fingerprint2d", "query"
+  )
 
   # Create the dataframe with all NAs
   out <- data.frame(matrix(NA, nrow = length(missing_chem), ncol = length(column_names)))
@@ -60,7 +62,6 @@ create_na_df <- function(missing_chem) {
 #' extr_casrn_from_cid(cids)
 #' }
 extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
-
   if (missing(pubchem_ids)) {
     cli::cli_abort("The argument {.field pubchem_ids} is required.")
   }
@@ -75,11 +76,13 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
   col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
 
-  if(ncol(casrn_data) == 0) {
-    casrn_data <- stats::setNames(as.data.frame(
-                              matrix(ncol = length(col_names), nrow = length(pubchem_ids))
-                              ),
-                           col_names)
+  if (ncol(casrn_data) == 0) {
+    casrn_data <- stats::setNames(
+      as.data.frame(
+        matrix(ncol = length(col_names), nrow = length(pubchem_ids))
+      ),
+      col_names
+    )
     casrn_data$query <- pubchem_ids
   } else {
     names(casrn_data) <- col_names
@@ -116,7 +119,6 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 #' extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
 extr_chem_info <- function(iupac_names, verbose = TRUE) {
-
   if (missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
@@ -125,7 +127,7 @@ extr_chem_info <- function(iupac_names, verbose = TRUE) {
 
   iupac_cid <- webchem::get_cid(iupac_names, domain = "compound", verbose = verbose)
 
-  if(all(is.na(iupac_cid$cid))){
+  if (all(is.na(iupac_cid$cid))) {
     out <- create_na_df(missing_chem = iupac_names)
     return(out)
   }
@@ -188,7 +190,6 @@ extr_chem_info <- function(iupac_names, verbose = TRUE) {
 #' extr_pubchem_fema(c("83-67-0", "1490-04-6"))
 #' }
 extr_pubchem_fema <- function(casrn, verbose = TRUE) {
-
   extr_pubchem_section(casrn, section = "FEMA Flavor Profile", verbose = verbose)
 }
 
@@ -232,7 +233,7 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
     extr_pubchem_section_(cas, section, verbose)
   })
 
-  out <-  do.call(rbind, dat)
+  out <- do.call(rbind, dat)
   check_na_warn(dat = out, col_to_check = "IUPAC_name", verbose = verbose)
   out
 }
@@ -245,7 +246,6 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
 #' @noRd
 #' @keywords internal
 extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
-
   dat_cid <- webchem::get_cid(casrn, match = "first", verbose = verbose)
 
   col_out <- c(
@@ -261,7 +261,6 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
 
   # Handle no CID retrieved
   if (is.na(dat_cid$cid)) {
-
     names_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
     na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
     out_df <- as.data.frame(na_matrix)
@@ -279,7 +278,6 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
 
   # Handle empty results for section
   if (ncol(dat_section) == 0) {
-
     name_casrn <- webchem::pc_sect(dat_cid$cid, "Depositor-Supplied Synonyms")
     na_matrix <- matrix(NA, nrow = 1, ncol = length(col_out))
     out_df <- as.data.frame(na_matrix)

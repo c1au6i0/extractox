@@ -15,12 +15,11 @@
 #' extr_iris(c("1332-21-4", "50-00-0"))
 #' }
 extr_iris <- function(casrn = NULL, verbose = TRUE) {
+  cancer_types <- c("non_cancer", "cancer")
 
-   cancer_types <-  c("non_cancer", "cancer")
-
-   if (missing(casrn)) {
-     cli::cli_abort("The argument {.field {casrn}} is required.")
-   }
+  if (missing(casrn)) {
+    cli::cli_abort("The argument {.field {casrn}} is required.")
+  }
 
   # Check if online
   check_internet(verbose = verbose)

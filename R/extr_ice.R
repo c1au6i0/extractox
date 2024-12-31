@@ -60,11 +60,13 @@ extr_ice <- function(casrn,
   check_status_code(resp, verbose = verbose)
 
   # This is used in case no results are retrieved in next chunk
-  col_names <- c("assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
-                 "value", "unit", "species", "receptor_species", "route", "sex",
-                 "strain", "life_stage", "tissue", "lesion", "location",
-                 "assay_source", "in_vitro_assay_format", "reference",
-                 "reference_url", "dtxsid", "substance_name", "pubmed_id")
+  col_names <- c(
+    "assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
+    "value", "unit", "species", "receptor_species", "route", "sex",
+    "strain", "life_stage", "tissue", "lesion", "location",
+    "assay_source", "in_vitro_assay_format", "reference",
+    "reference_url", "dtxsid", "substance_name", "pubmed_id"
+  )
 
   out <- stats::setNames(as.data.frame(matrix(ncol = length(col_names), nrow = 0)), col_names)
 
@@ -78,7 +80,7 @@ extr_ice <- function(casrn,
     },
     error = function(e) {
       if (grepl("Unexpected content type \"text/plain\"", e$message)) {
-        if(isTRUE(verbose)){
+        if (isTRUE(verbose)) {
           cli::cli_warn("It seems that the ids were not found in ICE:
                         {conditionMessage(e)}")
         }
@@ -112,14 +114,16 @@ extr_ice <- function(casrn,
   ids_founds <- casrn[casrn %in% out$casrn]
 
   if (nrow(out) > 0) {
-
     out[, "query"] <- paste(ids_founds, collapse = ", ")
-    to_add <- stats::setNames(data.frame(matrix(ncol = ncol(out),
-                                                nrow = length(ids_not_found))),
-                              names(out))
+    to_add <- stats::setNames(
+      data.frame(matrix(
+        ncol = ncol(out),
+        nrow = length(ids_not_found)
+      )),
+      names(out)
+    )
     to_add$query <- ids_not_found
     out <- rbind(to_add, out)
-
   } else {
     out[1:length(casrn), "query"] <- casrn
   }
