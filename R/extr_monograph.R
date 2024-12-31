@@ -60,7 +60,7 @@ extr_monograph <- function(ids,
                    ids = ids,
                    search_type = search_type,
                    col_names = col_names,
-                   chemical_col = "name"
+                   chemical_col = "agent"
                     )
 
   check_na_warn(dat = out, col_to_check =  "agent", verbose = verbose)
