@@ -1,14 +1,18 @@
 #' Extract Data from NTP ICE Database
 #'
-#' The `extr_ice` function sends a POST request to the ICE API to search for information based on specified chemical IDs and assays.
+#' The `extr_ice` function sends a POST request to the ICE API to search for
+#' information based on specified chemical IDs and assays.
 #'
 #' @param casrn A character vector specifying the CASRNs for the search.
-#' @param assays A character vector specifying the assays to include in the search. Default is NULL,
-#'     meaning all assays are included. If you don't know the exact assay name, you can use the
-#'     `extr_ice_assay_names()` function to search for assay names that match a pattern you're interested in.
+#' @param assays A character vector specifying the assays to include in the
+#'    search. Default is NULL, meaning all assays are included. If you don't
+#'    know the exact assay name, you can use the `extr_ice_assay_names()`
+#'    function to search for assay names that match a pattern you're interested in.
 #' @param verify_ssl Boolean to control of SSL should be verified or not.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @param ... Any other arguments to be supplied to `req_option` and thus to `libcurl`.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'   Default is TRUE.
+#' @param ... Any other arguments to be supplied to `req_option` and
+#'    thus to `libcurl`.
 #' @return A data frame containing the extracted data from the ICE API.
 #' @seealso
 #' \code{\link{extr_ice_assay_names}},
@@ -18,7 +22,11 @@
 #' \donttest{
 #' extr_ice(c("50-00-0"))
 #' }
-extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, ...) {
+extr_ice <- function(casrn,
+                     assays = NULL,
+                     verify_ssl = FALSE,
+                     verbose = TRUE,
+                     ...) {
   if (missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
@@ -52,17 +60,17 @@ extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, .
   check_status_code(resp, verbose = verbose)
 
   # This is used in case no results are retrieved in next chunk
-  col_names <- c(
-    "assay", "endpoint", "substanceType", "casrn", "qsarReadyId",
-    "value", "unit", "species", "receptorSpecies", "route", "sex",
-    "strain", "lifeStage", "tissue", "lesion", "location", "assaySource",
-    "inVitroAssayFormat", "reference", "referenceUrl", "dtxsid",
-    "substanceName", "pubMedId"
-  )
+  col_names <- c("assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
+                 "value", "unit", "species", "receptor_species", "route", "sex",
+                 "strain", "life_stage", "tissue", "lesion", "location",
+                 "assay_source", "in_vitro_assay_format", "reference",
+                 "reference_url", "dtxsid", "substance_name", "pubmed_id")
 
-  out <- stats::setNames(data.frame(matrix(ncol = length(col_names), nrow = length(casrn))), col_names)
 
-  out$casrn <- casrn
+  out <- stats::setNames(as.data.frame(matrix(ncol = length(col_names), nrow = 0)), col_names)
+
+
+  # out$casrn <- casrn
 
   # Parse the JSON content
   content <- tryCatch(
@@ -72,7 +80,10 @@ extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, .
     },
     error = function(e) {
       if (grepl("Unexpected content type \"text/plain\"", e$message)) {
-        cli::cli_warn("It seems that the ids were not found in ICE: {conditionMessage(e)}")
+        if(isTRUE(verbose)){
+          cli::cli_warn("It seems that the ids were not found in ICE:
+                        {conditionMessage(e)}")
+        }
         NULL # Or another suitable value
       } else {
         cli::cli_abort("An unexpected error occurred: {conditionMessage(e)}")
@@ -95,7 +106,33 @@ extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, .
       }
     )
   }
-  data.frame(lapply(dat, unlist))
+
+
+  out <- data.frame(lapply(dat, unlist))
+  names(out) <- col_names
+
+  ids_not_found <- casrn[!casrn %in% out$casrn]
+  ids_founds <- casrn[casrn %in% out$casrn]
+
+
+  if (nrow(out) > 0) {
+
+    out[, "query"] <- paste(ids_founds, collapse = ", ")
+    to_add <- stats::setNames(data.frame(matrix(ncol = ncol(out),
+                                                nrow = length(ids_not_found))),
+                              names(out))
+    to_add$query <- ids_not_found
+    out <- rbind(to_add, out)
+
+  } else {
+    out[1:length(casrn), "query"] <- casrn
+  }
+
+  if (all(length(ids_not_found) > 0, isTRUE(verbose))) {
+    cli::cli_warn("Chemical{?s} {.field {ids_not_found}} not found!")
+  }
+
+  out
 }
 
 
@@ -107,6 +144,8 @@ extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, .
 #'
 #' @param regex A character string containing the regular expression to search for,
 #' or `NULL` to retrieve all assay names.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'  Default is TRUE.
 #' @return A character vector of matching assay names.
 #' @export
 #' @examples
@@ -115,7 +154,7 @@ extr_ice <- function(casrn, assays = NULL, verify_ssl = FALSE, verbose = TRUE, .
 #' extr_ice_assay_names(NULL)
 #' extr_ice_assay_names("Vivo")
 #' }
-extr_ice_assay_names <- function(regex = NULL) {
+extr_ice_assay_names <- function(regex = NULL, verbose = TRUE) {
   if (is.null(regex)) {
     cli::cli_alert_info("Returning all available assay names from the ICE database.")
     return(all_ice_assays)
@@ -129,10 +168,10 @@ extr_ice_assay_names <- function(regex = NULL) {
   # Search for matches
   matches <- grep(regex, all_ice_assays, value = TRUE)
 
-  if (length(matches) == 0) {
+  if (all(length(matches) == 0, isTRUE(verbose))) {
     cli::cli_warn("No assay names found matching the search pattern {.field regex}.\n
                   Please note that searches are case sensitive.")
   }
 
-  return(matches)
+  matches
 }

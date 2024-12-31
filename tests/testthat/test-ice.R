@@ -4,25 +4,63 @@ library(testthat)
 # ICE ----
 # @@@@@@@@@
 
+col_names <- c("assay", "endpoint", "substance_type", "casrn", "qsar_ready_id",
+               "value", "unit", "species", "receptor_species", "route", "sex",
+               "strain", "life_stage", "tissue", "lesion", "location",
+               "assay_source", "in_vitro_assay_format", "reference",
+               "reference_url", "dtxsid", "substance_name", "pubmed_id", "query")
+
 Sys.sleep(4)
 
 test_that("extr_ice fetches data for CASRN 50-00-0", {
   skip_on_cran()
+  ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
   # Ensure the output is as expected by comparing to a stored snapshot
-  expect_snapshot(extr_ice(casrn = "50-00-0"))
+  expect_warning({
+    out <- extr_ice(casrn = ids_search, verbose = TRUE)
+  })
+
+  expect_equal(sum(is.na(out$casrn)), 2)
+  expect_true(is.data.frame(out))
+  expect_equal(names(out), col_names)
+  expect_equal(nrow(out), 287)
+  expect_true(all(c("bella", "ciao") %in% out$query))
 })
 
 
 Sys.sleep(3)
 
-test_that("extr_ice warns for CASRN 50-00-1", {
+test_that("extr_ice generate results with 1 casrn", {
   skip_on_cran()
 
-  expect_warning(
-    extr_ice(casrn = "50-00-1"),
-    "It seems that the ids were not found in ICE"
-  )
+  skip_on_cran()
+  ids_search <- c("bella")
+  # Ensure the output is as expected by comparing to a stored snapshot
+  expect_silent({
+    out <- extr_ice(casrn = ids_search, verbose = FALSE)
+  })
+
+  expect_equal(sum(is.na(out$casrn)), 1)
+  expect_true(is.data.frame(out))
+  expect_equal(names(out), col_names)
+  expect_equal(nrow(out), 1)
 })
+
+test_that("extr_ice generate results with 2 casrn", {
+  skip_on_cran()
+
+  ids_search <- c("bella", "ciao")
+  # Ensure the output is as expected by comparing to a stored snapshot
+  expect_no_warning({
+    out <- extr_ice(casrn = ids_search, verbose = FALSE)
+  })
+
+  expect_equal(sum(is.na(out$casrn)), 2)
+  expect_true(is.data.frame(out))
+  expect_equal(names(out), col_names)
+  expect_equal(nrow(out), 2)
+})
+
 
 # @@@@@@@@@@@@@@@@@@@@@@
 # TEST FIND ASSAYS. ---
