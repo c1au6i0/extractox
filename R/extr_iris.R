@@ -1,11 +1,12 @@
 #' Extract Data from EPA IRIS Database
 #'
-#' The `extr_iris` function sends a request to the EPA IRIS database to search for information based on a specified keywords and cancer types. It retrieves and parses the HTML content from the response.
+#' The `extr_iris` function sends a request to the EPA IRIS database to search
+#' for information based on a specified keywords and cancer types. It retrieves and parses the HTML content from the response.
 #' Note that if `keywords` is not provide all dataset are retrieved.
 #'
 #' @param casrn A vector CASRN for the search.
-#' @param cancer_types A character vector specifying the types of cancer to include in the search. Must be either "non_cancer" or "cancer".
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'    Default is TRUE.
 #' @return A data frame containing the extracted data.
 #' @seealso \href{https://cfpub.epa.gov/ncea/iris/search/}{EPA IRIS database}
 #' @export
@@ -13,10 +14,13 @@
 #' \donttest{
 #' extr_iris(c("1332-21-4", "50-00-0"))
 #' }
-extr_iris <- function(casrn = NULL, cancer_types = c("non_cancer", "cancer"), verbose = TRUE) {
-  if (!all(cancer_types %in% c("non_cancer", "cancer"))) {
-    cli::cli_abort("Cancer types must be either 'non_cancer' or 'cancer'.")
-  }
+extr_iris <- function(casrn = NULL, verbose = TRUE) {
+
+   cancer_types <-  c("non_cancer", "cancer")
+
+   if (missing(casrn)) {
+     cli::cli_abort("The argument {.field {casrn}} is required.")
+   }
 
   # Check if online
   check_internet(verbose = verbose)
@@ -31,14 +35,15 @@ extr_iris <- function(casrn = NULL, cancer_types = c("non_cancer", "cancer"), ve
   out_cl <- out |>
     janitor::clean_names()
 
-  check_na_warn(out_cl, col_to_check = )
+  check_na_warn(out_cl, col_to_check = "chemical_name", verbose = verbose)
 
-  # out_cl[out_cl$casrn %in% casrn, ]
+  out_cl
 }
 
 #' @inherit extr_iris title description params return seealso
 #' @param verify_ssl Boolean to control of SSL should be verified or not.
-#' @param ... Any other arguments to be supplied to `req_option` and thus to `libcurl`.
+#' @param ... Any other arguments to be supplied to `req_option` and thus to
+#'    `libcurl`.
 #' @noRd
 #' @keywords internal
 extr_iris_ <- function(casrn = NULL,
@@ -102,8 +107,11 @@ extr_iris_ <- function(casrn = NULL,
 
   out <- dat[dat$CASRN %in% casrn, ]
 
-
-  out[1, "query"] <- casrn
+  if (nrow(out) > 0) {
+    out[, "query"] <- casrn
+  } else {
+    out[1, "query"] <- casrn
+  }
 
   out
 }

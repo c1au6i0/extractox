@@ -6,36 +6,49 @@ library(testthat)
 # @@@@@@@@@
 
 
+col_names <- c("chemical_name", "casrn", "exposure_route", "assessment_type",
+               "critical_effect_or_tumor_type", "woe_characterization",
+               "toxicity_value_type", "toxicity_value", "query")
 
 Sys.sleep(4)
 
 test_that("extr_iris_ fetches data for multiple CASRN", {
   skip_on_cran()
-  results <- extr_iris(c("50-00-0", "1332-21-4"))
-  # Ensure the output is as expected by comparing to a stored snapshot
-  expect_snapshot(results)
+  ids_search <- c("50-00-0", "1332-21-4")
+  expect_message({
+    out <- extr_iris(ids_search, verbose = TRUE)
+    }, "Quering" )
+
+  expect_true(is.data.frame(out))
+  expect_equal(nrow(out), 4)
+  expect_equal(names(out), col_names)
+  expect_true(all(out$query %in% ids_search))
 })
 
 Sys.sleep(4)
 
-test_that("extr_iris_ returns an empty data when wrong CASRN", {
+test_that("extr_iris_ warn and fill with NA wrong CASRN", {
   skip_on_cran()
-  results <- extr_iris("50-00-000")
-  expect_equal(nrow(results), 0)
+  ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
+  expect_warning({
+    out <- extr_iris(ids_search, verbose = TRUE)
+  }, "Chemicals.*found!")
+
+  expect_equal(nrow(out), 6)
+  expect_true(all(out$query %in% ids_search))
+  expect_equal(sum(is.na(out$casrn)), 2)
 })
 
 Sys.sleep(4)
 
-test_that("extr_iris produces a dataframe with 3 rows for specific input", {
-  result <- extr_iris(c("1332-21-4", "50-00-0"), cancer_types = "cancer")
-  expect_true(is.data.frame(result))
-  expect_equal(nrow(result), 2)
-})
+test_that("extr_iris_ cancer_types and verbose = FALSE work", {
+  skip_on_cran()
+  ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
+  expect_silent({
+    out <- extr_iris(ids_search, verbose = FALSE)
+  })
 
-Sys.sleep(4)
-
-test_that("extr_iris do not retrieve all casn when no casrn", {
-  result <- extr_iris(c("1", "50-00-0"), cancer_types = "cancer")
-  expect_true(is.data.frame(result))
-  expect_equal(nrow(result), 1)
+  expect_equal(nrow(out), 6)
+  expect_true(all(out$query %in% ids_search))
+  expect_equal(sum(is.na(out$casrn)), 2)
 })
