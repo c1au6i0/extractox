@@ -15,7 +15,7 @@ Sys.sleep(4)
 test_that("extr_ice fetches data for CASRN 50-00-0", {
   skip_on_cran()
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
-  # Ensure the output is as expected by comparing to a stored snapshot
+
   expect_warning({
     out <- extr_ice(casrn = ids_search, verbose = TRUE)
   })
@@ -33,9 +33,8 @@ Sys.sleep(3)
 test_that("extr_ice generate results with 1 casrn", {
   skip_on_cran()
 
-  skip_on_cran()
   ids_search <- c("bella")
-  # Ensure the output is as expected by comparing to a stored snapshot
+
   expect_silent({
     out <- extr_ice(casrn = ids_search, verbose = FALSE)
   })
@@ -50,7 +49,7 @@ test_that("extr_ice generate results with 2 casrn", {
   skip_on_cran()
 
   ids_search <- c("bella", "ciao")
-  # Ensure the output is as expected by comparing to a stored snapshot
+
   expect_no_warning({
     out <- extr_ice(casrn = ids_search, verbose = FALSE)
   })

@@ -66,9 +66,7 @@ extr_ice <- function(casrn,
                  "assay_source", "in_vitro_assay_format", "reference",
                  "reference_url", "dtxsid", "substance_name", "pubmed_id")
 
-
   out <- stats::setNames(as.data.frame(matrix(ncol = length(col_names), nrow = 0)), col_names)
-
 
   # out$casrn <- casrn
 
@@ -107,13 +105,11 @@ extr_ice <- function(casrn,
     )
   }
 
-
   out <- data.frame(lapply(dat, unlist))
   names(out) <- col_names
 
   ids_not_found <- casrn[!casrn %in% out$casrn]
   ids_founds <- casrn[casrn %in% out$casrn]
-
 
   if (nrow(out) > 0) {
 

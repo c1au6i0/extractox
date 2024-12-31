@@ -1,46 +1,98 @@
 library(testthat)
 
 
-df_names <- create_na_df("ciao")
 
-compounds <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
+# @@@@@@@@@@@@@@@@@@@@@@@@@
+# extr_casrn_from_cid ----
+# @@@@@@@@@@@@@@@@@@@@@@@@
 
-Sys.sleep(4)
+col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
-#####################
-# extr_chem_info ----
-#####################
-
-test_that("extr_chem_info fetches chem outa", {
-
+test_that("extr_ice generate results with 2 cid, one wrong", {
   skip_on_cran()
+
+  ids_search <- c("bella", "712")
   expect_warning({
+    out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
+  }, "Chemical .* found!")
 
-    out <- extr_chem_info(compounds)
-
-  }, "CID not retrieved")
-
+  expect_equal(sum(is.na(out$casrn)), 1)
   expect_true(is.data.frame(out))
-  expect_equal(nrow(out), length(compounds))
-  expect_equal(names(out), names(df_names))
-  expect_equal(out$query, compounds)
-
+  expect_equal(names(out), col_names)
+  expect_equal(nrow(out), 168)
 })
 
 Sys.sleep(4)
 
-test_that("extr_chem_info fetches chem outa", {
-
+test_that("extr_ice generate results with all wrong", {
   skip_on_cran()
+
+  ids_search <- c("bella", "ciao")
+  expect_warning({
+    out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
+  }, "Chemicals .* found!")
+
+  expect_equal(sum(is.na(out$casrn)), 2)
+  expect_true(is.data.frame(out))
+  expect_equal(names(out), col_names)
+  expect_equal(nrow(out), 2)
+})
+
+Sys.sleep(4)
+
+test_that("extr_ice generate results with all wrong", {
+  skip_on_cran()
+
+  ids_search <- c("bella", "ciao")
   expect_silent({
-    out <- extr_chem_info(compounds, verbose = FALSE)
+    out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = FALSE)
   })
 
 })
 
-#################
+
+Sys.sleep(4)
+
+# @@@@@@@@@@@@@@@@@@@
+# extr_chem_info ----
+# @@@@@@@@@@@@@@@@@@@
+
+df_names <- create_na_df("ciao")
+
+test_that("extr_chem_info fetches chem outa", {
+
+  ids_search <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
+  skip_on_cran()
+  expect_warning({
+    out <- extr_chem_info(ids_search)
+  })
+
+  expect_true(is.data.frame(out))
+  expect_equal(nrow(out), length(ids_search))
+  expect_equal(names(out), names(df_names))
+  expect_true(all(out$query %in% ids_search))
+})
+
+Sys.sleep(4)
+
+test_that("extr_chem_info wrong only, silent", {
+
+  ids_search <- "bella ciao"
+  skip_on_cran()
+  expect_silent({
+    out <- extr_chem_info(ids_search, verbose = FALSE)
+  })
+
+  expect_true(is.data.frame(out))
+  expect_equal(nrow(out), length(ids_search))
+  expect_equal(names(out), names(df_names))
+  expect_true(all(out$query %in% ids_search))
+
+})
+
+# @@@@@@@@@@@@@@@
 # extr_fema  ----
-#################
+# @@@@@@@@@@@@@@@
 
 col_names <- c(
   "cid",
@@ -110,13 +162,4 @@ test_that("extr_pubchem_ghs produce warning", {
     out <- extr_pubchem_ghs(c("bella", "ciao"), verbose = TRUE)
   }, "not found")
 })
-
-
-
-
-
-
-
-
-
 

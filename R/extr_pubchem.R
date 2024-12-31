@@ -8,9 +8,9 @@
 #' @keywords internal
 #' @noRd
 create_na_df <- function(missing_chem) {
-  column_names <- c("cid", "iupac_name", "cas_rn", "cid_all", "cas_rn_all",
+  column_names <- c("cid", "iupac_name", "casrn", "cid_all", "casrn_all",
                "molecular_formula", "molecular_weight", "canonical_smiles",
-               "isomeric_smiles", "in_ch_i", "in_ch_i_key", "iupac_name_y",
+               "isomeric_smiles", "inchi", "inchi_key", "iupac_name",
                "x_log_p", "exact_mass", "monoisotopic_mass", "tpsa",
                "complexity", "charge", "h_bond_donor_count",
                "h_bond_acceptor_count", "rotatable_bond_count",
@@ -40,15 +40,16 @@ create_na_df <- function(missing_chem) {
 #' This function retrieves the CASRN for a given set of PubChem Compound Identifiers (CID).
 #' It queries PubChem through the `webchem` package and extracts the CASRN from the depositor-supplied synonyms.
 #'
-#' @param pubchem_id A numeric vector of PubChem CIDs. These are unique identifiers
+#' @param pubchem_ids A numeric vector of PubChem CIDs. These are unique identifiers
 #' for chemical compounds in the PubChem database.
 #' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
 #' @return A data frame containing the CID, CASRN, and IUPAC name of the compound.
 #' The returned data frame includes three columns:
 #' \describe{
 #'   \item{CID}{The PubChem Compound Identifier.}
-#'   \item{cas_rn}{The corresponding CASRN of the compound.}
-#'   \item{IUPACName}{The IUPAC name of the compound.}
+#'   \item{casrn}{The corresponding CASRN of the compound.}
+#'   \item{iupac_name}{The IUPAC name of the compound.}
+#'   \item{query}{The pubchem_id queried.}
 #' }
 #' @seealso \href{https://pubchem.ncbi.nlm.nih.gov/}{PubChem}
 #' @export
@@ -58,26 +59,37 @@ create_na_df <- function(missing_chem) {
 #' cids <- c(712, 14434) # CID for formaldehyde and aflatoxin B1
 #' extr_casrn_from_cid(cids)
 #' }
-extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
+extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 
-  if (missing(pubchem_id)) {
-    cli::cli_abort("The argument {.field {pubchem_id}} is required.")
+  if (missing(pubchem_ids)) {
+    cli::cli_abort("The argument {.field pubchem_ids} is required.")
   }
   check_internet(verbose = verbose)
 
   if (isTRUE(verbose)) {
-    cli::cli_alert_info("Querying {pubchem_id}.")
+    cli::cli_alert_info("Querying {.field pubchem_ids}.")
   }
 
-  pubchem_data <- webchem::pc_sect(pubchem_id, "Depositor-Supplied Synonyms")
+  casrn_data <- webchem::pc_sect(pubchem_ids, "Depositor-Supplied Synonyms")
 
-  cas_rn_data <- pubchem_data[grep("^\\d{2,7}-\\d+-\\d$", pubchem_data$Result), ]
-  colnames(cas_rn_data)[colnames(cas_rn_data) == "Result"] <- "cas_rn"
-  colnames(cas_rn_data)[colnames(cas_rn_data) == "Name"] <- "IUPACName"
-  colnames(cas_rn_data)[colnames(cas_rn_data) == "CID"] <- "cid"
+  col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
-  cas_rn_data <- cas_rn_data[c("cid", "cas_rn", "IUPACName")]
-  cas_rn_data
+
+  if(ncol(casrn_data) == 0) {
+    casrn_data <- stats::setNames(as.data.frame(
+                              matrix(ncol = length(col_names), nrow = length(pubchem_ids))
+                              ),
+                           col_names)
+    casrn_data$query <- pubchem_ids
+  } else {
+    names(casrn_data) <- col_names
+    casrn_data[, "query"] <- casrn_data$cid
+    casrn_data$cid[is.na(casrn_data$casrn)] <- NA
+  }
+
+  check_na_warn(casrn_data, col_to_check = "cid", verbose = verbose)
+
+  casrn_data
 }
 
 
@@ -88,7 +100,7 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
 #' each compound. It reshapes the resulting data, ensuring that each compound has
 #' a unique row with the CID, CASRN, and additional chemical properties.
 #'
-#' @param IUPAC_names A character vector of IUPAC names. These are standardized names
+#' @param iupac_names A character vector of IUPAC names. These are standardized names
 #' of chemical compounds that will be used to search in the PubChem database.
 #' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
 #' @return A data frame with information on the queried compounds, including:
@@ -101,64 +113,61 @@ extr_casrn_from_cid <- function(pubchem_id, verbose = TRUE) {
 #' @examples
 #' \donttest{
 #' # Example with formaldehyde and aflatoxin
-#' extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
+#' extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
-extr_chem_info <- function(IUPAC_names, verbose = TRUE) {
+extr_chem_info <- function(iupac_names, verbose = TRUE) {
 
-  if (missing(IUPAC_names)) {
-    cli::cli_abort("The argument {.field {IUPAC_names}} is required.")
+  if (missing(iupac_names)) {
+    cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
 
   check_internet(verbose = verbose)
 
-  iupac_cid <- webchem::get_cid(IUPAC_names, domain = "compound", verbose = verbose)
+  iupac_cid <- webchem::get_cid(iupac_names, domain = "compound", verbose = verbose)
 
+  if(all(is.na(iupac_cid$cid))){
+    out <- create_na_df(missing_chem = iupac_names)
+    return(out)
+  }
 
-  # Rename and mutate using base R
-  iupac_cid$constituent <- iupac_cid$query
   iupac_cid$cid <- as.numeric(iupac_cid$cid)
 
   # Handle missing CIDs
   if (any(is.na(iupac_cid$cid))) {
-    missing_c <- iupac_cid$constituent[is.na(iupac_cid$cid)]
-
-  if (isTRUE(verbose)){
-        cli::cli_warn(paste0("CID not retrieved for", paste(missing_c, collapse = ", "), "!"))
-  }
-
-  missing_df <- create_na_df(missing_c)
+    missing_c <- iupac_cid$query[is.na(iupac_cid$cid)]
+    missing_df <- create_na_df(missing_c)
   }
 
 
   iupac_cid_clean <- iupac_cid[!is.na(iupac_cid$cid), ]
 
-  # Get CAS from PubChem
+  # we know that the cid exist because they came from get_cid
   cid_cas <- extr_casrn_from_cid(iupac_cid_clean$cid, verbose = verbose)
+  cid_cas$query <- NULL
 
-  # Ensure unique rows and summarize using base R
-  iupac_cid_cas_unique <- stats::aggregate(cbind(cid, cas_rn) ~ IUPACName, data = cid_cas, function(x) list(unique(x)))
+  # Ensure unique rows and summarize
+  iupac_cid_cas_unique <- stats::aggregate(cbind(cid, casrn) ~ iupac_name, data = cid_cas, function(x) list(unique(x)))
   iupac_cid_cas_unique$cid <- sapply(iupac_cid_cas_unique$cid, function(x) x[!is.na(x)][1])
-  iupac_cid_cas_unique$cas_rn <- sapply(iupac_cid_cas_unique$cas_rn, function(x) x[!is.na(x)][1])
+  iupac_cid_cas_unique$casrn <- sapply(iupac_cid_cas_unique$casrn, function(x) x[!is.na(x)][1])
   iupac_cid_cas_unique$cid_all <- sapply(iupac_cid_cas_unique$cid, paste, collapse = ", ")
-  iupac_cid_cas_unique$cas_rn_all <- sapply(iupac_cid_cas_unique$cas_rn, paste, collapse = ", ")
+  iupac_cid_cas_unique$casrn_all <- sapply(iupac_cid_cas_unique$casrn, paste, collapse = ", ")
 
   all_prop <- webchem::pc_prop(iupac_cid_cas_unique$cid)
   all_prop$CID <- as.numeric(all_prop$CID)
 
-  # Clean and join data
-  out <- merge(iupac_cid_cas_unique, all_prop, by.x = "cid", by.y = "CID", all.x = TRUE)
-  out <- merge(out, iupac_cid, by.x = "cid", by.y = "cid", all.x = TRUE) |>
-    janitor::clean_names()
+  # get the original query value
+  all_prop_query <- merge(all_prop, iupac_cid, by.x = "CID", by.y = "cid")
 
-  colnames(out)[colnames(out) == "iupac_name_x"] <- "iupac_name"
-  colnames(out)[colnames(out) == "query_x"] <- "query"
-  out_clean <- out[, !colnames(out) %in% c("constituent_x", "query_y", "constituent_y", "constituent")]
+  out <- merge(iupac_cid_cas_unique, all_prop_query, by.x = "cid", by.y = "CID", all.x = TRUE)
+  names(out) <- names(create_na_df(1))
 
   if (any(is.na(iupac_cid$cid))) {
-    out_clean <- rbind(missing_df, out_clean)
+    out <- rbind(missing_df, out)
   }
 
-  out_clean[match(IUPAC_names, out_clean$query),  ]
+  check_na_warn(out, col_to_check = "cid", verbose = verbose)
+
+  out
 }
 
 
