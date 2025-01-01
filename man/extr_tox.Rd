@@ -4,37 +4,52 @@
 \alias{extr_tox}
 \title{Extract Toxicological Information from Multiple Databases}
 \usage{
-extr_tox(casrn, verbose = TRUE)
+extr_tox(casrn, verbose = TRUE, force = TRUE)
 }
 \arguments{
-\item{casrn}{A character vector of CAS Registry Numbers (CASRN) representing the chemicals of interest.}
+\item{casrn}{A character vector of CAS Registry Numbers (CASRN) representing
+the chemicals of interest.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
+
+\item{force}{Logical indicating whether to force a fresh download of the EPA
+PPRTV database. Default is TRUE.}
 }
 \value{
-A list of data frames containing toxicological information retrieved from each database:
+A list of data frames containing toxicological information retrieved
+from each database:
 \describe{
-\item{who_iarc_monographs}{Lists if any, the WHO IARC monographs related to that chemical.}
-\item{ghs_dat}{Toxicity data from PubChem's Globally Harmonized System (GHS) classification.}
-\item{ice_dat}{Assay data from the Integrated Chemical Environment (ICE) database.}
+\item{who_iarc_monographs}{Lists if any, the WHO IARC monographs related
+to that chemical.}
+\item{pprtv}{Risk assessment data from the EPA PPRTV}
+\item{ghs_dat}{Toxicity data from PubChem's Globally Harmonized System (GHS)
+classification.}
+\item{ice_dat}{Assay data from the Integrated Chemical Environment (ICE)
+database.}
 \item{iris}{Risk assessment data from the IRIS database.}
-\item{iris}{Risk assessment data from the IRIS database.}
-\item{comptox_list}{List of dataframe with toxicity information from the CompTox Chemicals Dashboard.}
+\item{comptox_list}{List of dataframe with toxicity information
+from the CompTox Chemicals Dashboard.}
 }
 }
 \description{
-This wrapper function retrieves toxicological information for specified chemicals by calling several external
-functions to query multiple databases, including PubChem, the Integrated Chemical Environment (ICE), CompTox
-Chemicals Dashboard, and the Integrated Risk Information System (IRIS).
+This wrapper function retrieves toxicological information for specified chemicals
+by calling several external functions to query multiple databases, including PubChem,
+the Integrated Chemical Environment (ICE), CompTox Chemicals Dashboard,
+and the Integrated Risk Information System (IRIS) and other.
 }
 \details{
 Specifically, this function:
 \itemize{
-\item Calls \code{\link{extr_monograph}} to return monographs informations from WHO IARC.
-\item Calls \code{\link{extr_pubchem_ghs}} to retrieve GHS classification data from PubChem.
+\item Calls \code{\link{extr_monograph}} to return monographs informations
+from WHO IARC.
+\item Calls \code{\link{extr_pubchem_ghs}} to retrieve GHS classification
+data from PubChem.
 \item Calls \code{\link{extr_ice}} to gather assay data from the ICE database.
-\item Calls \code{\link{extr_iris}} to retrieve risk assessment information from the IRIS database.
-\item Calls \code{\link{extr_comptox}} to retrieve data from the CompTox Chemicals Dashboard.
+\item Calls \code{\link{extr_iris}} to retrieve risk assessment information
+from the IRIS database.
+\item Calls \code{\link{extr_comptox}} to retrieve data from the CompTox
+Chemicals Dashboard.
 }
 }
 \examples{

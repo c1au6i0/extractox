@@ -19,11 +19,15 @@ extr_ctd(
 \arguments{
 \item{input_terms}{A character vector of input terms such as CAS numbers or IUPAC names.}
 
-\item{category}{A string specifying the category of data to query. Valid options are "all", "chem", "disease", "gene", "go", "pathway", "reference", and "taxon". Default is "chem".}
+\item{category}{A string specifying the category of data to query. Valid options
+are "all", "chem", "disease", "gene", "go", "pathway", "reference", and "taxon".
+Default is "chem".}
 
-\item{report_type}{A string specifying the type of report to return. Default is "genes_curated". Valid options include:
+\item{report_type}{A string specifying the type of report to return. Default is
+"genes_curated". Valid options include:
 \describe{
-\item{"cgixns"}{Curated chemical-gene interactions. Requires at least one \code{action_types} parameter.}
+\item{"cgixns"}{Curated chemical-gene interactions. Requires at least one
+\code{action_types} parameter.}
 \item{"chems"}{All chemical associations.}
 \item{"chems_curated"}{Curated chemical associations.}
 \item{"chems_inferred"}{Inferred chemical associations.}
@@ -38,21 +42,29 @@ extr_ctd(
 \item{"pathways_enriched"}{Enriched pathway associations.}
 \item{"phenotypes_curated"}{Curated phenotype associations.}
 \item{"phenotypes_inferred"}{Inferred phenotype associations.}
-\item{"go"}{All Gene Ontology (GO) associations. Requires at least one \code{ontology} parameter.}
-\item{"go_enriched"}{Enriched GO associations. Requires at least one \code{ontology} parameter.}
+\item{"go"}{All Gene Ontology (GO) associations. Requires at least one
+\code{ontology} parameter.}
+\item{"go_enriched"}{Enriched GO associations. Requires at least one
+\code{ontology} parameter.}
 }}
 
-\item{input_term_search_type}{A string specifying the search method to use. Options are "hierarchicalAssociations" or "directAssociations". Default is "directAssociations".}
+\item{input_term_search_type}{A string specifying the search method to use.
+Options are "hierarchicalAssociations" or "directAssociations". Default is
+"directAssociations".}
 
-\item{action_types}{An optional character vector specifying one or more interaction types for filtering results. Default is "ANY".
-Other acceptable inputs are "abundance", "activity", "binding", "cotreatment", "expression", "folding", "localization", "metabolic processing"...See https://ctdbase.org/tools/batchQuery.go
-for a full list.}
+\item{action_types}{An optional character vector specifying one or more interaction
+types for filtering results. Default is "ANY".
+Other acceptable inputs are "abundance", "activity", "binding", "cotreatment",
+"expression", "folding", "localization", "metabolic processing"...
+See https://ctdbase.org/tools/batchQuery.go for a full list.}
 
-\item{ontology}{An optional character vector specifying one or more ontologies for filtering GO reports. Default NULL.}
+\item{ontology}{An optional character vector specifying one or more ontologies
+for filtering GO reports. Default NULL.}
 
 \item{verify_ssl}{Boolean to control of SSL should be verified or not.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
 
 \item{...}{Any other arguments to be supplied to \code{req_option} and thus to \code{libcurl}.}
 }
@@ -88,8 +100,10 @@ str(dat2)
 }
 \references{
 \itemize{
-\item Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R., Wiegers, T. C., & Mattingly, C. J. (2019).
-The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47(D1), D948–D954. \doi{10.1093/nar/gky868}
+\item Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R.,
+Wiegers, T. C., & Mattingly, C. J. (2019).
+The Comparative Toxicogenomics Database: update 2019. Nucleic acids research,
+47(D1), D948–D954. \doi{10.1093/nar/gky868}
 }
 }
 \seealso{

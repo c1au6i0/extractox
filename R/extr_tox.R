@@ -59,16 +59,20 @@ extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
 
   iris_filt <- extr_iris(casrn = casrn, verbose = verbose)
 
-  extracted_monographs <- extr_monograph(ids = casrn, search_type = "casrn",
-                                         verbose = verbose)
+  extracted_monographs <- extr_monograph(
+    ids = casrn, search_type = "casrn",
+    verbose = verbose
+  )
 
   extracted_pprtv <- extr_pprtv(ids = casrn, verbose = verbose)
 
-  list_1 <- list(who_iarc_monographs = extracted_monographs,
-                 pprtv = extracted_pprtv,
-                 ghs_dat = ghs_dat,
-                 iris = iris_filt,
-                 ice = ice_dat)
+  list_1 <- list(
+    who_iarc_monographs = extracted_monographs,
+    pprtv = extracted_pprtv,
+    ghs_dat = ghs_dat,
+    iris = iris_filt,
+    ice = ice_dat
+  )
   out <- c(list_1, comptox_list)
   out
 }

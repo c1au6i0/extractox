@@ -22,6 +22,7 @@
 #'   This is was introduced for debugging purposes.
 #' @return A data frame with extracted information matching the specified
 #'   identifiers, or NULL if no matches are found.
+#' @seealso \href{https://www.epa.gov/pprtv/provisional-peer-reviewed-toxicity-values-pprtvs-assessments}{EPA PPRTVs}
 #' @export
 #' @examples
 #' \donttest{

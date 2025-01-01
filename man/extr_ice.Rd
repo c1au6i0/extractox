@@ -31,7 +31,7 @@ information based on specified chemical IDs and assays.
 }
 \examples{
 \donttest{
-extr_ice(c("50-00-0"))
+extr_ice(casrn = c("50-00-0"))
 }
 }
 \seealso{

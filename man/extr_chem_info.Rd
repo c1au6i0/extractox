@@ -10,14 +10,17 @@ extr_chem_info(iupac_names, verbose = TRUE)
 \item{iupac_names}{A character vector of IUPAC names. These are standardized names
 of chemical compounds that will be used to search in the PubChem database.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
 }
 \value{
-A data frame with information on the queried compounds, including:
+A data frame with phisio-chemical information on the queried compounds,
+including but not limited to:
 \describe{
 \item{iupac_name}{The IUPAC name of the compound.}
 \item{cid}{The PubChem Compound Identifier (CID).}
-\item{isomeric_smiles}{The SMILES string (Simplified Molecular Input Line Entry System).}
+\item{isomeric_smiles}{The SMILES string (Simplified Molecular Input Line
+Entry System).}
 }
 }
 \description{

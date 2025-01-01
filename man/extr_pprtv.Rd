@@ -50,8 +50,10 @@ with_extr_sandbox({ # this is to write on tempdir as for CRAN policies
   extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
 
   # Extract data for a chemical name
-  extr_pprtv(ids = "Acrolein", search_type = "name", verbose = TRUE,
-  force = FALSE)
+  extr_pprtv(
+    ids = "Acrolein", search_type = "name", verbose = TRUE,
+    force = FALSE
+  )
 
   # Extract data for multiple identifiers
   extr_pprtv(
@@ -62,4 +64,7 @@ with_extr_sandbox({ # this is to write on tempdir as for CRAN policies
   )
 })
 }
+}
+\seealso{
+\href{https://www.epa.gov/pprtv/provisional-peer-reviewed-toxicity-values-pprtvs-assessments}{EPA PPRTVs}
 }

@@ -10,7 +10,8 @@ extr_casrn_from_cid(pubchem_ids, verbose = TRUE)
 \item{pubchem_ids}{A numeric vector of PubChem CIDs. These are unique identifiers
 for chemical compounds in the PubChem database.}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
 }
 \value{
 A data frame containing the CID, CASRN, and IUPAC name of the compound.
@@ -24,7 +25,8 @@ The returned data frame includes three columns:
 }
 \description{
 This function retrieves the CASRN for a given set of PubChem Compound Identifiers (CID).
-It queries PubChem through the \code{webchem} package and extracts the CASRN from the depositor-supplied synonyms.
+It queries PubChem through the \code{webchem} package and extracts the CASRN from
+the depositor-supplied synonyms.
 }
 \examples{
 \donttest{
