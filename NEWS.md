@@ -1,57 +1,48 @@
-
-# extractox 0.2.0 (dev)
+# extractox 0.2.0
 
 ## Bug Fixes
-* Fixed `extr_iris` extracts the correct number of chemicals with no repetition 
-   (#15}.
-* Fixed `extr_comtox` works when a single `download_items` different than 
-   `DTXCID` is selected (#17).
-* Fixed `extr_casrn_from_cid`: when no results function was faling.
+* Fixed `extr_iris` extracting the correct number of chemicals without 
+  repetition (#15).
+* Fixed `extr_comtox` working when a single `download_items` different from 
+  `DTXCID` is selected (#17).
+* Fixed `extr_casrn_from_cid` failure when no results are found.
 
 ## New Features
-* `extr_ice_assay_names` retrieves ice assay names (#16).
-* `extr_monograph` checks if a substance is listed in WHO IARC monograph and 
-   returns the details of it (#19).
-* `extr_pprtv` extracts information from EPA Provisional Peer-Reviewed Toxicity Values 
-   database (#20). Since the all file of chemicals need to be dowloaded, the
-   functions `save_to_cache` and `load_from_cache`, have been introduced to
-   avoid re-downloading the file at each function call. See argument `force`.
+* Added `extr_ice_assay_names` to retrieve ICE assay names (#16).
+* Added `extr_monograph` to check if a substance is listed in WHO IARC 
+  monograph and return its details (#19).
+* Added `extr_pprtv` to extract information from the EPA Provisional 
+  Peer-Reviewed Toxicity Values database (#20). Introduced `save_to_cache` 
+  and `load_from_cache` functions to avoid re-downloading the file each time. 
+  See `force` argument.
 
 ## Other Breaking Changes
-* The argument `cancer_types` in `extr_iris` has been removed. The database returns
-   a dataframe with different columns depending on the request args, and implementing
-   a way around that is much more tedious than just filter the resulting dataframe
-   after. Plus it's unlikely that someone wouldn't want to know other non-cancer
-   tox assessments types.
-*  `extr_casrn_from_cid` lost the argument `stop_at_warning`. To be consistent
-   with other functions now it warns and returns a data.frame with NA if no 
-   ids are found.
-*  `extr_tox`  returns a longer list of dataframes, the outputs of `extr_monograph` and
-   `extr_pprtv`.
+* Removed `cancer_types` argument from `extr_iris`. Database returns a 
+  dataframe with different columns based on `request` arguments.
+* Removed `stop_at_warning` argument from `extr_casrn_from_cid`. Now warns 
+  and returns a dataframe with NA if no IDs are found.
+* `extr_tox` now returns a longer list of dataframes, including the outputs 
+  of `extr_monograph` and `extr_pprtv`.
 
 ## Enhancements and Fixes
-* All the `extr_` functions have gained a `verbose` argument (#18).
-* All the `extr_` functions now behave similarly when ids are not founds 
-  (#30, #31, #32, #33, #34, #35): 
-   
-   - for all the functions but `extr_comptox`, a  column `query` reports the ids searched. 
-     For `extr_comptox` that info  can be found in the the element `main_sheet` of
-     the result. Note that for `extr_ice` given the nature of the request
-     the `query` values contains all the ids found (not single id).
-   - now the results  contains rows with NAs values for all columns except
-     `query`.
-   - Note that `exptr_pprtv` and `extr_monograph` use the internal function
-      `save_and_match` to output results that have NAs for missing ids.
-     
-* All unit tests have been improved and extended.
-* Fixed `extr_comptox` now outputs a list of dataframes with "clean" names.
-* Fixed `extr_ctd` names: column `pub_med_ids` or `pub_med_i_ds` are now `pubmed_ids`.
-* Enhancement: An internal function `extr_pubchem_section_` is used to fetch 
-   both FEMA and GHS to avoid repeated code.
-* Enhancement: The internal function `check_na_warn` has been introduced to generate
-   warnings for missing ids.
-* Enhancement: `with_extr_sandbox` has been created to handle cache for CRAN
-   examples
+* Added `verbose` argument to all `extr_` functions (#18).
+* Unified behavior across all `extr_` functions when chemicals are not found 
+  (#30-#35):
+   - For all functions except `extr_comptox`, a `query` column reports the IDs 
+     searched. In `extr_comptox`, this info is in the `main_sheet` element. For 
+     `extr_ice`, `query` values contain all IDs found.
+   - Results now contain rows with NA values for all columns except `query`.
+   - `extr_pprtv` and `extr_monograph` use `save_and_match` to output results 
+     with NA for missing IDs.
+* Improved and extended all unit tests.
+* `extr_comptox` now outputs a list of dataframes with clean names.
+* Fixed `extr_ctd` column names: `pub_med_ids` or `pub_med_i_ds` are now 
+  `pubmed_ids`.
+* Introduced `extr_pubchem_section_` internal function to fetch FEMA and GHS 
+  info, avoiding repeated code.
+* Introduced `check_na_warn` internal function to generate warnings for 
+  missing IDs.
+* Created `with_extr_sandbox` to handle cache for CRAN examples.
 
 
 # extractox 0.1.0

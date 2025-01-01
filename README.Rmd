@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
-[![DEV version](https://img.shields.io/badge/devel%20version-0.1.9001-blue.svg)](https://github.com/c1au6i0/extractox)
+[![DEV version](https://img.shields.io/badge/devel%20version-0.1.9003-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying various chemical, toxicological, and biological databases such as the Comparative Toxicogenomics Database (CTP) of the  MDI Biological Laboratory and NC State University, the Integrated Chemical Environment (ICE) of the National Toxicology Program (NTP), the Integrated Risk Information System (IRIS) of the Environmental Protection Agency (EPA), the CompTox Chemicals Dashboard Resource Hub (CompTox) of EPA, and PubChem of the National Center for Biotechnology Information/National Institures Of Health (NCBI, NIH). The package facilitates interaction with APIs, providing curated and user-friendly outputs.
@@ -130,7 +130,7 @@ A series of functions that rely on the `webchem` package are used to extract che
 The function `extr_chem_info` retrieves chemical information of IUPAC-named chemicals. A warning is displayed if the chemical is not found.
 
 ```{r}
-chem_info <- extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
+chem_info <- extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 names(chem_info)
 ```
 
@@ -190,6 +190,10 @@ names(ctd_expression)
 Tetramers are computationally generated information units that interrelate four data types from the CTP: a chemical, gene product, phenotype, and disease. They help in understanding the complex relationships between these entities and their combined impact on human health.
 
 `extr_tetramer` extract info related to tetramers from CTD.
+
+```{r echo=FALSE}
+Sys.sleep(3)
+```
 
 ```{r}
 tetramer_data <- extr_tetramer(
