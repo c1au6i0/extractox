@@ -43,7 +43,7 @@
 #' extr_tox(casrn = c("100-00-5", "107-02-8"))
 #' }
 extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
-  if (missing(casrn)) {
+  if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 

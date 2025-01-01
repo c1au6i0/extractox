@@ -4,7 +4,7 @@
 #' using the `.rds` file format. If a file with the same name already exists in the cache,
 #' it will be overwritten.
 #'
-#' @param obj Any R object to be saved.
+#' @param dat Any R object to be saved.
 #' @param file_name A character string specifying the name of the file (without extension).
 #' @param verbose A logical value indicating whether to print detailed messages. Default is FALSE.
 #' @return Invisibly returns the full path of the saved file.
@@ -12,8 +12,16 @@
 #' for the `extractox` package. If the directory does not exist, it is created automatically.
 #' The function will overwrite any existing file with the same name.
 #' @noRd
-save_to_cache <- function(obj, file_name, verbose = FALSE) {
+save_to_cache <- function(dat, file_name, verbose = FALSE) {
   # Sys.getenv("R_USER_CACHE_DIR")
+
+  if (base::missing(dat)) {
+    cli::cli_abort("The argument {.field {dat}} is required.")
+  }
+
+  if (base::missing(file_name)) {
+    cli::cli_abort("The argument {.field {file_name}} is required.")
+  }
 
   cache_dir <- tools::R_user_dir("extractox", which = "cache")
   cache_dir <- normalizePath(cache_dir, mustWork = FALSE)
@@ -22,17 +30,19 @@ save_to_cache <- function(obj, file_name, verbose = FALSE) {
     dir.create(cache_dir, recursive = TRUE)
   }
 
+  browser()
+
   file_path <- fs::path(cache_dir, file_name)
 
   if (all(file.exists(file_path), verbose)) {
     cli::cli_alert_info("Overwriting cache.")
   } else {
     if (isTRUE(verbose)) {
-      cli::cli_alert_info("Saving data in the cache.")
+      cli::cli_alert_info("Saving data in the cache {.path {file_path}}.")
     }
   }
 
-  saveRDS(obj, file_path)
+  saveRDS(dat, file_path)
 
   invisible(file_path)
 }

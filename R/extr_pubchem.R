@@ -64,7 +64,7 @@ create_na_df <- function(missing_chem) {
 #' extr_casrn_from_cid(cids)
 #' }
 extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
-  if (missing(pubchem_ids)) {
+  if (base::missing(pubchem_ids)) {
     cli::cli_abort("The argument {.field pubchem_ids} is required.")
   }
   check_internet(verbose = verbose)
@@ -124,7 +124,7 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 #' extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
 extr_chem_info <- function(iupac_names, verbose = TRUE) {
-  if (missing(iupac_names)) {
+  if (base::missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
 
@@ -227,7 +227,7 @@ extr_pubchem_ghs <- function(casrn, verbose = TRUE) {
 #' @keywords internal
 #' @noRd
 extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
-  if (missing(casrn)) {
+  if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 

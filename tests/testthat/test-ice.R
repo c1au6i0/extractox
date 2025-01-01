@@ -16,6 +16,8 @@ Sys.sleep(4)
 
 test_that("extr_ice fetches data for CASRN 50-00-0", {
   skip_on_cran()
+  skip_if_offline()
+
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
 
   expect_warning({
@@ -34,6 +36,7 @@ Sys.sleep(3)
 
 test_that("extr_ice generate results with 1 casrn", {
   skip_on_cran()
+  skip_if_offline()
 
   ids_search <- c("bella")
 
@@ -49,6 +52,7 @@ test_that("extr_ice generate results with 1 casrn", {
 
 test_that("extr_ice generate results with 2 casrn", {
   skip_on_cran()
+  skip_if_offline()
 
   ids_search <- c("bella", "ciao")
 

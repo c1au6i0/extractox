@@ -15,6 +15,8 @@ col_names <- c("who_iarc_monographs", "pprtv", "ghs_dat", "iris", "ice",
 
 test_that("extr_tox fetches data for CASRN 50-00-0 and warn", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_no_warning({
   out <- extr_tox(casrn = c("50-00-0", "ciao"), verbose = FALSE)
   })

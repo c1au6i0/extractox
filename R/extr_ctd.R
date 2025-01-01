@@ -85,7 +85,7 @@ extr_ctd <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  if (missing(input_terms)) {
+  if (base::missing(input_terms)) {
     cli::cli_abort("The argument {.field {input_terms}} is required.")
   }
 
@@ -224,7 +224,7 @@ extr_tetramer <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  if (missing(chem)) {
+  if (base::missing(chem)) {
     cli::cli_abort("The argument {.field {chem}} is required.")
   }
 

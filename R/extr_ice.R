@@ -27,7 +27,7 @@ extr_ice <- function(casrn,
                      verify_ssl = FALSE,
                      verbose = TRUE,
                      ...) {
-  if (missing(casrn)) {
+  if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 

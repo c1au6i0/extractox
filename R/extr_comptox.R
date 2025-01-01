@@ -212,7 +212,7 @@ extr_comptox <- function(ids,
                          verify_ssl = FALSE,
                          verbose = TRUE,
                          ...) {
-  if (missing(ids)) {
+  if (base::missing(ids)) {
     cli::cli_abort("The argument {.field ids} is required.")
   }
 
