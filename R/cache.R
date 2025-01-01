@@ -30,8 +30,6 @@ save_to_cache <- function(dat, file_name, verbose = FALSE) {
     dir.create(cache_dir, recursive = TRUE)
   }
 
-  browser()
-
   file_path <- fs::path(cache_dir, file_name)
 
   if (all(file.exists(file_path), verbose)) {
@@ -59,6 +57,11 @@ save_to_cache <- function(dat, file_name, verbose = FALSE) {
 #' for the `extractox` package. If the file does not exist, a message is printed if verbose is TRUE.
 #' @noRd
 read_from_cache <- function(file_name, verbose = FALSE) {
+
+  if (base::missing(file_name)) {
+    cli::cli_abort("The argument {.field {file_name}} is required.")
+  }
+
   cache_dir <- tools::R_user_dir("extractox", which = "cache")
   cache_dir <- normalizePath(cache_dir, mustWork = FALSE)
   file_path <- fs::path(cache_dir, file_name)
@@ -90,6 +93,11 @@ read_from_cache <- function(file_name, verbose = FALSE) {
 #' with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
 #' with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
 with_extr_sandbox <- function(code, temp_dir = tempdir()) {
+
+  if (base::missing(code)) {
+    cli::cli_abort("The argument {.field {file_name}} is required.")
+  }
+
   withr::with_envvar(
     new = c("R_USER_CACHE_DIR" = temp_dir),
     code = {
