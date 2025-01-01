@@ -2,8 +2,8 @@
 #'
 #' Extracts data for specified identifiers (CASRN or chemical names) from the EPA's
 #' Provisional Peer-Reviewed Toxicity Values (PPRTVs) database. The function
-#'   retrieves and processes data, with options to use cached files or force a
-#'   fresh download.
+#' retrieves and processes data, with options to use cached files or force a
+#' fresh download.
 #'
 #' @param ids Character vector of identifiers to search (e.g., CASRN or chemical
 #'   names).
@@ -13,7 +13,6 @@
 #'   partial match search for the chemical name. NOTE: Since partial mached is
 #'   use, multiple seraches might match the same chemical, therefore chemical ids
 #'   might not be  uniques.
-#'
 #' @param verbose Logical indicating whether to display progress messages.
 #'   Default is TRUE.
 #' @param force Logical indicating whether to force a fresh download of the

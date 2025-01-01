@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' \donttest{
-#' extr_iris(c("1332-21-4", "50-00-0"))
+#' extr_iris(casrn = c("1332-21-4", "50-00-0"))
 #' }
 extr_iris <- function(casrn = NULL, verbose = TRUE) {
   cancer_types <- c("non_cancer", "cancer")
