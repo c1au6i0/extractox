@@ -9,7 +9,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
 [![DEV
-version](https://img.shields.io/badge/devel%20version-0.1.9001-blue.svg)](https://github.com/c1au6i0/extractox)
+version](https://img.shields.io/badge/devel%20version-0.1.9003-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying
@@ -69,14 +69,14 @@ ice_data <- extr_ice(casrn = c("50-00-0"), assays = NULL) # assays is null so al
 #> ℹ Sending request to ICE database...
 #> ℹ Request succeeded with status code: 200
 names(ice_data)
-#>  [1] "assay"              "endpoint"           "substanceType"     
-#>  [4] "casrn"              "qsarReadyId"        "value"             
-#>  [7] "unit"               "species"            "receptorSpecies"   
-#> [10] "route"              "sex"                "strain"            
-#> [13] "lifeStage"          "tissue"             "lesion"            
-#> [16] "location"           "assaySource"        "inVitroAssayFormat"
-#> [19] "reference"          "referenceUrl"       "dtxsid"            
-#> [22] "substanceName"      "pubMedId"
+#>  [1] "assay"                 "endpoint"              "substance_type"       
+#>  [4] "casrn"                 "qsar_ready_id"         "value"                
+#>  [7] "unit"                  "species"               "receptor_species"     
+#> [10] "route"                 "sex"                   "strain"               
+#> [13] "life_stage"            "tissue"                "lesion"               
+#> [16] "location"              "assay_source"          "in_vitro_assay_format"
+#> [19] "reference"             "reference_url"         "dtxsid"               
+#> [22] "substance_name"        "pubmed_id"             "query"
 ```
 
 There are more than **2000 possible assays** in ICE. The
@@ -90,7 +90,7 @@ extr_ice_assay_names("Rat Acute") # keep empty to retrieve all
 #> [3] "Rat Acute Dermal Toxicity"       "CATMoS, Rat Acute Oral Toxicity"
 ```
 
-### IRIS
+### EPA IRIS
 
 The IRIS database is managed by the EPA and contains information on the
 health effects of exposure to various substances found in the
@@ -108,11 +108,56 @@ iris_info <- extr_iris(c("glyphosate", "50-00-0"))
 #> ℹ Request succeeded with status code: 200
 #> ℹ Quering 50-00-0 to EPA IRIS database...
 #> ℹ Request succeeded with status code: 200
+#> Warning: Chemical glyphosate not found!
 names(iris_info)
 #> [1] "chemical_name"                 "casrn"                        
 #> [3] "exposure_route"                "assessment_type"              
 #> [5] "critical_effect_or_tumor_type" "woe_characterization"         
-#> [7] "toxicity_value_type"           "toxicity_value"
+#> [7] "toxicity_value_type"           "toxicity_value"               
+#> [9] "query"
+```
+
+### EPA PPRTVs
+
+The `extr_pprtv` function allows you to extract data for specified
+identifiers (CASRN or chemical names) from the EPA’s Provisional
+Peer-Reviewed Toxicity Values (PPRTVs) database. This function retrieves
+and processes data, with options to use cached files or force a fresh
+download if necessary.
+
+``` r
+# Example usage to extract data for a specific CASRN
+extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> ℹ Downloading data from <https://cfpub.epa.gov/ncea/pprtv/atoz.cfm>.
+#> ℹ Overwriting cache.
+#> ℹ Extracting EPA PPRTVs.
+#>   pprtv_substance_id chemical    casrn last_revision
+#> 1               1555 Acrolein 107-02-8          2002
+#>                                          pprtv_assessment
+#> 1 https://cfpub.epa.gov/ncea/pprtv/documents/Acrolein.pdf
+#>                                                                 iris_link
+#> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364
+#>   rf_c_value rf_d_value           woe     date_downloaded    query
+#> 1   See IRIS   See IRIS Not available 2025-01-01 16:11:39 107-02-8
+
+# Example usage to extract data for a chemical name
+extr_pprtv(ids = "Acrolein", search_type = "name", verbose = TRUE, force = FALSE)
+#> ✔ Successfully load. 'epa_pprtvs.rds' from cache.
+#> ℹ Cache date 2025-01-01 16:11:39.
+#> ℹ Set `force = TRUE` to force download from EPA.
+#> ℹ Extracting EPA PPRTVs.
+#>   pprtv_substance_id chemical    casrn last_revision
+#> 1               1555 Acrolein 107-02-8          2002
+#>                                          pprtv_assessment
+#> 1 https://cfpub.epa.gov/ncea/pprtv/documents/Acrolein.pdf
+#>                                                                 iris_link
+#> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364
+#>   rf_c_value rf_d_value           woe     date_downloaded    query
+#> 1   See IRIS   See IRIS Not available 2025-01-01 16:11:39 Acrolein
 ```
 
 ### CompTox
@@ -158,7 +203,7 @@ dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"))
 #> ℹ Extracting WHO IARC monographs...
 #> Last updated: 2024-11-29 5:08pm (CET)
 str(dat)
-#> 'data.frame':    2 obs. of  7 variables:
+#> 'data.frame':    2 obs. of  8 variables:
 #>  $ casrn                  : chr  "105-74-8" "120-58-1"
 #>  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"
 #>  $ group                  : chr  "3" "3"
@@ -166,11 +211,86 @@ str(dat)
 #>  $ volume_publication_year: chr  "1999" "1987"
 #>  $ evaluation_year        : int  1998 1987
 #>  $ additional_information : chr  "" ""
+#>  $ query                  : chr  "105-74-8" "120-58-1"
 
 # Example usage for name search
 dat2 <- extr_monograph(search_type = "name", ids = c("Aloe", "Schistosoma", "Styrene"))
 #> ℹ Extracting WHO IARC monographs...
 #> Last updated: 2024-11-29 5:08pm (CET)
+```
+
+### PubChem Database
+
+PubChem is an open chemistry database at the NIH. It provides
+information on chemical structures, identifiers, chemical and physical
+properties, biological activities, safety and toxicity information,
+patents, literature citations, and more.
+
+A series of functions that rely on the `webchem` package are used to
+extract chemical information, Globally Harmonized System (`GHS`)
+classification data, or flavor classification from PubChem.
+
+The function `extr_chem_info` retrieves chemical information of
+IUPAC-named chemicals. A warning is displayed if the chemical is not
+found.
+
+``` r
+chem_info <- extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> Querying Formaldehyde. OK (HTTP 200).
+#> Querying Aflatoxin B1. OK (HTTP 200).
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> ℹ Querying pubchem_ids.
+names(chem_info)
+#>  [1] "cid"                         "iupac_name"                 
+#>  [3] "casrn"                       "cid_all"                    
+#>  [5] "casrn_all"                   "molecular_formula"          
+#>  [7] "molecular_weight"            "canonical_smiles"           
+#>  [9] "isomeric_smiles"             "inchi"                      
+#> [11] "inchi_key"                   "iupac_name"                 
+#> [13] "x_log_p"                     "exact_mass"                 
+#> [15] "monoisotopic_mass"           "tpsa"                       
+#> [17] "complexity"                  "charge"                     
+#> [19] "h_bond_donor_count"          "h_bond_acceptor_count"      
+#> [21] "rotatable_bond_count"        "heavy_atom_count"           
+#> [23] "isotope_atom_count"          "atom_stereo_count"          
+#> [25] "defined_atom_stereo_count"   "undefined_atom_stereo_count"
+#> [27] "bond_stereo_count"           "defined_bond_stereo_count"  
+#> [29] "undefined_bond_stereo_count" "covalent_unit_count"        
+#> [31] "volume3d"                    "x_steric_quadrupole3d"      
+#> [33] "y_steric_quadrupole3d"       "z_steric_quadrupole3d"      
+#> [35] "feature_count3d"             "feature_acceptor_count3d"   
+#> [37] "feature_donor_count3d"       "feature_anion_count3d"      
+#> [39] "feature_cation_count3d"      "feature_ring_count3d"       
+#> [41] "feature_hydrophobe_count3d"  "conformer_model_rmsd3d"     
+#> [43] "effective_rotor_count3d"     "conformer_count3d"          
+#> [45] "fingerprint2d"               "query"
+```
+
+Two functions are used to extract specific sections of PubChem chemical
+information using CASRN:
+
+- `extr_pubchem_ghs` extracts Globally Harmonized System (GHS) codes.
+- `extr_pubchem_fema` extracts flavor profile data.
+
+``` r
+ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> Querying 50-00-0. OK (HTTP 200).
+#> Querying 712. OK (HTTP 200).
+#> Querying 64-17-5. OK (HTTP 200).
+#> Querying 702. OK (HTTP 200).
+fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"))
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> Querying 50-00-0. OK (HTTP 200).
+#> Querying 712. Not Found (HTTP 404).
+#> Warning: FEMA Flavor Profile for 50-00-0 not found!
+#> Querying 123-68-2. OK (HTTP 200).
+#> Querying 31266. OK (HTTP 200).
 ```
 
 ### Tox Info
@@ -182,10 +302,8 @@ above-mentioned functions and retrieve a list of dataframes.
 info_tox <- extr_tox(casrn = c("Aspirin", "50-00-0"))
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
-#> ℹ Getting PubChem IDS...
 #> Querying Aspirin. OK (HTTP 200).
 #> Querying 2244. OK (HTTP 200).
-#> ℹ Getting PubChem IDS...
 #> Querying 50-00-0. OK (HTTP 200).
 #> Querying 712. OK (HTTP 200).
 #> ℹ Checking Internet Connection...
@@ -198,14 +316,25 @@ info_tox <- extr_tox(casrn = c("Aspirin", "50-00-0"))
 #> ℹ Internet connection OK...
 #> ℹ Sending request to ICE database...
 #> ℹ Request succeeded with status code: 200
+#> Warning: Chemical Aspirin not found!
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
 #> ℹ Quering Aspirin to EPA IRIS database...
 #> ℹ Request succeeded with status code: 200
 #> ℹ Quering 50-00-0 to EPA IRIS database...
 #> ℹ Request succeeded with status code: 200
+#> Warning: Chemical Aspirin not found!
 #> ℹ Extracting WHO IARC monographs...
 #> Last updated: 2024-11-29 5:08pm (CET)
+#> Warning: Chemical Aspirin not found!
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> ℹ Checking Internet Connection...
+#> ℹ Internet connection OK...
+#> ℹ Downloading data from <https://cfpub.epa.gov/ncea/pprtv/atoz.cfm>.
+#> ℹ Overwriting cache.
+#> ℹ Extracting EPA PPRTVs.
+#> Warning: Chemicals 50-00-0 and Aspirin not found!
 ```
 
 ### CTD Database
@@ -248,10 +377,9 @@ ctd_expression <- extr_ctd(
 #> ℹ Request succeeded with status code: 200
 
 names(ctd_expression)
-#>  [1] "x_input"             "chemical_name"       "chemical_id"        
-#>  [4] "cas_rn"              "gene_symbol"         "gene_id"            
-#>  [7] "organism"            "organism_id"         "interaction"        
-#> [10] "interaction_actions" "pub_med_i_ds"
+#>  [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  
+#>  [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   
+#>  [9] "query"         NA              NA
 ```
 
 Tetramers are computationally generated information units that
@@ -273,90 +401,16 @@ tetramer_data <- extr_tetramer(
 )
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
-#> ℹ Sending request to CTD database for tetramer data for 50-00-0...
+#> ℹ Sending request to CTD database for tetramer data for
+#> 50-00-0...
 #> ℹ Request succeeded with status code: 200
-#> ℹ Sending request to CTD database for tetramer data for ethanol...
+#> ℹ Sending request to CTD database for tetramer data for
+#> ethanol...
 #> ℹ Request succeeded with status code: 200
 
 names(tetramer_data)
-#> [1] "query"        "chemical"     "chemical_id"  "gene"         "gene_id"     
-#> [6] "phenotype"    "phenotype_id" "disease"      "disease_id"
-```
-
-### PubChem Database
-
-PubChem is an open chemistry database at the NIH. It provides
-information on chemical structures, identifiers, chemical and physical
-properties, biological activities, safety and toxicity information,
-patents, literature citations, and more.
-
-A series of functions that rely on the `webchem` package are used to
-extract chemical information, Globally Harmonized System (`GHS`)
-classification data, or flavor classification from PubChem.
-
-The function `extr_chem_info` retrieves chemical information of
-IUPAC-named chemicals. A warning is displayed if the chemical is not
-found.
-
-``` r
-chem_info <- extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
-#> ℹ Checking Internet Connection...
-#> ℹ Internet connection OK...
-#> Querying Formaldehyde. OK (HTTP 200).
-#> Querying Aflatoxin B1. OK (HTTP 200).
-#> ℹ Checking Internet Connection...
-#> ℹ Internet connection OK...
-#> ℹ Querying 712 and 186907.
-names(chem_info)
-#>  [1] "cid"                         "iupac_name"                 
-#>  [3] "cas_rn"                      "cid_all"                    
-#>  [5] "cas_rn_all"                  "molecular_formula"          
-#>  [7] "molecular_weight"            "canonical_smiles"           
-#>  [9] "isomeric_smiles"             "in_ch_i"                    
-#> [11] "in_ch_i_key"                 "iupac_name_y"               
-#> [13] "x_log_p"                     "exact_mass"                 
-#> [15] "monoisotopic_mass"           "tpsa"                       
-#> [17] "complexity"                  "charge"                     
-#> [19] "h_bond_donor_count"          "h_bond_acceptor_count"      
-#> [21] "rotatable_bond_count"        "heavy_atom_count"           
-#> [23] "isotope_atom_count"          "atom_stereo_count"          
-#> [25] "defined_atom_stereo_count"   "undefined_atom_stereo_count"
-#> [27] "bond_stereo_count"           "defined_bond_stereo_count"  
-#> [29] "undefined_bond_stereo_count" "covalent_unit_count"        
-#> [31] "volume3d"                    "x_steric_quadrupole3d"      
-#> [33] "y_steric_quadrupole3d"       "z_steric_quadrupole3d"      
-#> [35] "feature_count3d"             "feature_acceptor_count3d"   
-#> [37] "feature_donor_count3d"       "feature_anion_count3d"      
-#> [39] "feature_cation_count3d"      "feature_ring_count3d"       
-#> [41] "feature_hydrophobe_count3d"  "conformer_model_rmsd3d"     
-#> [43] "effective_rotor_count3d"     "conformer_count3d"          
-#> [45] "fingerprint2d"               "query"
-```
-
-Two functions are used to extract specific sections of PubChem chemical
-information using CASRN:
-
-- `extr_pubchem_ghs` extracts Globally Harmonized System (GHS) codes.
-- `extr_pubchem_fema` extracts flavor profile data.
-
-``` r
-ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
-#> ℹ Checking Internet Connection...
-#> ℹ Internet connection OK...
-#> ℹ Getting PubChem IDS...
-#> Querying 50-00-0. OK (HTTP 200).
-#> Querying 712. OK (HTTP 200).
-#> ℹ Getting PubChem IDS...
-#> Querying 64-17-5. OK (HTTP 200).
-#> Querying 702. OK (HTTP 200).
-fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"))
-#> ℹ Checking Internet Connection...
-#> ℹ Internet connection OK...
-#> Querying 50-00-0. OK (HTTP 200).
-#> Querying 712. Not Found (HTTP 404).
-#> ℹ FEMA for 50-00-0 not found!
-#> Querying 123-68-2. OK (HTTP 200).
-#> Querying 31266. OK (HTTP 200).
+#> [1] "chemical"     "chemical_id"  "gene"         "gene_id"      "phenotype"   
+#> [6] "phenotype_id" "disease"      "disease_id"   "query"
 ```
 
 ## Important Note for Linux Users
