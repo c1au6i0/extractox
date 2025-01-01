@@ -21,9 +21,10 @@ search_and_match(dat, ids, search_type, col_names, chemical_col = "chemical")
 A dataframe with search results.
 }
 \description{
-This function searches for matches in a dataframe based on a given list of ids and search type,
-then combines the results into a single dataframe, making sure that NA rows are added for any missing ids.
-The column \code{query} is a the end of the dataframe.
+This function searches for matches in a dataframe based on a given list of ids
+and search type, then combines the results into a single dataframe, making sure
+that NA rows are added for any missing ids. The column \code{query} is a the end of
+the dataframe.
 }
 \details{
 This function is used in \code{extr_pprtv} and \code{extr_monograph}.
@@ -31,3 +32,4 @@ This function is used in \code{extr_pprtv} and \code{extr_monograph}.
 \seealso{
 \code{\link{extr_pprtv}}, \code{\link{extr_monograph}}
 }
+\keyword{internal}

@@ -49,7 +49,8 @@ extr_ice <- function(casrn,
       httr2::request(base_url) |>
         httr2::req_retry(max_tries = 2, backoff = ~3) |>
         httr2::req_body_json(list(chemids = casrn, assays = assays),
-                             auto_unbox = FALSE) |>
+          auto_unbox = FALSE
+        ) |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_perform()
     },
@@ -69,8 +70,10 @@ extr_ice <- function(casrn,
     "reference_url", "dtxsid", "substance_name", "pubmed_id"
   )
 
-  out <- stats::setNames(as.data.frame(matrix(ncol = length(col_names), nrow = 0)),
-                         col_names)
+  out <- stats::setNames(
+    as.data.frame(matrix(ncol = length(col_names), nrow = 0)),
+    col_names
+  )
 
   # Parse the JSON content
   content <- tryCatch(

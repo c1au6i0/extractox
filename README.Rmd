@@ -69,7 +69,7 @@ extr_ice_assay_names("Rat Acute") # keep empty to retrieve all
 ```
 
 
-### IRIS
+### EPA IRIS
 
 The IRIS database is managed by the EPA and contains information on the health effects of exposure to various substances found in the environment. It provides qualitative and quantitative health risk information.
 
@@ -78,6 +78,19 @@ The IRIS database is managed by the EPA and contains information on the health e
 ```{r}
 iris_info <- extr_iris(c("glyphosate", "50-00-0"))
 names(iris_info)
+```
+
+
+### EPA PPRTVs
+
+The `extr_pprtv` function allows you to extract data for specified identifiers (CASRN or chemical names) from the EPA's Provisional Peer-Reviewed Toxicity Values (PPRTVs) database. This function retrieves and processes data, with options to use cached files or force a fresh download if necessary.
+
+```{r}
+# Example usage to extract data for a specific CASRN
+extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
+
+# Example usage to extract data for a chemical name
+extr_pprtv(ids = "Acrolein", search_type = "name", verbose = TRUE, force = FALSE)
 ```
 
 
@@ -99,13 +112,38 @@ The IARC Monographs database is managed by the World Health Organization (WHO) I
 
 The functione `extr_monograph` provides access to the WHO IARC Monographs database and accepts queries using CASRN or the names of chemicals.
 
-
 ```{r}
 dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"))
 str(dat)
 
 # Example usage for name search
 dat2 <- extr_monograph(search_type = "name", ids = c("Aloe", "Schistosoma", "Styrene"))
+```
+
+
+###  PubChem Database
+
+PubChem is an open chemistry database at the NIH. It provides information on chemical structures, identifiers, chemical and physical properties, biological activities, safety and toxicity information, patents, literature citations, and more.
+
+A series of functions that rely on the `webchem` package are used to extract chemical information, Globally Harmonized System (`GHS`) classification data, or flavor classification from PubChem.
+
+The function `extr_chem_info` retrieves chemical information of IUPAC-named chemicals. A warning is displayed if the chemical is not found.
+
+```{r}
+chem_info <- extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
+names(chem_info)
+```
+
+
+Two functions are used to extract specific sections of PubChem chemical information using CASRN:
+
+- `extr_pubchem_ghs` extracts Globally Harmonized System (GHS) codes.
+- `extr_pubchem_fema` extracts flavor profile data.
+
+
+```{r}
+ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
+fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"))
 ```
 
 
@@ -164,31 +202,6 @@ tetramer_data <- extr_tetramer(
 )
 
 names(tetramer_data)
-```
-
-###  PubChem Database
-
-PubChem is an open chemistry database at the NIH. It provides information on chemical structures, identifiers, chemical and physical properties, biological activities, safety and toxicity information, patents, literature citations, and more.
-
-A series of functions that rely on the `webchem` package are used to extract chemical information, Globally Harmonized System (`GHS`) classification data, or flavor classification from PubChem.
-
-The function `extr_chem_info` retrieves chemical information of IUPAC-named chemicals. A warning is displayed if the chemical is not found.
-
-```{r}
-chem_info <- extr_chem_info(IUPAC_names = c("Formaldehyde", "Aflatoxin B1"))
-names(chem_info)
-```
-
-
-Two functions are used to extract specific sections of PubChem chemical information using CASRN:
-
-- `extr_pubchem_ghs` extracts Globally Harmonized System (GHS) codes.
-- `extr_pubchem_fema` extracts flavor profile data.
-
-
-```{r}
-ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
-fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"))
 ```
 
 

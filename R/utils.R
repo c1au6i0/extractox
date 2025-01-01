@@ -85,7 +85,7 @@ download_db <- function(url,
 #' @param col_names Column names to be used when creating a new dataframe in case of no matches.
 #' @param chemical_col The name of the column in dat where chemical names are stored.
 #' @return A dataframe with search results.
-#' @internal
+#' @keywords internal
 #'
 #' @details This function is used in `extr_pprtv` and `extr_monograph`.
 #'

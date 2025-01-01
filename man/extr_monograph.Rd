@@ -29,8 +29,11 @@ A data frame containing the relevant information from the WHO IARC,
 .  and \code{additional_information} where the chemical was described.
 }
 \description{
-This function retrieves information regarding Monographs from the World Health Organization (WHO) International
-Agency for Research on Cancer (IARC)  based on CAS Registry Number or Name of the chemical.
+This function returns information regarding Monographs from the World Health
+Organization (WHO) International Agency for Research on Cancer (IARC)  based on
+CAS Registry Number or Name of the chemical. Note that the data is not fetched
+dynamically from the website, but has retrieved and  copy hasbeen saved as
+internal data in the package.
 }
 \examples{
 {
@@ -38,10 +41,10 @@ Agency for Research on Cancer (IARC)  based on CAS Registry Number or Name of th
   str(dat)
 
   # Example usage for name search
-  dat2 <- extr_monograph(search_type = "name",
-                          ids = c("Aloe", "Schistosoma",
-.                         "Styrene")
-.  )
+  dat2 <- extr_monograph(
+    search_type = "name",
+    ids = c("Aloe", "Schistosoma", "Styrene")
+  )
   str(dat2)
 }
 }

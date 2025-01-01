@@ -59,7 +59,6 @@ save_to_cache <- function(dat, file_name, verbose = FALSE) {
 #' @keywords internal
 #' @noRd
 read_from_cache <- function(file_name, verbose = FALSE) {
-
   if (base::missing(file_name)) {
     cli::cli_abort("The argument {.field {file_name}} is required.")
   }
@@ -95,7 +94,6 @@ read_from_cache <- function(file_name, verbose = FALSE) {
 #' with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
 #' with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
 with_extr_sandbox <- function(code, temp_dir = tempdir()) {
-
   if (base::missing(code)) {
     cli::cli_abort("The argument {.field {file_name}} is required.")
   }

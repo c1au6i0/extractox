@@ -17,12 +17,12 @@ A data frame containing the extracted data.
 }
 \description{
 The \code{extr_iris} function sends a request to the EPA IRIS database to search
-for information based on a specified keywords and cancer types. It retrieves and parses the HTML content from the response.
-Note that if \code{keywords} is not provide all dataset are retrieved.
+for information based on a specified keywords and cancer types. It retrieves
+and parses the HTML content from the response.
 }
 \examples{
 \donttest{
-extr_iris(c("1332-21-4", "50-00-0"))
+extr_iris(casrn = c("1332-21-4", "50-00-0"))
 }
 }
 \seealso{
