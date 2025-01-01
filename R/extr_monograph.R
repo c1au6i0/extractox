@@ -41,7 +41,7 @@ extr_monograph <- function(ids,
     return(who_iarc_monographs)
   }
 
-  if (missing(ids)) {
+  if (base::missing(ids)) {
     cli::cli_abort("The argument {.field ids} is required.")
   }
 

@@ -18,6 +18,7 @@ Sys.sleep(3)
 
 test_that("extr_ctd fetches valid expression data", {
   skip_on_cran()
+  skip_if_offline()
 
   dat <- extr_ctd(
     input_terms = input_terms,
@@ -36,6 +37,9 @@ Sys.sleep(3)
 
 test_that("extr_ctd fetches other data", {
   skip_on_cran()
+  skip_if_offline()
+
+
   dat <- extr_ctd(
     input_terms = input_terms,
     category = "chem",
@@ -54,6 +58,8 @@ Sys.sleep(3)
 
 test_that("extr_ctd no results", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       dat <- extr_ctd(
@@ -75,6 +81,7 @@ Sys.sleep(3)
 
 test_that("extr_ctd no results with song (verbose = FALSE)", {
   skip_on_cran()
+  skip_if_offline()
 
   # Expect no output and no error when verbose = FALSE
   expect_silent({
@@ -95,6 +102,8 @@ Sys.sleep(3)
 
 test_that("extr_tetramer return NAS for unknown ids", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       dat <- extr_ctd(
@@ -122,6 +131,7 @@ Sys.sleep(3)
 
 test_that("extr_tetramer fetches tetramers data", {
   skip_on_cran()
+  skip_if_offline()
 
   dat <- extr_tetramer(
     chem = c("50-00-0", "ethanol"),
@@ -146,6 +156,8 @@ Sys.sleep(3)
 
 test_that("extr_tetramer no results", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       dat <- extr_tetramer(
@@ -168,6 +180,7 @@ Sys.sleep(3)
 
 test_that("extr_tetramer no results with song (verbose = FALSE)", {
   skip_on_cran()
+  skip_if_offline()
 
   # Expect no output and no error when verbose = FALSE
   expect_silent({

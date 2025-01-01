@@ -5,6 +5,7 @@ Sys.sleep(3)
 # Test 1: Check if the function works with a valid chemical name input
 test_that("Valid chemical name input", {
   skip_on_cran()
+  skip_if_offline()
 
   expect_silent({
     out <- extr_comptox(
@@ -30,6 +31,7 @@ col_names <- c(
 
 test_that("Valid inputs", {
   skip_on_cran()
+  skip_if_offline()
 
   ids <- c("50-00-0", "Aspirin", "DTXSID5020023")
   expect_message(
@@ -49,12 +51,18 @@ test_that("Valid inputs", {
 Sys.sleep(3)
 
 test_that("extr_comptox when download_items is set to one val", {
+  skip_on_cran()
+  skip_if_offline()
+
   expect_no_error(
     out <- extr_comptox(c("50-00-0", "80-05-7"))
   )
 })
 
 test_that("extr_comptox warn for unknown ids", {
+  skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       out <- extr_comptox(c("31-12-5", "bella", "ciao"))

@@ -8,6 +8,7 @@ col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query"
 
 test_that("extr_casrn_from_cid generate results with 2 cid, one wrong", {
   skip_on_cran()
+  skip_if_offline()
 
   ids_search <- c("bella", "712")
   expect_warning(
@@ -27,6 +28,7 @@ Sys.sleep(4)
 
 test_that("extr_casrn_from_cid generate results with all wrong", {
   skip_on_cran()
+  skip_if_offline()
 
   ids_search <- c("bella", "ciao")
   expect_warning(
@@ -46,6 +48,7 @@ Sys.sleep(4)
 
 test_that("extr_casrn_from_cid generate results with all wrong", {
   skip_on_cran()
+  skip_if_offline()
 
   ids_search <- c("bella", "ciao")
   expect_silent({
@@ -63,6 +66,9 @@ Sys.sleep(4)
 df_names <- create_na_df("ciao")
 
 test_that("extr_chem_info fetches chem outa", {
+  skip_on_cran()
+  skip_if_offline()
+
   ids_search <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
   skip_on_cran()
   expect_warning({
@@ -78,6 +84,9 @@ test_that("extr_chem_info fetches chem outa", {
 Sys.sleep(4)
 
 test_that("extr_chem_info wrong only, silent", {
+  skip_on_cran()
+  skip_if_offline()
+
   ids_search <- "bella ciao"
   skip_on_cran()
   expect_silent({
@@ -109,6 +118,8 @@ Sys.sleep(4)
 
 test_that("extr_pubchem_fema works correctly", {
   skip_on_cran()
+  skip_if_offline()
+
   casrn_list <- c("1490-04-6", "50-00-0", "bella_ciao")
 
   expect_silent({
@@ -125,6 +136,8 @@ Sys.sleep(4)
 
 test_that("extr_pubchem_fema produce CASRN warning", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       out <- extr_pubchem_fema(c("bella", "ciao"), verbose = TRUE)
@@ -137,6 +150,8 @@ Sys.sleep(4)
 
 test_that("extr_pubchem_fema produce FEMA warning", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       out <- extr_pubchem_fema("50-00-0", verbose = TRUE)
@@ -149,6 +164,8 @@ Sys.sleep(4)
 
 test_that("extr_pubchem_ghs works correctly", {
   skip_on_cran()
+  skip_if_offline()
+
   casrn_list <- c("1490-04-6", "50-00-0", "bella_ciao")
 
   expect_silent({
@@ -164,6 +181,8 @@ Sys.sleep(4)
 
 test_that("extr_pubchem_ghs produce warning", {
   skip_on_cran()
+  skip_if_offline()
+
   expect_warning(
     {
       out <- extr_pubchem_ghs(c("bella", "ciao"), verbose = TRUE)

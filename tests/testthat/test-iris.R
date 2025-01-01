@@ -14,6 +14,8 @@ Sys.sleep(4)
 
 test_that("extr_iris_ fetches data for multiple CASRN", {
   skip_on_cran()
+  skip_if_offline()
+
   ids_search <- c("50-00-0", "1332-21-4")
   expect_message(
     {
@@ -32,6 +34,8 @@ Sys.sleep(4)
 
 test_that("extr_iris_ warn and fill with NA wrong CASRN", {
   skip_on_cran()
+  skip_if_offline()
+
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
   expect_warning(
     {
@@ -49,6 +53,8 @@ Sys.sleep(4)
 
 test_that("extr_iris_ cancer_types and verbose = FALSE work", {
   skip_on_cran()
+  skip_if_offline()
+
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
   expect_silent({
     out <- extr_iris(ids_search, verbose = FALSE)

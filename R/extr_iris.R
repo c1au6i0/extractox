@@ -17,7 +17,7 @@
 extr_iris <- function(casrn = NULL, verbose = TRUE) {
   cancer_types <- c("non_cancer", "cancer")
 
-  if (missing(casrn)) {
+  if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
 
