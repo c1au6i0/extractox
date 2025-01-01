@@ -1,8 +1,10 @@
 #' Retrieve WHO IARC Monograph Information
 #'
-#' This function retrieves information regarding Monographs from the World Health
+#' This function returns information regarding Monographs from the World Health
 #' Organization (WHO) International Agency for Research on Cancer (IARC)  based on
-#' CAS Registry Number or Name of the chemical.
+#' CAS Registry Number or Name of the chemical. Note that the data is not fetched
+#' dynamically from the website, but has retrieved and  copy hasbeen saved as
+#' internal data in the package.
 #'
 #' @param search_type A character string specifying the type of search to
 #'   perform. Valid options are "cas_rn" (CAS Registry Number) and "name"

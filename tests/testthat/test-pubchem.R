@@ -6,6 +6,8 @@ library(testthat)
 
 col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
+Sys.sleep(4)
+
 test_that("extr_casrn_from_cid generate results with 2 cid, one wrong", {
   skip_on_cran()
   skip_if_offline()
@@ -63,14 +65,15 @@ Sys.sleep(4)
 # extr_chem_info ----
 # @@@@@@@@@@@@@@@@@@@
 
+
 df_names <- create_na_df("ciao")
 
-test_that("extr_chem_info fetches chem outa", {
+test_that("extr_chem_info fetches chems", {
   skip_on_cran()
   skip_if_offline()
 
   ids_search <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
-  skip_on_cran()
+
   expect_warning({
     out <- extr_chem_info(ids_search)
   })

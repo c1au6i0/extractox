@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' \donttest{
-#' extr_ice(c("50-00-0"))
+#' extr_ice(casrn = c("50-00-0"))
 #' }
 extr_ice <- function(casrn,
                      assays = NULL,

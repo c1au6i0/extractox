@@ -11,6 +11,7 @@
 #' @details The cache directory is determined using [tools::R_user_dir()] with the `cache` subdirectory
 #' for the `extractox` package. If the directory does not exist, it is created automatically.
 #' The function will overwrite any existing file with the same name.
+#' @keywords internal
 #' @noRd
 save_to_cache <- function(dat, file_name, verbose = FALSE) {
   # Sys.getenv("R_USER_CACHE_DIR")
@@ -55,6 +56,7 @@ save_to_cache <- function(dat, file_name, verbose = FALSE) {
 #' @return The R object read from the cache, or NULL if the file does not exist.
 #' @details The cache directory is determined using [tools::R_user_dir()] with the `cache` subdirectory
 #' for the `extractox` package. If the file does not exist, a message is printed if verbose is TRUE.
+#' @keywords internal
 #' @noRd
 read_from_cache <- function(file_name, verbose = FALSE) {
 
