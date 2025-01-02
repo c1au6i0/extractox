@@ -13,7 +13,7 @@ a unique row with the CID, CASRN, and additional chemical properties."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,38 +48,35 @@ a unique row with the CID, CASRN, and additional chemical properties.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extr_chem_info</span><span class="op">(</span><span class="va">IUPAC_names</span>, stop_on_warning <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extr_chem_info</span><span class="op">(</span><span class="va">iupac_names</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-iupac-names">IUPAC_names<a class="anchor" aria-label="anchor" href="#arg-iupac-names"></a></dt>
+<dl><dt id="arg-iupac-names">iupac_names<a class="anchor" aria-label="anchor" href="#arg-iupac-names"></a></dt>
 <dd><p>A character vector of IUPAC names. These are standardized names
 of chemical compounds that will be used to search in the PubChem database.</p></dd>
 
 
-<dt id="arg-stop-on-warning">stop_on_warning<a class="anchor" aria-label="anchor" href="#arg-stop-on-warning"></a></dt>
-<dd><p>Logical. If set to TRUE, the function will stop and
-throw an error if any substances are not found in PubChem. Defaults to FALSE,
-in which case a warning is issued.</p></dd>
-
-
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>A logical value indicating whether to print detailed messages. Default is TRUE.</p></dd>
+<dd><p>A logical value indicating whether to print detailed messages.
+Default is TRUE.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with information on the queried compounds, including:</p><dl><dt>iupac_name</dt>
+    <p>A data frame with phisio-chemical information on the queried compounds,
+including but not limited to:</p><dl><dt>iupac_name</dt>
 <dd><p>The IUPAC name of the compound.</p></dd>
 
 <dt>cid</dt>
 <dd><p>The PubChem Compound Identifier (CID).</p></dd>
 
 <dt>isomeric_smiles</dt>
-<dd><p>The SMILES string (Simplified Molecular Input Line Entry System).</p></dd>
+<dd><p>The SMILES string (Simplified Molecular Input Line
+Entry System).</p></dd>
 
 
 </dl></div>
@@ -88,7 +85,7 @@ in which case a warning is issued.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Example with formaldehyde and aflatoxin</span></span></span>
-<span class="r-in"><span><span class="fu">extr_chem_info</span><span class="op">(</span>IUPAC_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Formaldehyde"</span>, <span class="st">"Aflatoxin B1"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">extr_chem_info</span><span class="op">(</span>iupac_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Formaldehyde"</span>, <span class="st">"Aflatoxin B1"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Querying Formaldehyde. </span>
@@ -99,23 +96,23 @@ in which case a warning is issued.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Querying 712 and 186907.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      cid   iupac_name    cas_rn cid_all cas_rn_all molecular_formula</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 186907 Aflatoxin B1 1162-65-8  186907  1162-65-8          C17H12O6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    712 Formaldehyde   50-00-0     712    50-00-0              CH2O</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Querying <span style="color: #00BB00;">pubchem_ids</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cid   iupac_name        casrn cid_all    casrn_all molecular_formula</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 186907 Aflatoxin B1 AFLATOXIN B1  186907 AFLATOXIN B1          C17H12O6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    712 Formaldehyde formaldehyde     712 formaldehyde              CH2O</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   molecular_weight                               canonical_smiles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1           312.27 COC1=C2C3=C(C(=O)CC3)C(=O)OC2=C4C5C=COC5OC4=C1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2           30.026                                            C=O</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                            isomeric_smiles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 COC1=C2C3=C(C(=O)CC3)C(=O)OC2=C4[C@@H]5C=CO[C@@H]5OC4=C1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                      C=O</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                          in_ch_i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                            inchi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 InChI=1S/C17H12O6/c1-20-10-6-11-14(8-4-5-21-17(8)22-11)15-13(10)7-2-3-9(18)12(7)16(19)23-15/h4-6,8,17H,2-3H2,1H3/t8-,17+/m0/s1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                        InChI=1S/CH2O/c1-2/h1H2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   in_ch_i_key</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     inchi_key</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 OQIQSTLJSLGHID-WNWIJWBNSA-N</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 WSFSSNUMVMOOMR-UHFFFAOYSA-N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                       iupac_name_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                         iupac_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 (3S,7R)-11-methoxy-6,8,19-trioxapentacyclo[10.7.0.02,9.03,7.013,17]nonadeca-1,4,9,11,13(17)-pentaene-16,18-dione</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                     formaldehyde</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   x_log_p   exact_mass monoisotopic_mass tpsa complexity charge</span>
