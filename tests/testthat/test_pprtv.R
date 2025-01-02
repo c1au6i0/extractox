@@ -17,8 +17,8 @@ test_that("extr_pprtv casrn hit and not hit, verbose,  force = TRUE", {
     "Extracting EPA PPRTVs."
   )
 
-  tmp_out <- fs::path(temp_dir, "R", "extractox")
-  cache_exist <- fs::file_exists(fs::path(tmp_out, "epa_pprtvs.rds"))
+  tmp_out <- file.path(temp_dir, "R", "extractox")
+  cache_exist <- file.exists(file.path(tmp_out, "epa_pprtvs.rds"))
 
   expect_true(cache_exist)
   expect_equal(nrow(out), length(ids_search))
@@ -86,8 +86,8 @@ test_that("extr_pprtv na,es hit and not hit, verbose,  force = TRUE", {
     "Extracting EPA PPRTVs."
   )
 
-  tmp_out <- fs::path(temp_dir, "R", "extractox")
-  cache_exist <- fs::file_exists(fs::path(tmp_out, "epa_pprtvs.rds"))
+  tmp_out <- file.path(temp_dir, "R", "extractox")
+  cache_exist <- file.exists(file.path(tmp_out, "epa_pprtvs.rds"))
 
   expect_equal(nrow(out), 11)
 })

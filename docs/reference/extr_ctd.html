@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +61,16 @@
 
 
 <dt id="arg-category">category<a class="anchor" aria-label="anchor" href="#arg-category"></a></dt>
-<dd><p>A string specifying the category of data to query. Valid options are "all", "chem", "disease", "gene", "go", "pathway", "reference", and "taxon". Default is "chem".</p></dd>
+<dd><p>A string specifying the category of data to query. Valid options
+are "all", "chem", "disease", "gene", "go", "pathway", "reference", and "taxon".
+Default is "chem".</p></dd>
 
 
 <dt id="arg-report-type">report_type<a class="anchor" aria-label="anchor" href="#arg-report-type"></a></dt>
-<dd><p>A string specifying the type of report to return. Default is "genes_curated". Valid options include:</p><dl><dt>"cgixns"</dt>
-<dd><p>Curated chemical-gene interactions. Requires at least one <code>action_types</code> parameter.</p></dd>
+<dd><p>A string specifying the type of report to return. Default is
+"genes_curated". Valid options include:</p><dl><dt>"cgixns"</dt>
+<dd><p>Curated chemical-gene interactions. Requires at least one
+<code>action_types</code> parameter.</p></dd>
 
 <dt>"chems"</dt>
 <dd><p>All chemical associations.</p></dd>
@@ -111,27 +115,34 @@
 <dd><p>Inferred phenotype associations.</p></dd>
 
 <dt>"go"</dt>
-<dd><p>All Gene Ontology (GO) associations. Requires at least one <code>ontology</code> parameter.</p></dd>
+<dd><p>All Gene Ontology (GO) associations. Requires at least one
+<code>ontology</code> parameter.</p></dd>
 
 <dt>"go_enriched"</dt>
-<dd><p>Enriched GO associations. Requires at least one <code>ontology</code> parameter.</p></dd>
+<dd><p>Enriched GO associations. Requires at least one
+<code>ontology</code> parameter.</p></dd>
 
 
 </dl></dd>
 
 
 <dt id="arg-input-term-search-type">input_term_search_type<a class="anchor" aria-label="anchor" href="#arg-input-term-search-type"></a></dt>
-<dd><p>A string specifying the search method to use. Options are "hierarchicalAssociations" or "directAssociations". Default is "directAssociations".</p></dd>
+<dd><p>A string specifying the search method to use.
+Options are "hierarchicalAssociations" or "directAssociations". Default is
+"directAssociations".</p></dd>
 
 
 <dt id="arg-action-types">action_types<a class="anchor" aria-label="anchor" href="#arg-action-types"></a></dt>
-<dd><p>An optional character vector specifying one or more interaction types for filtering results. Default is "ANY".
-Other acceptable inputs are "abundance", "activity", "binding", "cotreatment", "expression", "folding", "localization", "metabolic processing"...See https://ctdbase.org/tools/batchQuery.go
-for a full list.</p></dd>
+<dd><p>An optional character vector specifying one or more interaction
+types for filtering results. Default is "ANY".
+Other acceptable inputs are "abundance", "activity", "binding", "cotreatment",
+"expression", "folding", "localization", "metabolic processing"...
+See https://ctdbase.org/tools/batchQuery.go for a full list.</p></dd>
 
 
 <dt id="arg-ontology">ontology<a class="anchor" aria-label="anchor" href="#arg-ontology"></a></dt>
-<dd><p>An optional character vector specifying one or more ontologies for filtering GO reports. Default NULL.</p></dd>
+<dd><p>An optional character vector specifying one or more ontologies
+for filtering GO reports. Default NULL.</p></dd>
 
 
 <dt id="arg-verify-ssl">verify_ssl<a class="anchor" aria-label="anchor" href="#arg-verify-ssl"></a></dt>
@@ -139,7 +150,8 @@ for a full list.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>A logical value indicating whether to print detailed messages. Default is TRUE.</p></dd>
+<dd><p>A logical value indicating whether to print detailed messages.
+Default is TRUE.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -153,8 +165,10 @@ for a full list.</p></dd>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
-<ul><li><p>Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R., Wiegers, T. C., &amp; Mattingly, C. J. (2019).
-The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47(D1), D948–D954. <a href="https://doi.org/10.1093/nar/gky868" class="external-link">doi:10.1093/nar/gky868</a></p></li>
+<ul><li><p>Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R.,
+Wiegers, T. C., &amp; Mattingly, C. J. (2019).
+The Comparative Toxicogenomics Database: update 2019. Nucleic acids research,
+47(D1), D948–D954. <a href="https://doi.org/10.1093/nar/gky868" class="external-link">doi:10.1093/nar/gky868</a></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -176,11 +190,18 @@ The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CTD database...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> Timeout was reached [ctdbase.org]: SSL</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> connection timeout</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'dat' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	30106 obs. of  9 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_name: chr  "Formaldehyde" "Formaldehyde" "Formaldehyde" "Formaldehyde" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_id  : chr  "D005557" "D005557" "D005557" "D005557" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ casrn        : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_symbol  : chr  "A4GALT" "AAK1" "AAMDC" "ABCA11P" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_id      : int  53947 22848 28971 79963 26154 10351 5243 8714 10057 5825 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism     : chr  "Homo sapiens" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism_id  : int  9606 9606 9606 9606 9606 9606 9606 9606 9606 9606 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pubmed_ids   : chr  "27664576" "23649840" "23649840" "20655997" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ query        : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get expresssion data</span></span></span>
 <span class="r-in"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu">extr_ctd</span><span class="op">(</span></span></span>
@@ -192,12 +213,21 @@ The Comparative Toxicogenomics Database: update 2019. Nucleic acids research, 47
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CTD database...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> Timeout was reached [ctdbase.org]: SSL</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> connection timeout</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'dat2' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	36112 obs. of  11 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_name: chr  "Formaldehyde" "Formaldehyde" "Formaldehyde" "Formaldehyde" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ chemical_id  : chr  "D005557" "D005557" "D005557" "D005557" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ casrn        : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_symbol  : chr  "A4GALT" "AAK1" "AAMDC" "ABCA11P" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ gene_id      : int  53947 22848 28971 79963 26154 10351 5243 8714 10057 5825 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism     : chr  "Homo sapiens" "Homo sapiens" "Homo sapiens" "Homo sapiens" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ organism_id  : int  9606 9606 9606 9606 9606 9606 9606 9606 9606 9606 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pubmed_ids   : chr  "Formaldehyde results in decreased expression of A4GALT mRNA" "Formaldehyde results in increased expression of AAK1 mRNA" "Formaldehyde results in increased expression of AAMDC mRNA" "Formaldehyde results in decreased expression of ABCA11P mRNA" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ query        : chr  "decreases^expression" "increases^expression" "increases^expression" "decreases^expression" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NA           : chr  "27664576" "23649840" "23649840" "20655997" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NA           : chr  "50-00-0" "50-00-0" "50-00-0" "50-00-0" ...</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

@@ -1,5 +1,4 @@
 library(testthat)
-library(fs)
 
 # Check setup.R
 
@@ -17,7 +16,7 @@ test_that("Save to cache works", {
     "Saving"
   )
 
-  exp_path <- normalizePath(fs::path(
+  exp_path <- normalizePath(file.path(
     Sys.getenv("R_USER_CACHE_DIR"), "R",
     "extractox", "song.txt"
   ))

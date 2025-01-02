@@ -7,7 +7,7 @@
 #' internal data in the package.
 #'
 #' @param search_type A character string specifying the type of search to
-#'   perform. Valid options are "cas_rn" (CAS Registry Number) and "name"
+#'   perform. Valid options are "casrn" (CAS Registry Number) and "name"
 #' .  (name of the chemical). If `search_type` is "casrn", the function filters
 #' .  by the CAS Registry Number.
 #'   If `search_type` is "name", the function performs a partial match search

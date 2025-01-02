@@ -14,3 +14,4 @@
 ^inst/img$
 ^CRAN-SUBMISSION$
 justfile$
+^revdep$

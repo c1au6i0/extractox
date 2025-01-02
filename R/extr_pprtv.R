@@ -59,18 +59,18 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
   file_name <- "epa_pprtvs.rds" # Filename for caching
 
   # Check if path is present otherwise it download it again
-  full_path_cache_file <- fs::path(
+  full_path_cache_file <- file.path(
     tools::R_user_dir("extractox",
       which = "cache"
     ),
     file_name
   )
 
-  cache_present <- fs::file_exists(full_path_cache_file)
+  cache_present <- file.exists(full_path_cache_file)
 
   full_path_cache_file <- normalizePath(full_path_cache_file, mustWork = FALSE)
 
-  # fs::dir_exists(Sys.getenv("R_USER_CACHE_DIR"))
+  # dir.exists(Sys.getenv("R_USER_CACHE_DIR"))
 
   if (any(isTRUE(force), !cache_present, isTRUE(get_all))) {
     check_internet(verbose = verbose)

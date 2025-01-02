@@ -10,7 +10,7 @@ extr_monograph(ids, search_type = "casrn", verbose = TRUE, get_all = FALSE)
 \item{ids}{A character vector of IDs to search for.}
 
 \item{search_type}{A character string specifying the type of search to
-perform. Valid options are "cas_rn" (CAS Registry Number) and "name"
+perform. Valid options are "casrn" (CAS Registry Number) and "name"
 .  (name of the chemical). If \code{search_type} is "casrn", the function filters
 .  by the CAS Registry Number.
 If \code{search_type} is "name", the function performs a partial match search

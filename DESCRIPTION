@@ -1,6 +1,6 @@
 Package: extractox
 Title: Extract Tox Info from Various Databases
-Version: 0.1.9003
+Version: 1.0.0
 Authors@R: c(
     person("Claudio", "Zanettini", , "claudio.zanettini@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-5043-8033")),
@@ -25,7 +25,6 @@ Depends:
     R (>= 4.1)
 Imports: 
     cli,
-    fs,
     httr2,
     janitor,
     pingr,

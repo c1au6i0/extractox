@@ -31,7 +31,7 @@ save_to_cache <- function(dat, file_name, verbose = FALSE) {
     dir.create(cache_dir, recursive = TRUE)
   }
 
-  file_path <- fs::path(cache_dir, file_name)
+  file_path <- file.path(cache_dir, file_name)
 
   if (all(file.exists(file_path), verbose)) {
     cli::cli_alert_info("Overwriting cache.")
@@ -65,7 +65,7 @@ read_from_cache <- function(file_name, verbose = FALSE) {
 
   cache_dir <- tools::R_user_dir("extractox", which = "cache")
   cache_dir <- normalizePath(cache_dir, mustWork = FALSE)
-  file_path <- fs::path(cache_dir, file_name)
+  file_path <- file.path(cache_dir, file_name)
 
   if (file.exists(file_path)) {
     out <- readRDS(file_path)
