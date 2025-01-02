@@ -1,4 +1,4 @@
-# extractox 0.2.0
+# extractox 1.0.0
 
 ## Bug Fixes
 * Fixed `extr_iris` extracting the correct number of chemicals without 
