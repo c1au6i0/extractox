@@ -31,7 +31,7 @@
    - For all functions except `extr_comptox`, a `query` column reports the IDs 
      searched. In `extr_comptox`, this info is in the `main_sheet` element. For 
      `extr_ice`, `query` values contain all IDs found.
-   - Results now contain rows with NA values for all columns except `query`.
+   - Results now contain rows with NA values for all columns (except `query`).
    - `extr_pprtv` and `extr_monograph` use `save_and_match` to output results 
      with NA for missing IDs.
 * Improved and extended all unit tests.

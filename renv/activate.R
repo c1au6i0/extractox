@@ -260,7 +260,7 @@ local({
     name <- sprintf("renv_%s%s", version, ext)
     url <- paste(baseurl, name, sep = "/")
   
-    destfile <- fs::path(tempdir(), name)
+    destfile <- file.path(tempdir(), name)
     status <- tryCatch(
       renv_bootstrap_download_impl(url, destfile),
       condition = identity
@@ -326,8 +326,8 @@ local({
   
     name <- sprintf("renv_%s.tar.gz", version)
     repos <- renv_bootstrap_repos()
-    urls <- fs::path(repos, "src/contrib/Archive/renv", name)
-    destfile <- fs::path(tempdir(), name)
+    urls <- file.path(repos, "src/contrib/Archive/renv", name)
+    destfile <- file.path(tempdir(), name)
   
     message("* Downloading renv ", version, " ... ", appendLF = FALSE)
   
@@ -361,7 +361,7 @@ local({
     # allow directories
     if (dir.exists(tarball)) {
       name <- sprintf("renv_%s.tar.gz", version)
-      tarball <- fs::path(tarball, name)
+      tarball <- file.path(tarball, name)
     }
   
     # bail if it doesn't exist
@@ -409,9 +409,9 @@ local({
   
     message("* Downloading renv ", version, " from GitHub ... ", appendLF = FALSE)
   
-    url <- fs::path("https://api.github.com/repos/rstudio/renv/tarball", version)
+    url <- file.path("https://api.github.com/repos/rstudio/renv/tarball", version)
     name <- sprintf("renv_%s.tar.gz", version)
-    destfile <- fs::path(tempdir(), name)
+    destfile <- file.path(tempdir(), name)
   
     status <- tryCatch(
       renv_bootstrap_download_impl(url, destfile),
@@ -437,7 +437,7 @@ local({
     # invoke using system2 so we can capture and report output
     bin <- R.home("bin")
     exe <- if (Sys.info()[["sysname"]] == "Windows") "R.exe" else "R"
-    r <- fs::path(bin, exe)
+    r <- file.path(bin, exe)
   
     args <- c(
       "--vanilla", "CMD", "INSTALL", "--no-multiarch",
@@ -662,7 +662,7 @@ local({
     type <- renv_bootstrap_project_type(project)
     if (identical(type, "package")) {
       userdir <- renv_bootstrap_user_dir()
-      return(fs::path(userdir, "library"))
+      return(file.path(userdir, "library"))
     }
   
   }
@@ -756,7 +756,7 @@ local({
   renv_bootstrap_profile_prefix <- function() {
     profile <- renv_bootstrap_profile_get()
     if (!is.null(profile))
-      return(fs::path("profiles", profile, "renv"))
+      return(file.path("profiles", profile, "renv"))
   }
   
   renv_bootstrap_profile_get <- function() {
@@ -800,7 +800,7 @@ local({
   
   renv_bootstrap_project_type <- function(path) {
   
-    descpath <- fs::path(path, "DESCRIPTION")
+    descpath <- file.path(path, "DESCRIPTION")
     if (!file.exists(descpath))
       return("unknown")
   
@@ -846,12 +846,12 @@ local({
     for (envvar in envvars) {
       root <- Sys.getenv(envvar, unset = NA)
       if (!is.na(root))
-        return(fs::path(root, "R/renv"))
+        return(file.path(root, "R/renv"))
     }
   
     # use platform-specific default fallbacks
     if (Sys.info()[["sysname"]] == "Windows")
-      fs::path(Sys.getenv("LOCALAPPDATA"), "R/cache/R/renv")
+      file.path(Sys.getenv("LOCALAPPDATA"), "R/cache/R/renv")
     else if (Sys.info()[["sysname"]] == "Darwin")
       "~/Library/Caches/org.R-project.R/R/renv"
     else
@@ -996,7 +996,7 @@ local({
   prefix <- renv_bootstrap_platform_prefix()
 
   # construct full libpath
-  libpath <- fs::path(root, prefix)
+  libpath <- file.path(root, prefix)
 
   # attempt to load
   if (renv_bootstrap_load(project, libpath, version))

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,44 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.1" id="extractox-011-dev">extractox 0.1.1 (dev)<a class="anchor" aria-label="anchor" href="#extractox-011-dev"></a></h2>
-<ul><li>Fixed <code>extr_iris</code> extracts the correct number of chemicals with no repetition (<a href="https://github.com/c1au6i0/extractox/issues/15" class="external-link">#15</a>}.</li>
-<li>Fixed <code>extr_comtox</code> works when a single <code>download_items</code> different than <code>DTXCID</code> is selected (<a href="https://github.com/c1au6i0/extractox/issues/17" class="external-link">#17</a>).</li>
-<li>Enhancement: now all the <code>extr</code> functions accepts the arg <code>verbose</code> (<a href="https://github.com/c1au6i0/extractox/issues/18" class="external-link">#18</a>).</li>
-<li>Feature: introduced <code>extr_ice_assay_names</code> to retrieve ice assay names (<a href="https://github.com/c1au6i0/extractox/issues/16" class="external-link">#16</a>).</li>
-<li>Feature: introduced <code>extr_monograph</code> to check if a substance is listed in WHO IARC monograph and return the details of it. <a href="https://github.com/c1au6i0/extractox/issues/19" class="external-link">#19</a>. <em>Breaking change</em>: note that now <code>extr_tox</code> runs also <code>extr_monograph</code> and so output one more dataframe.</li>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="extractox-020">extractox 0.2.0<a class="anchor" aria-label="anchor" href="#extractox-020"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
+<ul><li>Fixed <code>extr_iris</code> extracting the correct number of chemicals without repetition (<a href="https://github.com/c1au6i0/extractox/issues/15" class="external-link">#15</a>).</li>
+<li>Fixed <code>extr_comtox</code> working when a single <code>download_items</code> different from <code>DTXCID</code> is selected (<a href="https://github.com/c1au6i0/extractox/issues/17" class="external-link">#17</a>).</li>
+<li>Fixed <code>extr_casrn_from_cid</code> failure when no results are found.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="new-features-0-2-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
+<ul><li>Added <code>extr_ice_assay_names</code> to retrieve ICE assay names (<a href="https://github.com/c1au6i0/extractox/issues/16" class="external-link">#16</a>).</li>
+<li>Added <code>extr_monograph</code> to check if a substance is listed in WHO IARC monograph and return its details (<a href="https://github.com/c1au6i0/extractox/issues/19" class="external-link">#19</a>).</li>
+<li>Added <code>extr_pprtv</code> to extract information from the EPA Provisional Peer-Reviewed Toxicity Values database (<a href="https://github.com/c1au6i0/extractox/issues/20" class="external-link">#20</a>). Introduced <code>save_to_cache</code> and <code>load_from_cache</code> functions to avoid re-downloading the file each time. See <code>force</code> argument.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-breaking-changes-0-2-0">Other Breaking Changes<a class="anchor" aria-label="anchor" href="#other-breaking-changes-0-2-0"></a></h3>
+<ul><li>Removed <code>cancer_types</code> argument from <code>extr_iris</code>. Database returns a dataframe with different columns based on <code>request</code> arguments.</li>
+<li>Removed <code>stop_at_warning</code> argument from <code>extr_casrn_from_cid</code>. Now warns and returns a dataframe with NA if no IDs are found.</li>
+<li>
+<code>extr_tox</code> now returns a longer list of dataframes, including the outputs of <code>extr_monograph</code> and <code>extr_pprtv</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancements-and-fixes-0-2-0">Enhancements and Fixes<a class="anchor" aria-label="anchor" href="#enhancements-and-fixes-0-2-0"></a></h3>
+<ul><li>Added <code>verbose</code> argument to all <code>extr_</code> functions (<a href="https://github.com/c1au6i0/extractox/issues/18" class="external-link">#18</a>).</li>
+<li>Unified behavior across all <code>extr_</code> functions when chemicals are not found (<a href="https://github.com/c1au6i0/extractox/issues/30" class="external-link">#30</a>-#35):
+<ul><li>For all functions except <code>extr_comptox</code>, a <code>query</code> column reports the IDs searched. In <code>extr_comptox</code>, this info is in the <code>main_sheet</code> element. For <code>extr_ice</code>, <code>query</code> values contain all IDs found.</li>
+<li>Results now contain rows with NA values for all columns (except <code>query</code>).</li>
+<li>
+<code>extr_pprtv</code> and <code>extr_monograph</code> use <code>save_and_match</code> to output results with NA for missing IDs.</li>
+</ul></li>
+<li>Improved and extended all unit tests.</li>
+<li>
+<code>extr_comptox</code> now outputs a list of dataframes with clean names.</li>
+<li>Fixed <code>extr_ctd</code> column names: <code>pub_med_ids</code> or <code>pub_med_i_ds</code> are now <code>pubmed_ids</code>.</li>
+<li>Introduced <code>extr_pubchem_section_</code> internal function to fetch FEMA and GHS info, avoiding repeated code.</li>
+<li>Introduced <code>check_na_warn</code> internal function to generate warnings for missing IDs.</li>
+<li>Created <code>with_extr_sandbox</code> to handle cache for CRAN examples.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="extractox-010">extractox 0.1.0<a class="anchor" aria-label="anchor" href="#extractox-010"></a></h2><p class="text-muted">CRAN release: 2024-12-03</p>
 <ul><li>Initial CRAN submission.</li>
