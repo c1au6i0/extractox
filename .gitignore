@@ -7,3 +7,6 @@
 data-raw/ds.xlsx
 inst/doc
 .actrc
+renv.lock  
+.Rprofile
+renv/*

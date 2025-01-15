@@ -5,6 +5,9 @@ on:
     branches: [main, master, dev1]
   pull_request:
     branches: [main, master, dev1]
+  schedule:
+    # Runs every Friday at 4PM ET
+    - cron: '0 20 * * 5'
 
 name: R-CMD-check.yaml
 
