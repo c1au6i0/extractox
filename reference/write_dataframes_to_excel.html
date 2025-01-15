@@ -29,7 +29,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Write Dataframes to Excel</h1>
-      <small class="dont-index">Source: <a href="https://github.com/c1au6i0/extractox/blob/v1.0.0/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/c1au6i0/extractox/blob/main/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
       <div class="d-none name"><code>write_dataframes_to_excel.Rd</code></div>
     </div>
 
@@ -76,7 +76,8 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CompTox...</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in extr_comptox_(ids = ids, download_items = download_items, mass_error = mass_error,     verify_ssl = verify_ssl, xlsx_file = xlsx_file, base_url = base_url,     verbose = verbose, ...):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> SSL connect error [comptox.epa.gov]:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> error:0A000152:SSL routines::unsafe legacy renegotiation disabled</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> OpenSSL/3.0.13: error:0A000152:SSL routines::unsafe legacy renegotiation</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> disabled</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">!If you are using openssl, you might need to downgrade to curl v7.78.0, openssl</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">v1.1.1!</span></span>

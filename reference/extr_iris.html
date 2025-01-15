@@ -33,7 +33,7 @@ and parses the HTML content from the response."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Extract Data from EPA IRIS Database</h1>
-      <small class="dont-index">Source: <a href="https://github.com/c1au6i0/extractox/blob/v1.0.0/R/extr_iris.R" class="external-link"><code>R/extr_iris.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/c1au6i0/extractox/blob/main/R/extr_iris.R" class="external-link"><code>R/extr_iris.R</code></a></small>
       <div class="d-none name"><code>extr_iris.Rd</code></div>
     </div>
 
@@ -79,7 +79,8 @@ Default is TRUE.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Quering <span style="color: #00BB00;">1332-21-4</span> to EPA IRIS database...</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FUN(X[[i]], ...):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> SSL connect error [cfpub.epa.gov]:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> error:0A000152:SSL routines::unsafe legacy renegotiation disabled</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> OpenSSL/3.0.13: error:0A000152:SSL routines::unsafe legacy renegotiation</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> disabled</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">!If you are using openssl, you might need to downgrade to curl v7.78.0, openssl</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">v1.1.1!</span></span>
