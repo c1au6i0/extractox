@@ -1,6 +1,6 @@
 library(testthat)
 
-Sys.sleep(3)
+Sys.sleep(5)
 
 # Test 1: Check if the function works with a valid chemical name input
 test_that("Valid chemical name input", {
@@ -21,7 +21,7 @@ test_that("Valid chemical name input", {
   expect_equal(nrow(out$comptox_cover_sheet), 4)
 })
 
-Sys.sleep(3)
+Sys.sleep(5)
 
 col_names <- c(
   "comptox_cover_sheet", "comptox_main_data", "comptox_abstract_sifter",
@@ -48,7 +48,7 @@ test_that("Valid inputs", {
   expect_equal(ncol(out$comptox_main_data), 64)
 })
 
-Sys.sleep(3)
+Sys.sleep(5)
 
 test_that("extr_comptox when download_items is set to one val", {
   skip_on_cran()

@@ -327,7 +327,7 @@ extr_comptox_ <- function(ids,
     cli::cli_alert_info("Getting info from CompTox...")
   }
 
-  Sys.sleep(5)
+  Sys.sleep(7)
 
   resp <- tryCatch(
     {
