@@ -29,7 +29,10 @@ create_na_df <- function(missing_chem) {
   )
 
   # Create the dataframe with all NAs
-  out <- data.frame(matrix(NA, nrow = length(missing_chem), ncol = length(column_names)))
+  out <- data.frame(matrix(NA,
+    nrow = length(missing_chem),
+    ncol = length(column_names)
+  ))
   names(out) <- column_names
 
   out$query <- missing_chem
@@ -102,35 +105,55 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 #'
 #' This function takes a vector of IUPAC names and queries the PubChem database
 #' (using the `webchem` package) to obtain the corresponding CASRN and CID for
-#' each compound. It reshapes the resulting data, ensuring that each compound has
-#' a unique row with the CID, CASRN, and additional chemical properties.
+#' each compound. It reshapes the resulting data, ensuring that each compound
+#' has a unique row with the CID, CASRN, and additional chemical properties.
 #'
-#' @param iupac_names A character vector of IUPAC names. These are standardized names
-#'   of chemical compounds that will be used to search in the PubChem database.
+#' @param iupac_names A character vector of IUPAC names. These are standardized
+#'   names of chemical compounds that will be used to search in the PubChem
+#'   database.
 #' @param verbose A logical value indicating whether to print detailed messages.
 #'   Default is TRUE.
-#' @return A data frame with phisio-chemical information on the queried compounds,
-#'   including but not limited to:
+#' @param delay A numeric value indicating the delay (in seconds) between API
+#'   requests. This controls the time between successive PubChem queries.
+#'   Default is 0. See Details for more info.
+#' @return A data frame with phisio-chemical information on the queried
+#'   compounds, including but not limited to:
 #' \describe{
 #'   \item{iupac_name}{The IUPAC name of the compound.}
 #'   \item{cid}{The PubChem Compound Identifier (CID).}
 #'   \item{isomeric_smiles}{The SMILES string (Simplified Molecular Input Line
 #'       Entry System).}
 #' }
+#' @details
+#' The function performs two queries to PubChem:
+#' 1. The first query retrieves the PubChem Compound Identifier (CID) for each
+#'    IUPAC name.
+#' 2. The second query retrieves additional information using the
+#'    obtained CIDs.
+#' In cases of multiple rapid successive requests, the PubChem server may
+#' deny access. Introducing a delay between requests (using the `delay`
+#' parameter) can help prevent this issue.
 #' @export
 #' @examples
 #' \donttest{
 #' # Example with formaldehyde and aflatoxin
 #' extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
-extr_chem_info <- function(iupac_names, verbose = TRUE) {
+extr_chem_info <- function(
+    iupac_names,
+    verbose = TRUE,
+    delay = 0) {
   if (base::missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
 
   check_internet(verbose = verbose)
 
-  iupac_cid <- webchem::get_cid(iupac_names, domain = "compound", verbose = verbose)
+  iupac_cid <- webchem::get_cid(
+    iupac_names,
+    domain = "compound",
+    verbose = verbose
+  )
 
   if (all(is.na(iupac_cid$cid))) {
     out <- create_na_df(missing_chem = iupac_names)
@@ -158,13 +181,21 @@ extr_chem_info <- function(iupac_names, verbose = TRUE) {
   iupac_cid_cas_unique$cid_all <- sapply(iupac_cid_cas_unique$cid, paste, collapse = ", ")
   iupac_cid_cas_unique$casrn_all <- sapply(iupac_cid_cas_unique$casrn, paste, collapse = ", ")
 
+
+  Sys.sleep(delay)
   all_prop <- webchem::pc_prop(iupac_cid_cas_unique$cid)
   all_prop$CID <- as.numeric(all_prop$CID)
 
   # get the original query value
   all_prop_query <- merge(all_prop, iupac_cid, by.x = "CID", by.y = "cid")
 
-  out <- merge(iupac_cid_cas_unique, all_prop_query, by.x = "cid", by.y = "CID", all.x = TRUE)
+  out <- merge(
+    iupac_cid_cas_unique,
+    all_prop_query,
+    by.x = "cid",
+    by.y = "CID",
+    all.x = TRUE
+  )
   names(out) <- names(create_na_df(1))
 
   if (any(is.na(iupac_cid$cid))) {
@@ -185,25 +216,41 @@ extr_chem_info <- function(iupac_names, verbose = TRUE) {
 #' @param casrn A vector of CAS Registry Numbers (CASRN) as atomic vectors.
 #' @param verbose A logical value indicating whether to print detailed messages.
 #'    Default is TRUE.
+#' @param delay A numeric value indicating the delay (in seconds) between API
+#'   requests. This controls the time between successive PubChem queries.
+#'   Default is 0. See Details for more info.
+#' @inherit extr_chem_info details
 #' @return A data frame containing the FEMA flavor profile information for each
-#'   CASRN. If no information is found for a particular CASRN, the output will include a row indicating this.
+#'   CASRN. If no information is found for a particular CASRN, the output will
+#'   include a row indicating this.
 #' @seealso \href{https://pubchem.ncbi.nlm.nih.gov/}{PubChem}
 #' @export
 #' @examples
 #' \donttest{
 #' extr_pubchem_fema(c("83-67-0", "1490-04-6"))
 #' }
-extr_pubchem_fema <- function(casrn, verbose = TRUE) {
-  extr_pubchem_section(casrn, section = "FEMA Flavor Profile", verbose = verbose)
+extr_pubchem_fema <- function(casrn, verbose = TRUE, delay = 0) {
+  extr_pubchem_section(
+    casrn = casrn,
+    section = "FEMA Flavor Profile",
+    verbose = verbose,
+    delay = delay
+  )
 }
 
 
 #' Extract GHS Codes from PubChem
 #'
-#' This function extracts GHS (Globally Harmonized System) codes from PubChem. It relies on the `webchem` package to interact with PubChem.
+#' This function extracts GHS (Globally Harmonized System) codes from PubChem.
+#' It relies on the `webchem` package to interact with PubChem.
 #'
 #' @param casrn Character vector of CAS Registry Numbers (CASRN).
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'    Default is TRUE.
+#' @param delay A numeric value indicating the delay (in seconds) between API
+#'   requests. This controls the time between successive PubChem queries.
+#'   Default is 0. See Details for more info.
+#' @inherit extr_chem_info details
 #' @return A dataframe containing GHS information.
 #' @seealso \href{https://pubchem.ncbi.nlm.nih.gov/}{PubChem}
 #' @export
@@ -211,22 +258,35 @@ extr_pubchem_fema <- function(casrn, verbose = TRUE) {
 #' \donttest{
 #' extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
 #' }
-extr_pubchem_ghs <- function(casrn, verbose = TRUE) {
-  extr_pubchem_section(casrn, section = "GHS Classification", verbose = verbose)
+extr_pubchem_ghs <- function(casrn, verbose = TRUE, delay = 0) {
+  extr_pubchem_section(
+    casrn = casrn,
+    section = "GHS Classification",
+    verbose = verbose,
+    delay = delay
+  )
 }
 
 
 #' Extract PubChem Section Data
 #'
-#' A generalized function to extract specific section data (e.g., FEMA or GHS) from PubChem for a given CASRN.
+#' A generalized function to extract specific section data
+#' (e.g., FEMA or GHS) from PubChem for a given CASRN.
 #'
 #' @param casrn A character vector of CAS Registry Numbers (CASRN).
-#' @param section A character string specifying the PubChem section to query (e.g., "FEMA Flavor Profile" or "GHS Classification").
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
-#' @return A dataframe containing the queried section information for each CASRN.
+#' @param section A character string specifying the PubChem section to query
+#'    (e.g., "FEMA Flavor Profile" or "GHS Classification").
+#' @param verbose A logical value indicating whether to print detailed messages.
+#'    Default is TRUE.
+#' @param delay A numeric value indicating the delay (in seconds) between API
+#'   requests. This controls the time between successive PubChem queries.
+#'   Default is 0. See Details for more info.
+#' @inherit extr_chem_info details
+#' @return A dataframe containing the queried section information for each
+#'    CASRN.
 #' @keywords internal
 #' @noRd
-extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
+extr_pubchem_section <- function(casrn, section, verbose = TRUE, delay = 0) {
   if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
@@ -234,7 +294,12 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
   check_internet(verbose = verbose)
 
   dat <- lapply(casrn, function(cas) {
-    extr_pubchem_section_(cas, section, verbose)
+    extr_pubchem_section_(
+      casrn = cas,
+      section = section,
+      verbose = verbose,
+      delay = delay
+    )
   })
 
   out <- do.call(rbind, dat)
@@ -246,10 +311,15 @@ extr_pubchem_section <- function(casrn, section, verbose = TRUE) {
 #'
 #' @param casrn A single CASRN.
 #' @param section A character string specifying the PubChem section to query.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#' @param verbose A logical value indicating whether to print detailed
+#'    messages. Default is TRUE.
+#' @param delay A numeric value indicating the delay (in seconds) between API
+#'   requests. This controls the time between successive PubChem queries.
+#'   Default is 0. See Details for more info.
+#' @inherit extr_chem_info details
 #' @noRd
 #' @keywords internal
-extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
+extr_pubchem_section_ <- function(casrn, section, verbose = TRUE, delay = 0) {
   dat_cid <- webchem::get_cid(casrn, match = "first", verbose = verbose)
 
   col_out <- c(
@@ -262,6 +332,8 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
     "other",
     "query"
   )
+
+  Sys.sleep(delay)
 
   # Handle no CID retrieved
   if (is.na(dat_cid$cid)) {
@@ -276,7 +348,11 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
     return(out_df)
   }
 
-  dat_section <- webchem::pc_sect(dat_cid$cid, section = section, verbose = verbose) |>
+  dat_section <- webchem::pc_sect(
+    dat_cid$cid,
+    section = section,
+    verbose = verbose
+  ) |>
     janitor::clean_names()
 
   # Handle empty results for section
@@ -302,7 +378,10 @@ extr_pubchem_section_ <- function(casrn, section, verbose = TRUE) {
   out_df$result <- gsub(paste0("^", section, ".*"), "", out_df$result)
   out_df[, "other"] <- NA
 
-  names(out_df)[names(out_df) %in% c("query", "name")] <- c("casrn", "IUPAC_name")
+  names(out_df)[names(out_df) %in% c("query", "name")] <- c(
+    "casrn",
+    "IUPAC_name"
+  )
   out_df[, "query"] <- casrn
   out_df
 }

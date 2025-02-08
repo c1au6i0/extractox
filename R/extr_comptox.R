@@ -11,10 +11,10 @@
 #'   Numbers (CASRN), InChIKeys, or DSSTox substance identifiers (DTXSID).
 #' @param download_items A character vector of items to be downloaded.
 #'   This includes a comprehensive set of chemical properties, identifiers,
-#'   predictive data, and other relevant information. By Default, it downloads 
+#'   predictive data, and other relevant information. By Default, it downloads
 #'   all the info.
 #' \describe{
-#'   \item{CASRN}{The Chemical Abstracts Service Registry Number, a unique 
+#'   \item{CASRN}{The Chemical Abstracts Service Registry Number, a unique
 #'      numerical identifier for chemical substances.}
 #'   \item{INCHIKEY}{The hashed version of the full International Chemical
 #'      Identifier (InChI) string.}
@@ -22,16 +22,16 @@
 #'      (IUPAC) name of the chemical.}
 #'   \item{SMILES}{The Simplified Molecular Input Line Entry System (SMILES)
 #'      representation of the chemical structure.}
-#'   \item{INCHI_STRING}{The full International Chemical Identifier (InChI) 
+#'   \item{INCHI_STRING}{The full International Chemical Identifier (InChI)
 #'      string.}
 #'   \item{MS_READY_SMILES}{The SMILES representation of the chemical structure,
 #'      prepared for mass spectrometry analysis.}
-#'   \item{QSAR_READY_SMILES}{The SMILES representation of the chemical 
-#'      structure, prepared for quantitative structure-activity relationship 
+#'   \item{QSAR_READY_SMILES}{The SMILES representation of the chemical
+#'      structure, prepared for quantitative structure-activity relationship
 #'      (QSAR) modeling.}
-#'   \item{MOLECULAR_FORMULA}{The chemical formula representing the number and 
+#'   \item{MOLECULAR_FORMULA}{The chemical formula representing the number and
 #'      type of atoms in a molecule.}
-#'   \item{AVERAGE_MASS}{The average mass of the molecule, calculated based on 
+#'   \item{AVERAGE_MASS}{The average mass of the molecule, calculated based on
 #'      the isotopic distribution of the elements.}
 #'      isotopic distribution of the elements.}
 #'   \item{MONOISOTOPIC_MASS}{The mass of the molecule calculated using the most

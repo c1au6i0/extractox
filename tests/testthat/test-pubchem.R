@@ -13,11 +13,13 @@ test_that("extr_casrn_from_cid generate results with 2 cid, one wrong", {
   skip_if_offline()
 
   ids_search <- c("bella", "712")
-  expect_warning(
-    {
-      out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
-    },
-    "Chemical .* found!"
+  suppressWarnings(
+    expect_warning(
+      {
+        out <- extr_casrn_from_cid(pubchem_ids = ids_search, verbose = TRUE)
+      },
+      "Chemical .* found!"
+    )
   )
 
   expect_equal(sum(is.na(out$casrn)), 1)
@@ -74,9 +76,11 @@ test_that("extr_chem_info fetches chems", {
 
   ids_search <- c("Formaldehyde", "Aflatoxin B1", "bella", "ciao")
 
-  expect_warning({
-    out <- extr_chem_info(ids_search)
-  })
+  suppressWarnings(
+    expect_warning({
+      out <- extr_chem_info(ids_search)
+    })
+  )
 
   expect_true(is.data.frame(out))
   expect_equal(nrow(out), length(ids_search))
