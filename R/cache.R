@@ -83,10 +83,11 @@ read_from_cache <- function(file_name, verbose = FALSE) {
 #'
 #' This function creates a temporary directory and sets it as `R_USER_CACHE_DIR`
 #' before executing the provided code block. It is used for testing or running
-#' code without affecting the user's default cache directory as required by CRAN for the examples .
-#' This function is not  designed to be used by package users. Shamelessly "inspired" by
-#' some @luciorq code.
-#' @param code The code to be executed inside the sandbox. Should be an expression.
+#' code without affecting the user's default cache directory as required by CRAN
+#' for the examples .This function is not  designed to be used by package users.
+#' Shamelessly "inspired" by some @luciorq code.
+#' @param code The code to be executed inside the sandbox. Should be an
+#'    expression.
 #' @param temp_dir A temporary directory created using `temdir()`.
 #' @return The result of the executed code.
 #' @export

@@ -25,10 +25,12 @@ check_na_warn <- function(dat, col_to_check, verbose = TRUE) {
 #' appropriate messages based on the status.
 #'
 #' @param resp An HTTP response object from the httr2 package.
-#' @param verbose A logical value indicating whether to print detailed messages. Default is TRUE.
+#' @param verbose A logical value indicating whether to print detailed
+#'    messages. Default is TRUE.
 #' @keywords internal
 #' @noRd
-#' @return This function does not return a value. It is used for its side effects.
+#' @return This function does not return a value. It is used for its
+#'    side effects.
 check_status_code <- function(resp, verbose = TRUE) {
   status_code <- httr2::resp_status(resp)
   if (!status_code %in% c(200L, 202L)) {
@@ -64,4 +66,43 @@ check_internet <- function(verbose = TRUE) {
     out <- TRUE
   }
   invisible(out)
+}
+
+
+#' check_libcurl_condathis
+#'
+#' Check if libcurl version is more than 7.78.0 and OpenSSL
+#' @return Boolean
+check_need_libcurl_condathis <- function() {
+  libcurl_safe <- TRUE
+
+  lib_curl_version <- libcurlVersion()
+  attr_lib_curl_version <- attributes(lib_curl_version)$ssl_version
+
+  if (all(
+    lib_curl_version >= "7.78.0",
+    grepl("OpenSSL", attr_lib_curl_version)
+  )) {
+    libcurl_safe <- FALSE
+  }
+
+  isFALSE(libcurl_safe)
+}
+
+#' install curl
+#'
+#' Use `{condathis}` to install  `curl==7.78.0`.
+condathis_downgrade_libcurl <- function() {
+  if (isFALSE(requireNamespace("condathis", quietly = TRUE))) {
+    cli::cli_abort("{.pkg condathis} not installed.
+      Install it with: `install.packages('condathis')`")
+  }
+
+  if (!condathis::env_exists("openssl-linux-env")) {
+    condathis::create_env(
+      c("curl==7.78.0", "libcurl", "openssl"),
+      env_name = "openssl-linux-env",
+      verbose = FALSE
+    )
+  }
 }

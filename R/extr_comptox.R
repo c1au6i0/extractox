@@ -91,11 +91,11 @@
 #'      tests.}
 #'   \item{WATER_SOLUBILITY_MOL/L_TEST_PRED}{Predicted water solubility in mol/L
 #'      from tests.}
-#'   \item{ATMOSPHERIC_HYDROXYLATION_RATE_\(AOH\)_CM3/MOLECULE\*SEC_OPERA_PRED}{Predicted
+#'   \item{ATMOSPHERIC_HYDROXYLATION_RATE_\(AOH\)_CM3/MOLECULE\*SEC_OPERA_PRED}{Predicted # nolint
 #'      atmospheric hydroxylation rate in cm³/molecule\*sec from OPERA.}
 #'   \item{BIOCONCENTRATION_FACTOR_OPERA_PRED}{Predicted bioconcentration factor
 #'      from OPERA.}
-#'   \item{BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED}{Predicted biodegradation
+#'   \item{BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED}{Predicted biodegradation # nolint
 #'      half-life in days from OPERA.}
 #'   \item{BOILING_POINT_DEGC_OPERA_PRED}{Predicted boiling point in degrees
 #'      Celsius from OPERA.}
@@ -114,7 +114,7 @@
 #'   \item{OPERA_PKAB_OPERA_PRED}{Predicted pKa (basic) from OPERA.}
 #'   \item{VAPOR_PRESSURE_MMHG_OPERA_PRED}{Predicted vapor pressure in mmHg from
 #'      OPERA.}
-#'   \item{WATER_SOLUBILITY_MOL/L_OPERA_PRED}{Predicted water solubility in mol/L
+#'   \item{WATER_SOLUBILITY_MOL/L_OPERA_PRED}{Predicted water solubility in mol/L # nolint
 #'      from OPERA.}
 #'   \item{EXPOCAST_MEDIAN_EXPOSURE_PREDICTION_MG/KG-BW/DAY}{Predicted median
 #'      exposure from ExpoCast in mg/kg-bw/day.}
@@ -123,14 +123,16 @@
 #'   \item{TOXCAST_PERCENT_ACTIVE}{Percentage of active assays in ToxCast.}
 #' }
 #' @param mass_error Numeric value indicating the mass error tolerance for
-#'   searches involving mass data. Default is `0`.
+#'   searches involving mass data. Default is `0`. Not used if libcurl depends
+#'   on OpenSSL.
 #' @param verify_ssl Logical value indicating whether SSL certificates should be
-#'   verified. Default is `FALSE`. Note that this argument is not used on linux OS.
+#'   verified. Default is `FALSE`. Not used if libcurl depends on OpenSSL.
 #' @param verbose A logical value indicating whether to print detailed messages.
 #'   Default is TRUE.
 #' @param delay Number of seconds to delay between the initial request and the
 #'   subsequent request to download the Excel file.
-#' @param ... Additional arguments passed to `httr2::req_options()`.
+#' @param ... Additional arguments passed to `httr2::req_options()`. Not used if
+#'   libcurl depends on OpenSSL.
 #' @details
 #' Please note that this function, which pulls data from EPA servers, may
 #'   encounter issues on some Linux systems. This is because those servers do
@@ -140,10 +142,10 @@
 #'   is to downgrade to \code{curl v7.78.0} and \code{OpenSSL v1.1.1}. However,
 #'   please be aware that using these older versions might introduce potential
 #'   security vulnerabilities. Refer to
-#'   \href{https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c}{this
+#'   \href{https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c}{this # nolint
 #'   gist} for instructions on how to downgrade \code{curl} and \code{OpenSSL}
 #'   on Ubuntu.
-#' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox
+#' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint
 #'   Chemicals Dashboard Resource Hub}
 #' @return A cleaned data frame containing the requested data from CompTox.
 #' @export
@@ -200,7 +202,7 @@ extr_comptox <- function(ids,
                            "VISCOSITY_CP_CP_TEST_PRED",
                            "VAPOR_PRESSURE_MMHG_TEST_PRED",
                            "WATER_SOLUBILITY_MOL/L_TEST_PRED",
-                           "ATMOSPHERIC_HYDROXYLATION_RATE_(AOH)_CM3/MOLECULE*SEC_OPERA_PRED",
+                           "ATMOSPHERIC_HYDROXYLATION_RATE_(AOH)_CM3/MOLECULE*SEC_OPERA_PRED", # nolint: line_length_linter.
                            "BIOCONCENTRATION_FACTOR_OPERA_PRED",
                            "BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED",
                            "BOILING_POINT_DEGC_OPERA_PRED",
@@ -232,19 +234,35 @@ extr_comptox <- function(ids,
   xlsx_file <- tempfile(fileext = ".xlsx")
 
 
-  base_url <- "https://comptox.epa.gov/dashboard-api/batchsearch/export/?lb2ljny4"
+  base_url <-
+    "https://comptox.epa.gov/dashboard-api/batchsearch/export/?lb2ljny4"
 
-  resp <- extr_comptox_(
-    ids = ids,
-    download_items = download_items,
-    mass_error = mass_error,
-    verify_ssl = verify_ssl,
-    xlsx_file = xlsx_file,
-    base_url = base_url,
-    verbose = verbose,
-    delay = delay,
-    ...
-  )
+  # Need to downgrade libcurl?
+  if (isTRUE(check_need_libcurl_condathis())) {
+    condathis_downgrade_libcurl()
+
+    resp <- extr_comptox_openssl_(
+      ids = ids,
+      download_items = download_items,
+      mass_error = mass_error,
+      xlsx_file = xlsx_file,
+      base_url = base_url,
+      verbose = verbose,
+      delay = delay
+    )
+  } else {
+    resp <- extr_comptox_(
+      ids = ids,
+      download_items = download_items,
+      mass_error = mass_error,
+      verify_ssl = verify_ssl,
+      xlsx_file = xlsx_file,
+      base_url = base_url,
+      verbose = verbose,
+      delay = delay,
+      ...
+    )
+  }
 
   sheet_names <- readxl::excel_sheets(xlsx_file)
 
@@ -321,21 +339,29 @@ extr_comptox_ <- function(ids,
     }
   )
 
-  msg <- "Failed to perform the request: {conditionMessage(error_result)}"
+  # msg <- "Failed to perform the request: {conditionMessage(error_result)}"
 
-  if (!is.null(error_result)) {
-    if (grepl("unsafe legacy renegotiation disabled", conditionMessage(error_result))) {
-      msg <- c(msg, "", cli::style_italic("!If you are using openssl, you might need to downgrade to curl v7.78.0, openssl v1.1.1!"))
-    }
-    cli::cli_abort(msg)
-  }
+  # if (!is.null(error_result)) {
+  #   if (grepl(
+  #     "unsafe legacy renegotiation disabled",
+  #     conditionMessage(error_result) # nolint: commented_code_linter.
+  #   )) {
+  #     msg <- c(
+  #       msg,
+  #       "",
+  #       cli::style_italic("[!] If you are using openssl, you might need to downgrade to curl v7.78.0, openssl v1.1.1!") # nolint: line_length_linter.
+  #     )
+  #   }
+  #   cli::cli_abort(msg)
+  # }
 
   check_status_code(post_result, verbose = verbose)
 
   response_body <- httr2::resp_body_string(post_result)
 
   # base url for download
-  base_url_down <- "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
+  base_url_down <-
+    "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Getting info from CompTox...")
@@ -359,4 +385,96 @@ extr_comptox_ <- function(ids,
   resp |>
     httr2::resp_body_raw() |>
     writeBin(xlsx_file)
+}
+
+
+#' @inherit extr_comptox title description
+#' @inheritParams extr_comptox
+#' @param  xlsx_file Path to file to write with results.
+#' @param  base_url Comptox url.
+#' @keywords internal
+#' @noRd
+extr_comptox_openssl_ <- function(ids,
+                                  download_items = NULL,
+                                  mass_error = 0,
+                                  xlsx_file,
+                                  base_url,
+                                  verbose = TRUE,
+                                  delay = 7) {
+  # Create JSON-like string
+  json_string <- sprintf(
+    '{
+    "identifierTypes": ["chemical_name", "CASRN", "INCHIKEY", "dtxsid"],
+    "massError": %d,
+    "downloadItems": [%s],
+    "searchItems": "%s",
+    "inputType": "IDENTIFIER",
+    "downloadType": "EXCEL"
+  }',
+    mass_error,
+    paste(shQuote(download_items, type = "cmd"), collapse = ", "),
+    paste(ids, collapse = "\\n")
+    # Double backslashes for R to produce
+    # \n in the output
+  )
+
+
+  if (isTRUE(verbose)) {
+    cli::cli_alert_info("Sending request to CompTox...")
+  }
+
+  curl_res <- condathis::run("curl",
+    "-X",
+    "POST",
+    base_url,
+    "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",
+    "-H", "Accept: */*",
+    "-H", "Accept-Encoding: deflate, gzip",
+    "-H", "Content-Type: application/json",
+    "-d",
+    json_string,
+    env_name = "openssl-linux-env",
+    verbose = "silent"
+  )
+
+  base_url_down <-
+    "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
+
+  full_url_down <- paste0(base_url_down, curl_res$stdout)
+
+  if (isTRUE(verbose)) {
+    cli::cli_alert_info("Getting info from CompTox...")
+  }
+  Sys.sleep(delay)
+
+  arg_call <- c(
+    "-f",
+    "-s",
+    "-S",
+    "-L",
+    "--create-dirs",
+    "--silent",
+    "-o",
+    xlsx_file,
+    "--compressed"
+  )
+
+  other_headers <- c(
+    "-H",
+    "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0" # nolint
+  )
+
+  curl_res_2 <- condathis::run("curl",
+    arg_call,
+    full_url_down,
+    other_headers,
+    env_name = "openssl-linux-env",
+    error = "continue",
+    verbose = "silent"
+    # stdout = xlsx_file
+  )
+
+  if (curl_res_2$stderr != "") {
+    cli::cli_abort("Failed to perform the request: {curl_res_2$stderr}")
+  }
 }

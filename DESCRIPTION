@@ -23,7 +23,8 @@ URL: https://github.com/c1au6i0/extractox,
 BugReports: https://github.com/c1au6i0/extractox/issues
 Depends: 
     R (>= 4.1)
-Imports: 
+Imports:
+    condathis,
     cli,
     httr2,
     janitor,
