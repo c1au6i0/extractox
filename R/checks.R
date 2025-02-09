@@ -93,11 +93,7 @@ check_need_libcurl_condathis <- function() {
 #'
 #' Use `{condathis}` to install  `curl==7.78.0`.
 condathis_downgrade_libcurl <- function() {
-  if (isFALSE(requireNamespace("condathis", quietly = TRUE))) {
-    cli::cli_abort("{.pkg condathis} not installed.
-      Install it with: `install.packages('condathis')`")
-  }
-
+  
   if (!condathis::env_exists("openssl-linux-env")) {
     condathis::create_env(
       c("curl==7.78.0", "libcurl", "openssl"),
