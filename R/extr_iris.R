@@ -25,10 +25,17 @@ extr_iris <- function(casrn = NULL, verbose = TRUE) {
   check_internet(verbose = verbose)
 
   if (length(casrn) > 1) {
-    dat <- lapply(casrn, extr_iris_, cancer_types = cancer_types, verbose = verbose)
+    dat <- lapply(casrn, extr_iris_,
+      cancer_types = cancer_types,
+      verbose = verbose
+    )
     out <- do.call(rbind, dat)
   } else {
-    out <- extr_iris_(casrn = casrn, cancer_types = cancer_types, verbose = verbose)
+    out <- extr_iris_(
+      casrn = casrn,
+      cancer_types = cancer_types,
+      verbose = verbose
+    )
   }
 
   out_cl <- out |>
@@ -83,9 +90,15 @@ extr_iris_ <- function(casrn = NULL,
   msg <- "Failed to perform the request: {conditionMessage(error_result)}"
 
   if (!is.null(error_result)) {
-    if (grepl("unsafe legacy renegotiation disabled", conditionMessage(error_result))) {
-      msg <- c(msg, "", cli::style_italic("!If you are using openssl, you might
-                                          need to downgrade to curl v7.78.0, openssl v1.1.1!"))
+    if (grepl(
+      "unsafe legacy renegotiation disabled",
+      conditionMessage(error_result)
+    )) {
+      msg <- c(
+        msg, "",
+        cli::style_italic("!If you are using openssl, you might
+                 need to downgrade to curl v7.78.0, openssl v1.1.1!")
+      )
     }
     cli::cli_abort(msg)
   }
@@ -114,4 +127,43 @@ extr_iris_ <- function(casrn = NULL,
   }
 
   out
+}
+
+
+#' extr_iris_linux
+#'
+#' @inheritParams extr_iris_
+extr_iris_openssl_ <- function(casrn,
+  cancer_types = c("non_cancer", "cancer"),
+  verbose = TRUE
+) {
+  base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/?"
+
+  # Construct query parameters dynamically
+  query_params <- list(
+    keyword = casrn,
+    cancer_or_no_cancer = cancer_types
+  )
+  query_string <- paste(
+    paste0("keyword=", query_params$keyword),
+    paste0("cancer_or_no_cancer=",
+           query_params$cancer_or_no_cancer,
+           collapse = "&"),
+    sep = "&"
+  )
+
+  if (isTRUE(verbose)) {
+    cli::cli_alert_info("Quering {.field {casrn}} to EPA IRIS database...\n")
+  }
+
+  curl_res <- condathis::run("curl",
+    paste0(base_url, query_string, collapse = ""),
+    env_name = "openssl-linux-env", verbose = FALSE
+  )
+
+  out <- curl_res$stdout |>
+    rvest::read_html() |>
+    rvest::html_table()
+
+  out[[1]]
 }
