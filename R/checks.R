@@ -5,7 +5,6 @@
 #' @param dat A dataframe that contains the data.
 #' @param col_to_check The name of the column to check for NA values.
 #' @param verbose Logical indicating whether to show a warning if NAs are found. Default is TRUE.
-#' @importFrom cli cli_warn
 #' @keywords internal
 #' @noRd
 check_na_warn <- function(dat, col_to_check, verbose = TRUE) {

@@ -24,14 +24,23 @@ extr_iris <- function(casrn = NULL, verbose = TRUE) {
   # Check if online
   check_internet(verbose = verbose)
 
+
+  # Need to downgrade libcurl?
+  if (isTRUE(check_need_libcurl_condathis())) {
+    condathis_downgrade_libcurl()
+    extr_iris_to_use <- extr_iris_openssl_
+  } else {
+    extr_iris_to_use <- extr_iris_
+  }
+
   if (length(casrn) > 1) {
-    dat <- lapply(casrn, extr_iris_,
+    dat <- lapply(casrn, extr_iris_to_use,
       cancer_types = cancer_types,
       verbose = verbose
     )
     out <- do.call(rbind, dat)
   } else {
-    out <- extr_iris_(
+    out <- extr_iris_to_use(
       casrn = casrn,
       cancer_types = cancer_types,
       verbose = verbose
@@ -130,7 +139,7 @@ extr_iris_ <- function(casrn = NULL,
 }
 
 
-#' extr_iris_linux
+#' extr_iris_openssl_
 #'
 #' @inheritParams extr_iris_
 extr_iris_openssl_ <- function(casrn,
@@ -161,9 +170,17 @@ extr_iris_openssl_ <- function(casrn,
     env_name = "openssl-linux-env", verbose = FALSE
   )
 
-  out <- curl_res$stdout |>
+  dat <- curl_res$stdout |>
     rvest::read_html() |>
     rvest::html_table()
 
-  out[[1]]
+  out <- dat[[1]][dat[[1]]$CASRN %in% casrn, ]
+
+  if (nrow(out) > 0) {
+    out[, "query"] <- casrn
+  } else {
+    out[1, "query"] <- casrn
+  }
+
+  out
 }
