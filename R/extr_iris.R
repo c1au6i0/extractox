@@ -141,11 +141,11 @@ extr_iris_ <- function(casrn = NULL,
 
 #' extr_iris_openssl_
 #'
-#' @inheritParams extr_iris_
-extr_iris_openssl_ <- function(casrn,
-  cancer_types = c("non_cancer", "cancer"),
-  verbose = TRUE
-) {
+#' @inheritParams extr_iris
+extr_iris_openssl_ <- function(
+    casrn,
+    cancer_types = c("non_cancer", "cancer"),
+    verbose = TRUE) {
   base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/?"
 
   # Construct query parameters dynamically
@@ -156,8 +156,9 @@ extr_iris_openssl_ <- function(casrn,
   query_string <- paste(
     paste0("keyword=", query_params$keyword),
     paste0("cancer_or_no_cancer=",
-           query_params$cancer_or_no_cancer,
-           collapse = "&"),
+      query_params$cancer_or_no_cancer,
+      collapse = "&"
+    ),
     sep = "&"
   )
 

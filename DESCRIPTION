@@ -24,8 +24,8 @@ BugReports: https://github.com/c1au6i0/extractox/issues
 Depends: 
     R (>= 4.1)
 Imports:
-    condathis,
     cli,
+    condathis,
     httr2,
     janitor,
     pingr,

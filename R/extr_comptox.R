@@ -33,7 +33,6 @@
 #'      type of atoms in a molecule.}
 #'   \item{AVERAGE_MASS}{The average mass of the molecule, calculated based on
 #'      the isotopic distribution of the elements.}
-#'      isotopic distribution of the elements.}
 #'   \item{MONOISOTOPIC_MASS}{The mass of the molecule calculated using the most
 #'      abundant isotope of each element.}
 #'   \item{QC_LEVEL}{The quality control level of the data.}

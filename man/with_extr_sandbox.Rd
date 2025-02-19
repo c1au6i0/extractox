@@ -7,7 +7,8 @@
 with_extr_sandbox(code, temp_dir = tempdir())
 }
 \arguments{
-\item{code}{The code to be executed inside the sandbox. Should be an expression.}
+\item{code}{The code to be executed inside the sandbox. Should be an
+expression.}
 
 \item{temp_dir}{A temporary directory created using \code{temdir()}.}
 }
@@ -17,9 +18,9 @@ The result of the executed code.
 \description{
 This function creates a temporary directory and sets it as \code{R_USER_CACHE_DIR}
 before executing the provided code block. It is used for testing or running
-code without affecting the user's default cache directory as required by CRAN for the examples .
-This function is not  designed to be used by package users. Shamelessly "inspired" by
-some @luciorq code.
+code without affecting the user's default cache directory as required by CRAN
+for the examples .This function is not  designed to be used by package users.
+Shamelessly "inspired" by some @luciorq code.
 }
 \examples{
 with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
