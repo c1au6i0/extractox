@@ -141,7 +141,10 @@ extr_iris_ <- function(casrn = NULL,
 
 #' extr_iris_openssl_
 #'
-#' @inheritParams extr_iris
+#' @inherit extr_iris title description params
+#' @param cancer_types String, either "non_cancer" or "cancer"
+#' @keywords internal
+#' @noRd
 extr_iris_openssl_ <- function(
     casrn,
     cancer_types = c("non_cancer", "cancer"),
