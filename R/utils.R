@@ -45,14 +45,34 @@ download_db <- function(url,
     cli::cli_alert_info("Downloading data from {.url {url}}.")
   }
 
+  dat_file <- tempfile(fileext = file_ext)
+
+  if (isTRUE(check_need_libcurl_condathis())) {
+    condathis_downgrade_libcurl()
+
+    url_to_use <-
+      paste0(url,
+             "?",
+             paste(names(url_query_param),
+                   url_query_param,
+                   sep = "=",
+                   collapse = "&"))
+  
+    req  <- condathis::run("curl", "-o", dat_file, url_to_use,
+                           env_name = "openssl-linux-env",
+                           verbose = FALSE)
+
+
+  }
+
+
+
   req <- httr2::request(url) |>
     httr2::req_url_query(
       !!!url_query_param,
       multi = "explore"
     ) |>
     httr2::req_perform()
-
-  dat_file <- tempfile(fileext = file_ext)
 
   req |>
     httr2::resp_body_raw() |>
@@ -71,19 +91,46 @@ download_db <- function(url,
   out_cl
 }
 
+  # curl_res <- condathis::run("curl", 
+  #   paste0(base_url, query_string, collapse = ""),
+  #   env_name = "openssl-linux-env", verbose = FALSE
+  # )
+
+  # # Need to downgrade libcurl?
+  # if (isTRUE(check_need_libcurl_condathis())) {
+  #   condathis_downgrade_libcurl()
+  #   extr_iris_to_use <- extr_iris_openssl_
+  # } else {
+  #   extr_iris_to_use <- extr_iris_
+  # }
+# curl -o prova.html 'https://cfpub.epa.gov/ncea/pprtv/atoz.cfm?excel=yes'
+# curl 'https://cfpub.epa.gov/ncea/pprtv/atoz.cfm?excel=yes'
+# list(excel = "yes"),
+
+    # curl_command <- paste("curl -o",
+    #  file_name,
+    #   paste0(
+    #     url,
+    #      "?", 
+    #      paste(names(url_query_param),
+    #       url_query_param,
+    #       sep = "=",
+    #       collapse = "&")))
 
 #' Search and Match Data
 #'
-#' This function searches for matches in a dataframe based on a given list of ids
-#' and search type, then combines the results into a single dataframe, making sure
-#' that NA rows are added for any missing ids. The column `query` is a the end of
-#' the dataframe.
+#' This function searches for matches in a dataframe based on a given list of
+#' ids and search type, then combines the results into a single dataframe,
+#' making sure that NA rows are added for any missing ids. The column
+#' `query` is a the end of the dataframe.
 #'
 #' @param dat The dataframe to be searched.
 #' @param ids A vector of ids to search for.
 #' @param search_type The type of search: "casrn" or "name".
-#' @param col_names Column names to be used when creating a new dataframe in case of no matches.
-#' @param chemical_col The name of the column in dat where chemical names are stored.
+#' @param col_names Column names to be used when creating a new dataframe in
+#'   case of no matches.
+#' @param chemical_col The name of the column in dat where chemical names
+#'    are stored.
 #' @return A dataframe with search results.
 #' @keywords internal
 #'
@@ -91,7 +138,11 @@ download_db <- function(url,
 #'
 #' @seealso
 #' \code{\link{extr_pprtv}}, \code{\link{extr_monograph}}
-search_and_match <- function(dat, ids, search_type, col_names, chemical_col = "chemical") {
+search_and_match <- function(dat,
+                             ids,
+                             search_type,
+                             col_names,
+                             chemical_col = "chemical") {
   results <- lapply(ids, function(id) {
     if (search_type == "casrn") {
       match <- dat[dat$casrn == id, ]
