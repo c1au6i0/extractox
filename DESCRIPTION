@@ -26,6 +26,7 @@ Depends:
 Imports:
     cli,
     condathis,
+    fs,
     httr2,
     janitor,
     pingr,

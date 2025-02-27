@@ -52,7 +52,7 @@ download_db <- function(url,
 
   if (isTRUE(check_need_libcurl_condathis())) {
     condathis_downgrade_libcurl()
-    
+
     url_to_use <-
       paste0(
         url,
@@ -164,7 +164,7 @@ search_and_match <- function(dat,
 #'
 #' @param df_list A named list of dataframes to write to the Excel file.
 #' @param filename The name of the Excel file to create.
-#' @return No return value. The function prints a message indicating 
+#' @return No return value. The function prints a message indicating
 #'   the completion of the Excel file writing.
 #' @export
 #' @examples

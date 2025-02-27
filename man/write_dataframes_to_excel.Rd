@@ -12,10 +12,12 @@ write_dataframes_to_excel(df_list, filename)
 \item{filename}{The name of the Excel file to create.}
 }
 \value{
-No return value. The function prints a message indicating the completion of the Excel file writing.
+No return value. The function prints a message indicating
+the completion of the Excel file writing.
 }
 \description{
-This function creates an Excel file with each dataframe in a list as a separate sheet.
+This function creates an Excel file with each dataframe in a list
+as a separate sheet.
 }
 \examples{
 \donttest{

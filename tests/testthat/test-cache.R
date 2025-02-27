@@ -11,9 +11,11 @@ song <- c("bella", "ciao", "bella", "ciao", "ciao", "ciao")
 test_that("Save to cache works", {
   expect_message(
     {
-      file_path <- save_to_cache(dat = song,
-                                 file_name = "song.txt",
-                                 verbose = TRUE)
+      file_path <- save_to_cache(
+        dat = song,
+        file_name = "song.txt",
+        verbose = TRUE
+      )
     },
     "Saving"
   )

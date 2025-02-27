@@ -26,3 +26,4 @@ Shamelessly "inspired" by some @luciorq code.
 with_extr_sandbox(Sys.getenv("R_USER_CACHE_DIR"))
 with_extr_sandbox(tools::R_user_dir("extractox", "cache"))
 }
+\keyword{internal}
