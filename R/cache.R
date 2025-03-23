@@ -81,7 +81,6 @@ read_from_cache <- function(file_name, verbose = FALSE) {
   out
 }
 
-
 #' Execute Code in a Temporary Directory
 #'
 #' @description

@@ -76,7 +76,8 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
     cli::cli_alert_info("Querying {.field pubchem_ids}.")
   }
 
-  casrn_data <- webchem::pc_sect(pubchem_ids, "Depositor-Supplied Synonyms")
+  # casrn_data <- webchem::pc_sect(pubchem_ids, "Depositor-Supplied Synonyms")
+  casrn_data <- webchem::pc_sect(pubchem_ids, "CAS")
 
   col_names <- c("cid", "iupac_name", "casrn", "source_name", "source_id", "query")
 
