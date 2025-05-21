@@ -31,6 +31,7 @@ Imports:
     janitor,
     pingr,
     readxl,
+    rlang,
     rvest,
     webchem,
     withr
