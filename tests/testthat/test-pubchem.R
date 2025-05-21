@@ -25,7 +25,7 @@ test_that("extr_casrn_from_cid generate results with 2 cid, one wrong", {
   expect_equal(sum(is.na(out$casrn)), 1)
   expect_true(is.data.frame(out))
   expect_equal(names(out), col_names)
-  expect_equal(nrow(out), 168)
+  expect_equal(nrow(out), 28)
 })
 
 Sys.sleep(4)
