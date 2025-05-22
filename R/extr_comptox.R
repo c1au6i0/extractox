@@ -140,10 +140,7 @@
 #'   problems with unsafe legacy renegotiation in newer versions. One workaround
 #'   is to downgrade to \code{curl v7.78.0} and \code{OpenSSL v1.1.1}. However,
 #'   please be aware that using these older versions might introduce potential
-#'   security vulnerabilities. Refer to
-#'   \href{https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c}{this # nolint
-#'   gist} for instructions on how to downgrade \code{curl} and \code{OpenSSL}
-#'   on Ubuntu.
+#'   security vulnerabilities.
 #' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint
 #'   Chemicals Dashboard Resource Hub}
 #' @return A cleaned data frame containing the requested data from CompTox.
@@ -337,6 +334,10 @@ extr_comptox_ <- function(ids,
       NULL
     }
   )
+  if (is.null(post_result)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result)}")
+  }
+
 
   check_status_code(post_result, verbose = verbose)
 
@@ -405,7 +406,7 @@ extr_comptox_openssl_ <- function(ids,
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Sending request to CompTox...")
   }
-
+  
   curl_res <- condathis::run("curl",
     "-X",
     "POST",
