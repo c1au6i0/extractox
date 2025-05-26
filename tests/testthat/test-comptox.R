@@ -7,19 +7,19 @@ test_that("Valid chemical name input", {
   skip_on_cran()
   skip_if_offline()
 
- suppressWarnings(
+  suppressWarnings(
     out <- extr_comptox(
       ids = c("Aspirin"),
       download_items = c("DTXCID", "CASRN"),
       verbose = FALSE
     )
- ) 
+  )
 
   out <- extr_comptox(
-      ids = c("Aspirin"),
-      download_items = c("DTXCID", "CASRN"),
-      verbose = FALSE
-    )
+    ids = c("Aspirin"),
+    download_items = c("DTXCID", "CASRN"),
+    verbose = FALSE
+  )
   expect_true(is.list(out))
   expect_true(all(unlist(lapply(out, is.data.frame))))
   expect_equal(nrow(out$comptox_main_data), 1)
@@ -42,10 +42,10 @@ test_that("Valid inputs", {
   ids <- c("50-00-0", "Aspirin", "DTXSID5020023")
 
   suppressWarnings(
-  out <- extr_comptox(
-        ids = ids,
-        verbose = FALSE
-      )
+    out <- extr_comptox(
+      ids = ids,
+      verbose = FALSE
+    )
   )
 
   expect_equal(names(out), col_names)

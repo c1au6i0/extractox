@@ -194,10 +194,7 @@ function depends on \code{curl} and \code{OpenSSL}, which have known
 problems with unsafe legacy renegotiation in newer versions. One workaround
 is to downgrade to \code{curl v7.78.0} and \code{OpenSSL v1.1.1}. However,
 please be aware that using these older versions might introduce potential
-security vulnerabilities. Refer to
-\href{https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c}{this # nolint
-gist} for instructions on how to downgrade \code{curl} and \code{OpenSSL}
-on Ubuntu.
+security vulnerabilities.
 }
 \examples{
 \donttest{

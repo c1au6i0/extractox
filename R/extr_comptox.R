@@ -406,7 +406,7 @@ extr_comptox_openssl_ <- function(ids,
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Sending request to CompTox...")
   }
-  
+
   curl_res <- condathis::run("curl",
     "-X",
     "POST",
