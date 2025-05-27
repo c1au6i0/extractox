@@ -101,7 +101,7 @@ check_need_libcurl_condathis <- function() {
 #' @param verbose Logical indicating whether to show a warning and messages. Default is TRUE.
 #' @keywords internal
 #' @noRd
-condathis_downgrade_libcurl <- function(verbose = TRUE) {
+condathis_downgrade_libcurl <- function(verbose = "silent") {
   if (!condathis::env_exists("openssl-linux-env")) {
     condathis::create_env(
       c("curl==7.78.0", "libcurl", "openssl"),

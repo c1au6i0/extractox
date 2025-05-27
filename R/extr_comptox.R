@@ -235,7 +235,7 @@ extr_comptox <- function(ids,
 
   # Need to downgrade libcurl?
   if (isTRUE(check_need_libcurl_condathis())) {
-    condathis_downgrade_libcurl(verbose = verbose)
+    condathis_downgrade_libcurl()
 
     resp <- extr_comptox_openssl_(
       ids = ids,
@@ -406,6 +406,10 @@ extr_comptox_openssl_ <- function(ids,
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Sending request to CompTox...")
   }
+
+  # Remove newlines for Windows compatibility
+  # check windows
+  json_string <- gsub("\n", " ", json_string)
 
   curl_res <- condathis::run("curl",
     "-X",
