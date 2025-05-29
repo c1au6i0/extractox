@@ -2,7 +2,7 @@
 % Please edit documentation in R/extr_iris.R
 \name{extr_iris}
 \alias{extr_iris}
-\title{Extract Data from EPA IRIS Database}
+\title{ck Extract Data from EPA IRIS Database}
 \usage{
 extr_iris(casrn = NULL, verbose = TRUE)
 }
