@@ -10,13 +10,8 @@ Authors@R: c(
 Description: Extract toxicological and chemical information from databases
     maintained by scientific agencies and resources, including the
     Comparative Toxicogenomics Database <https://ctdbase.org/>, the
-    Integrated Chemical Environment <https://ice.ntp.niehs.nih.gov/>, the
-    Integrated Risk Information System <https://cfpub.epa.gov/ncea/iris/>,
-    Provisional Peer-Reviewed Toxicity Values
-    <https://www.epa.gov/pprtv/provisional-peer-reviewed-toxicity-values-pprtvs-assessments>,
-    the CompTox Chemicals Dashboard Resource Hub
-    <https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub>,
-    PubChem <https://pubchem.ncbi.nlm.nih.gov/>, and others.
+    Integrated Chemical Environment <https://ice.ntp.niehs.nih.gov/>,
+    PubChem <https://pubchem.ncbi.nlm.nih.gov/>, various EPA databases and others.
 License: MIT + file LICENSE
 URL: https://github.com/c1au6i0/extractox,
     https://c1au6i0.github.io/extractox/
@@ -26,6 +21,7 @@ Depends:
 Imports:
     cli,
     condathis,
+    curl,
     fs,
     httr2,
     janitor,

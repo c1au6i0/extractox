@@ -80,12 +80,18 @@ check_internet <- function(verbose = TRUE) {
 check_need_libcurl_condathis <- function() {
   libcurl_safe <- TRUE
 
-  lib_curl_version <- libcurlVersion()
+  lib_curl_version <- curl::curl_version()
+
+  # Check if the version is greater than or equal to 7.78.0
+  # and if the SSL version is OpenSSL
+  # If both conditions are met, set libcurl_safe to FALSE
+
+
   attr_lib_curl_version <- attributes(lib_curl_version)$ssl_version
 
   if (all(
-    lib_curl_version >= "7.78.0",
-    grepl("OpenSSL", attr_lib_curl_version)
+    lib_curl_version$version >= "7.78.0",
+    grepl("OpenSSL", lib_curl_version$ssl_version)
   )) {
     libcurl_safe <- FALSE
   }
@@ -105,7 +111,7 @@ check_need_libcurl_condathis <- function() {
 #'   value.
 #' @keywords internal
 #' @noRd
-condathis_downgrade_libcurl <- function(verbose = TRUE) {
+condathis_downgrade_libcurl <- function(verbose = "silent") {
   if (!condathis::env_exists("openssl-linux-env")) {
     condathis::create_env(
       c("curl==7.78.0", "libcurl", "openssl"),

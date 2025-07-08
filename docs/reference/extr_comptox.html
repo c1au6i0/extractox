@@ -374,7 +374,8 @@ libcurl depends on OpenSSL.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is designed to handle potential connection issues with EPA
+    <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+This function is designed to handle potential connection issues with EPA
 servers on Linux systems. These servers may not support modern security
 protocols (unsafe legacy renegotiation), causing errors with newer versions
 of <code>libcurl</code> when linked with <code>OpenSSL</code>.</p>
@@ -382,7 +383,17 @@ of <code>libcurl</code> when linked with <code>OpenSSL</code>.</p>
 <code>libcurl</code> is likely to be affected. If so, it uses the <code>{condathis}</code>
 package to download and run the request with a known-compatible version of
 <code>curl</code> (<code>7.78.0</code>). This process is automatic and does not require manual
-intervention or system-level changes.</p>
+intervention or system-level changes.
+=======
+Please note that this function, which pulls data from EPA servers, may
+encounter issues on some Linux systems. This is because those servers do
+not accept secure legacy renegotiation. On Linux systems, the current
+function depends on <code>curl</code> and <code>OpenSSL</code>, which have known
+problems with unsafe legacy renegotiation in newer versions. One workaround
+is to downgrade to <code>curl v7.78.0</code> and <code>OpenSSL v1.1.1</code>. However,
+please be aware that using these older versions might introduce potential
+security vulnerabilities.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 901b06dc8608ec27d715ff45f1b8c3cfb201f213</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -401,7 +412,7 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Getting info from CompTox...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_cover_sheet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2025_07_08_19_47_16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2025_07_08_20_12_05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Search term count                    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Found count                          2</span>
@@ -493,18 +504,18 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_chemical_properties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 103 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dtxsid        dtxcid      type         name    value units source description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID7020637 DTXCID30637 predicted    LogD5.5 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID7020637 DTXCID30637 predicted    LogD7.4 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID5020108 DTXCID50108 predicted    liquid… 0.92  min   OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID5020108 DTXCID50108 predicted    Water … 0.02… mol/L TEST   <span style="color: #949494;">"</span>The &lt;a hr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID5020108 DTXCID50108 predicted    Henry'… 8.31… atm-… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID5020108 DTXCID50108 predicted    ReadyB… 1.0   Bina… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID5020108 DTXCID50108 predicted    Boilin… 281.… °C    TEST   <span style="color: #949494;">"</span>The &lt;a hr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID5020108 DTXCID50108 predicted    Meltin… 93.06 °C    EPISU… <span style="color: #949494;">"</span>&lt;a href='…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID5020108 DTXCID50108 experimental LogKow… 1.19  Log1… PhysP… <span style="color: #949494;">"</span>The PHYSP…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    dtxsid        dtxcid      type      name       value units source description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID5020108 DTXCID50108 predicted LogD5.5    -0.13 Log1… OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID7020637 DTXCID30637 predicted LogD5.5    0.35  Log1… OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID7020637 DTXCID30637 predicted LogD7.4    0.35  Log1… OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID5020108 DTXCID50108 predicted liquid ch… 0.92  min   OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID5020108 DTXCID50108 predicted Water Sol… 0.02… mol/L TEST   The &lt;a hre…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID5020108 DTXCID50108 predicted Water Sol… 0.02… mol/L EPISU… &lt;a href='h…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID5020108 DTXCID50108 predicted Henry's L… 8.31… atm-… OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID5020108 DTXCID50108 predicted ReadyBiod… 1.0   Bina… OPERA… OPERA is a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID5020108 DTXCID50108 predicted Boiling P… 281.… °C    TEST   The &lt;a hre…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID5020108 DTXCID50108 predicted Melting P… 93.06 °C    EPISU… &lt;a href='h…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 93 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

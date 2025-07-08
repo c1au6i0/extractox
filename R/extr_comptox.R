@@ -132,17 +132,14 @@
 #'   subsequent request to download the Excel file.
 #' @param ... Additional arguments passed to `httr2::req_options()`. Not used if
 #'   libcurl depends on OpenSSL.
-#' @details
-#' This function is designed to handle potential connection issues with EPA
-#'   servers on Linux systems. These servers may not support modern security
+#' @details This function is designed to handle potential connection issues with
+#'   EPA servers on Linux systems. These servers may not support modern security
 #'   protocols (unsafe legacy renegotiation), causing errors with newer versions
 #'   of `libcurl` when linked with `OpenSSL`.
-#'
 #'   To ensure reliability, the function automatically detects if your system's
 #'   `libcurl` is likely to be affected. If so, it uses the `{condathis}`
 #'   package to download and run the request with a known-compatible version of
-#'   `curl` (`7.78.0`). This process is automatic and does not require manual
-#'   intervention or system-level changes.
+#'   `curl` (`7.78.0`). 
 #' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint
 #'   Chemicals Dashboard Resource Hub}
 #' @return A cleaned data frame containing the requested data from CompTox.
@@ -237,7 +234,7 @@ extr_comptox <- function(ids,
 
   # Need to downgrade libcurl?
   if (isTRUE(check_need_libcurl_condathis())) {
-    condathis_downgrade_libcurl(verbose = verbose)
+    condathis_downgrade_libcurl()
 
     resp <- extr_comptox_openssl_(
       ids = ids,
@@ -336,6 +333,10 @@ extr_comptox_ <- function(ids,
       NULL
     }
   )
+  if (is.null(post_result)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result)}")
+  }
+
 
   check_status_code(post_result, verbose = verbose)
 
@@ -404,6 +405,10 @@ extr_comptox_openssl_ <- function(ids,
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Sending request to CompTox...")
   }
+
+  # Remove newlines for Windows compatibility
+  # check windows
+  json_string <- gsub("\n", " ", json_string)
 
   curl_res <- condathis::run("curl",
     "-X",

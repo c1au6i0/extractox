@@ -1,4 +1,4 @@
-#' Extract Data from EPA IRIS Database
+#' ck Extract Data from EPA IRIS Database
 #'
 #' The `extr_iris` function sends a request to the EPA IRIS database to search
 #' for information based on a specified keywords and cancer types. It retrieves
@@ -148,14 +148,15 @@ extr_iris_ <- function(casrn = NULL,
 extr_iris_openssl_ <- function(
     casrn,
     cancer_types = c("non_cancer", "cancer"),
-    verbose = TRUE) {
+    verbose = true) {
   base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/?"
 
-  # Construct query parameters dynamically
+  # construct query parameters dynamically
   query_params <- list(
     keyword = casrn,
     cancer_or_no_cancer = cancer_types
   )
+
   query_string <- paste(
     paste0("keyword=", query_params$keyword),
     paste0("cancer_or_no_cancer=",
@@ -165,13 +166,20 @@ extr_iris_openssl_ <- function(
     sep = "&"
   )
 
+
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Quering {.field {casrn}} to EPA IRIS database...\n")
   }
 
+  full_url <- paste0(base_url, query_string, collapse = "")
+
+  if (Sys.info()[["sysname"]] == "Windows") {
+    full_url <- shQuote(full_url, type = "cmd2")
+  }
+
   curl_res <- condathis::run("curl",
-    paste0(base_url, query_string, collapse = ""),
-    env_name = "openssl-linux-env", verbose = FALSE
+    full_url,
+    env_name = "openssl-linux-env", verbose = "silent"
   )
 
   dat <- curl_res$stdout |>

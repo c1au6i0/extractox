@@ -187,16 +187,14 @@ properties, identifiers, and predictive data. It was inspired by the
 \code{ECOTOXr::websearch_comptox} function.
 }
 \details{
-This function is designed to handle potential connection issues with EPA
-servers on Linux systems. These servers may not support modern security
+This function is designed to handle potential connection issues with
+EPA servers on Linux systems. These servers may not support modern security
 protocols (unsafe legacy renegotiation), causing errors with newer versions
 of \code{libcurl} when linked with \code{OpenSSL}.
-
 To ensure reliability, the function automatically detects if your system's
 \code{libcurl} is likely to be affected. If so, it uses the \code{{condathis}}
 package to download and run the request with a known-compatible version of
-\code{curl} (\verb{7.78.0}). This process is automatic and does not require manual
-intervention or system-level changes.
+\code{curl} (\verb{7.78.0}).
 }
 \examples{
 \donttest{

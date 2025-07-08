@@ -107,5 +107,5 @@ The Comparative Toxicogenomics Database: update 2019. Nucleic acids research,
 }
 }
 \seealso{
-\href{http://ctdbase.org}{Comparative Toxicogenomics Database}
+\href{https://ctdbase.org}{Comparative Toxicogenomics Database}
 }
