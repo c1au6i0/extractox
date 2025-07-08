@@ -68,10 +68,15 @@ check_internet <- function(verbose = TRUE) {
 }
 
 
-#' check_libcurl_condathis
+#' Check for problematic libcurl with OpenSSL
 #'
-#' Check if libcurl version is more than 7.78.0 and OpenSSL
-#' @return Boolean
+#' Checks if the system's libcurl version is 7.78.0 or newer and linked
+#' against OpenSSL. This combination can cause issues with servers that do not
+#' support secure legacy renegotiation, such as those from the EPA.
+#' @return A boolean value: `TRUE` if the combination is problematic, `FALSE`
+#'   otherwise.
+#' @keywords internal
+#' @noRd
 check_need_libcurl_condathis <- function() {
   libcurl_safe <- TRUE
 
@@ -88,11 +93,16 @@ check_need_libcurl_condathis <- function() {
   isFALSE(libcurl_safe)
 }
 
-#' install curl
+#' Install a compatible curl version using condathis
 #'
-#' Use `{condathis}` to install  `curl==7.78.0`.
+#' Uses the `{condathis}` package to install a specific version of curl
+#' (`7.78.0`) into a dedicated conda environment named "openssl-linux-env".
+#' This is used to work around issues with modern libcurl versions and EPA servers.
 #'
-#' @param verbose Logical indicating whether to show a warning and messages. Default is TRUE.
+#' @param verbose Logical indicating whether to show installation messages.
+#'   Default is `TRUE`.
+#' @return This function is called for its side effects and does not return a
+#'   value.
 #' @keywords internal
 #' @noRd
 condathis_downgrade_libcurl <- function(verbose = TRUE) {

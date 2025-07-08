@@ -133,17 +133,16 @@
 #' @param ... Additional arguments passed to `httr2::req_options()`. Not used if
 #'   libcurl depends on OpenSSL.
 #' @details
-#' Please note that this function, which pulls data from EPA servers, may
-#'   encounter issues on some Linux systems. This is because those servers do
-#'   not accept secure legacy renegotiation. On Linux systems, the current
-#'   function depends on \code{curl} and \code{OpenSSL}, which have known
-#'   problems with unsafe legacy renegotiation in newer versions. One workaround
-#'   is to downgrade to \code{curl v7.78.0} and \code{OpenSSL v1.1.1}. However,
-#'   please be aware that using these older versions might introduce potential
-#'   security vulnerabilities. Refer to
-#'   \href{https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c}{this # nolint
-#'   gist} for instructions on how to downgrade \code{curl} and \code{OpenSSL}
-#'   on Ubuntu.
+#' This function is designed to handle potential connection issues with EPA
+#'   servers on Linux systems. These servers may not support modern security
+#'   protocols (unsafe legacy renegotiation), causing errors with newer versions
+#'   of `libcurl` when linked with `OpenSSL`.
+#'
+#'   To ensure reliability, the function automatically detects if your system's
+#'   `libcurl` is likely to be affected. If so, it uses the `{condathis}`
+#'   package to download and run the request with a known-compatible version of
+#'   `curl` (`7.78.0`). This process is automatic and does not require manual
+#'   intervention or system-level changes.
 #' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint
 #'   Chemicals Dashboard Resource Hub}
 #' @return A cleaned data frame containing the requested data from CompTox.

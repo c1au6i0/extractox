@@ -33,6 +33,25 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.0" id="extractox-200">extractox 2.0.0<a class="anchor" aria-label="anchor" href="#extractox-200"></a></h2>
+<div class="section level3">
+<h3 id="major-changes--enhancements-2-0-0">Major Changes &amp; Enhancements<a class="anchor" aria-label="anchor" href="#major-changes--enhancements-2-0-0"></a></h3>
+<ul><li>Automated Server Compatibility: Functions connecting to EPA servers (e.g., <code>extr_comptox</code>, <code>extr_iris</code>, <code>extr_pprtv</code>) now automatically handle connection issues that can occur on systems with modern <code>libcurl</code> and <code>OpenSSL</code>. The functions detect problematic configurations and use the <a href="https://github.com/luciorq/condathis" class="external-link">condathis</a> package to perform requests with a compatible version of <code>curl</code> in an isolated environment. This ensures reliability without requiring manual user intervention.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-enhancements-2-0-0">Minor Enhancements<a class="anchor" aria-label="anchor" href="#minor-enhancements-2-0-0"></a></h3>
+<ul><li><p>Sandboxed Execution for Testing: Introduced a sandboxing feature (<code>with_extr_sandbox</code>) to isolate execution environments during testing, preventing interference with the user’s cache.</p></li>
+<li><p>Request Throttling**: Added a <code>delay</code> parameter to PubChem functions to allow for a pause between requests, helping to avoid rate-limiting errors.</p></li>
+<li><p>Verbose Option: A <code>verbose</code> option has been added to several functions for more detailed output during execution.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-0-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-0"></a></h3>
+<ul><li>Testing: Corrected various tests, including a fix for an incorrect row count expectation in the PubChem test.</li>
+<li>Data Extraction: Fixed an issue in <code>extr_pubchem</code> to ensure the correct CAS number is extracted.</li>
+<li>Function Cleanup: Refined the <code>extr_comptox</code> function, removing unnecessary requirements and cleaning up the code.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="extractox-100">extractox 1.0.0<a class="anchor" aria-label="anchor" href="#extractox-100"></a></h2><p class="text-muted">CRAN release: 2025-01-07</p>
 <div class="section level3">
 <h3 id="bug-fixes-1-0-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-0-0"></a></h3>
