@@ -188,7 +188,7 @@ extr_ctd <- function(
 #'   Default is TRUE.
 #' @param ... Any other arguments to be supplied to `req_option` and thus to `libcurl`.
 #' @return A data frame containing the queried tetramer data in CSV format.
-#' @seealso \href{http://ctdbase.org}{Comparative Toxicogenomics Database}
+#' @seealso \href{https://ctdbase.org}{Comparative Toxicogenomics Database}
 #' @references
 #' - Comparative Toxicogenomics Database: \url{http://ctdbase.org}
 #' - Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R.,
