@@ -139,7 +139,7 @@
 #'   To ensure reliability, the function automatically detects if your system's
 #'   `libcurl` is likely to be affected. If so, it uses the `{condathis}`
 #'   package to download and run the request with a known-compatible version of
-#'   `curl` (`7.78.0`). 
+#'   `curl` (`7.78.0`).
 #' @seealso \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint
 #'   Chemicals Dashboard Resource Hub}
 #' @return A cleaned data frame containing the requested data from CompTox.
@@ -232,6 +232,8 @@ extr_comptox <- function(ids,
   base_url <-
     "https://comptox.epa.gov/dashboard-api/batchsearch/export/?lb2ljny4"
 
+  download_items <- c("DTXCID", download_items)
+
   # Need to downgrade libcurl?
   if (isTRUE(check_need_libcurl_condathis())) {
     condathis_downgrade_libcurl()
@@ -301,8 +303,6 @@ extr_comptox_ <- function(ids,
 
   identifier_types <- c("chemical_name", "CASRN", "INCHIKEY", "dtxsid")
   input_type <- "IDENTIFIER"
-
-  download_items <- c("DTXCID", download_items)
 
   params <- list(
     identifierTypes = identifier_types,

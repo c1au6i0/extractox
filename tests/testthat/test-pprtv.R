@@ -2,6 +2,9 @@ library(testthat)
 
 temp_dir <- tempdir()
 
+
+Sys.sleep(4)
+
 test_that("extr_pprtv casrn hit and not hit, verbose,  force = TRUE", {
   skip_on_cran()
   skip_if_offline()
@@ -24,6 +27,8 @@ test_that("extr_pprtv casrn hit and not hit, verbose,  force = TRUE", {
   expect_equal(out$query, ids_search)
 })
 
+Sys.sleep(4)
+
 test_that("Function to warn with  verbose = TRUE", {
   skip_on_cran()
   skip_if_offline()
@@ -44,6 +49,8 @@ test_that("Function to warn with  verbose = TRUE", {
   expect_true(is.na(out$casrn[[3]]))
 })
 
+Sys.sleep(4)
+
 test_that("Function verbose = FALSE", {
   skip_on_cran()
   skip_if_offline()
@@ -56,6 +63,8 @@ test_that("Function verbose = FALSE", {
     )
   })
 })
+
+Sys.sleep(4)
 
 test_that("extr_pprtv na,es hit and not hit, verbose,  force = TRUE", {
   skip_on_cran()

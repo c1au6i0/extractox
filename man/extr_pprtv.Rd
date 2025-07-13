@@ -45,22 +45,26 @@ or force a fresh download.
 \examples{
 \donttest{
 condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies # nolint
+
   # Extract data for a specific CASRN
+  Sys.sleep(4) # Sleep to avoid overwhelming the server
   extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
 
+  Sys.sleep(4) # Sleep to avoid overwhelming the server
   # Extract data for a chemical name
   out <- extr_pprtv(
     ids = "Acrolein", search_type = "name", verbose = TRUE,
-    force = FALSE
+    force = TRUE
   )
   print(out)
 
+  Sys.sleep(3) # Sleep to avoid overwhelming the server
   # Extract data for multiple identifiers
   out2 <- extr_pprtv(
     ids = c("107-02-8", "79-10-7", "42576-02-3"),
     search_type = "casrn",
     verbose = TRUE,
-    force = FALSE
+    force = TRUE
   )
   print(out2)
 })

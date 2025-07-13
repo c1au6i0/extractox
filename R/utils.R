@@ -187,5 +187,5 @@ write_dataframes_to_excel <- function(df_list, filename) {
 
   # Save the workbook
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
-  cli::cli_alert_info("Excell file written in {filename}...")
+  cli::cli_alert_info("Excel file written in {filename}...")
 }

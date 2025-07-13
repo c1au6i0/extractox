@@ -9,23 +9,59 @@
 #' @noRd
 create_na_df <- function(missing_chem) {
   column_names <- c(
-    "cid", "iupac_name", "casrn", "cid_all", "casrn_all",
-    "molecular_formula", "molecular_weight", "canonical_smiles",
-    "isomeric_smiles", "inchi", "inchi_key", "iupac_name",
-    "x_log_p", "exact_mass", "monoisotopic_mass", "tpsa",
-    "complexity", "charge", "h_bond_donor_count",
-    "h_bond_acceptor_count", "rotatable_bond_count",
-    "heavy_atom_count", "isotope_atom_count", "atom_stereo_count",
-    "defined_atom_stereo_count", "undefined_atom_stereo_count",
-    "bond_stereo_count", "defined_bond_stereo_count",
-    "undefined_bond_stereo_count", "covalent_unit_count",
-    "volume3d", "x_steric_quadrupole3d", "y_steric_quadrupole3d",
-    "z_steric_quadrupole3d", "feature_count3d",
-    "feature_acceptor_count3d", "feature_donor_count3d",
-    "feature_anion_count3d", "feature_cation_count3d",
-    "feature_ring_count3d", "feature_hydrophobe_count3d",
-    "conformer_model_rmsd3d", "effective_rotor_count3d",
-    "conformer_count3d", "fingerprint2d", "query"
+    "cid",
+    "iupac_name",
+    "casrn",
+    "cid_all",
+    "casrn_all",
+    "molecular_formula",
+    "molecular_weight",
+    "smiles",
+    "connectivity_smiles",
+    "inchi",
+    "inchi_key",
+    "iupac_name_2",
+    "x_log_p",
+    "exact_mass",
+    "monoisotopic_mass",
+    "tpsa",
+    "complexity",
+    "charge",
+    "h_bond_donor_count",
+    "h_bond_acceptor_count",
+    "rotatable_bond_count",
+    "heavy_atom_count",
+    "isotope_atom_count",
+    "atom_stereo_count",
+    "defined_atom_stereo_count",
+    "undefined_atom_stereo_count",
+    "bond_stereo_count",
+    "defined_bond_stereo_count",
+    "undefined_bond_stereo_count",
+    "covalent_unit_count",
+    "volume3d",
+    "x_steric_quadrupole3d",
+    "y_steric_quadrupole3d",
+    "z_steric_quadrupole3d",
+    "feature_count3d",
+    "feature_acceptor_count3d",
+    "feature_donor_count3d",
+    "feature_anion_count3d",
+    "feature_cation_count3d",
+    "feature_ring_count3d",
+    "feature_hydrophobe_count3d",
+    "conformer_model_rmsd3d",
+    "effective_rotor_count3d",
+    "conformer_count3d",
+    "fingerprint2d",
+    "title",
+    "patent_count",
+    "patent_family_count",
+    "literature_count",
+    "annotation_types",
+    "annotation_type_count",
+    "source_categories",
+    "query"
   )
 
   # Create the dataframe with all NAs
@@ -114,6 +150,8 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 #'   database.
 #' @param verbose A logical value indicating whether to print detailed messages.
 #'   Default is TRUE.
+#' @param domain A character string specifying the PubChem domain to query.
+#'   One of `"compound"` or `substance`. Default is `compound`.
 #' @param delay A numeric value indicating the delay (in seconds) between API
 #'   requests. This controls the time between successive PubChem queries.
 #'   Default is 0. See Details for more info.
@@ -143,6 +181,7 @@ extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
 extr_chem_info <- function(
     iupac_names,
     verbose = TRUE,
+    domain = "compound",
     delay = 0) {
   if (base::missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
@@ -152,7 +191,7 @@ extr_chem_info <- function(
 
   iupac_cid <- webchem::get_cid(
     iupac_names,
-    domain = "compound",
+    domain = domain,
     verbose = verbose
   )
 
@@ -176,11 +215,11 @@ extr_chem_info <- function(
   cid_cas$query <- NULL
 
   # Ensure unique rows and summarize
-  iupac_cid_cas_unique <- stats::aggregate(cbind(cid, casrn) ~ iupac_name, data = cid_cas, function(x) list(unique(x)))
-  iupac_cid_cas_unique$cid <- sapply(iupac_cid_cas_unique$cid, function(x) x[!is.na(x)][1])
-  iupac_cid_cas_unique$casrn <- sapply(iupac_cid_cas_unique$casrn, function(x) x[!is.na(x)][1])
-  iupac_cid_cas_unique$cid_all <- sapply(iupac_cid_cas_unique$cid, paste, collapse = ", ")
-  iupac_cid_cas_unique$casrn_all <- sapply(iupac_cid_cas_unique$casrn, paste, collapse = ", ")
+  iupac_cid_cas_unique <- stats::aggregate(cbind(cid, casrn) ~ iupac_name, data = cid_cas, function(x) list(unique(x))) # nolint
+  iupac_cid_cas_unique$cid <- sapply(iupac_cid_cas_unique$cid, function(x) x[!is.na(x)][1]) # nolint
+  iupac_cid_cas_unique$casrn <- sapply(iupac_cid_cas_unique$casrn, function(x) x[!is.na(x)][1]) # nolint
+  iupac_cid_cas_unique$cid_all <- sapply(iupac_cid_cas_unique$cid, paste, collapse = ", ") # nolint
+  iupac_cid_cas_unique$casrn_all <- sapply(iupac_cid_cas_unique$casrn, paste, collapse = ", ") # nolint
 
 
   Sys.sleep(delay)
@@ -197,6 +236,7 @@ extr_chem_info <- function(
     by.y = "CID",
     all.x = TRUE
   )
+
   names(out) <- names(create_na_df(1))
 
   if (any(is.na(iupac_cid$cid))) {

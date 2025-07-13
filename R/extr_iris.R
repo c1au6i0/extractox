@@ -1,4 +1,4 @@
-#' ck Extract Data from EPA IRIS Database
+#' Extract Data from EPA IRIS Database
 #'
 #' The `extr_iris` function sends a request to the EPA IRIS database to search
 #' for information based on a specified keywords and cancer types. It retrieves
@@ -7,14 +7,16 @@
 #' @param casrn A vector CASRN for the search.
 #' @param verbose A logical value indicating whether to print detailed messages.
 #'    Default is TRUE.
+#' @param delay Numeric value indicating the delay in seconds between requests
+#'    to avoid overwhelming the server. Default is 0 seconds.
 #' @return A data frame containing the extracted data.
-#' @seealso \href{https://cfpub.epa.gov/ncea/iris/search/}{EPA IRIS database}
 #' @export
 #' @examples
 #' \donttest{
-#' extr_iris(casrn = c("1332-21-4", "50-00-0"))
+#' Sys.sleep(3) # To avoid rate limiting due to previous examples
+#' extr_iris(casrn = c("1332-21-4", "50-00-0"), delay = 2)
 #' }
-extr_iris <- function(casrn = NULL, verbose = TRUE) {
+extr_iris <- function(casrn = NULL, verbose = TRUE, delay = 0) {
   cancer_types <- c("non_cancer", "cancer")
 
   if (base::missing(casrn)) {
@@ -36,14 +38,16 @@ extr_iris <- function(casrn = NULL, verbose = TRUE) {
   if (length(casrn) > 1) {
     dat <- lapply(casrn, extr_iris_to_use,
       cancer_types = cancer_types,
-      verbose = verbose
+      verbose = verbose,
+      delay = delay
     )
     out <- do.call(rbind, dat)
   } else {
     out <- extr_iris_to_use(
       casrn = casrn,
       cancer_types = cancer_types,
-      verbose = verbose
+      verbose = verbose,
+      delay = delay
     )
   }
 
@@ -59,16 +63,20 @@ extr_iris <- function(casrn = NULL, verbose = TRUE) {
 #' @param verify_ssl Boolean to control of SSL should be verified or not.
 #' @param ... Any other arguments to be supplied to `req_option` and thus to
 #'    `libcurl`.
+#' @param delay Numeric value indicating the delay in seconds between requests
+#'    to avoid overwhelming the server. Default is 0 seconds.
 #' @noRd
 #' @keywords internal
 extr_iris_ <- function(casrn = NULL,
                        cancer_types = c("non_cancer", "cancer"),
                        verify_ssl = FALSE,
                        verbose = TRUE,
+                       delay = 0,
                        ...) {
   # Check if online
   base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/"
 
+  Sys.sleep(delay)
   # Construct query parameters
   query_params <- list(
     keyword = casrn,
@@ -148,7 +156,9 @@ extr_iris_ <- function(casrn = NULL,
 extr_iris_openssl_ <- function(
     casrn,
     cancer_types = c("non_cancer", "cancer"),
-    verbose = true) {
+    delay = 0,
+    verbose = TRUE) {
+  Sys.sleep(delay)
   base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/?"
 
   # construct query parameters dynamically

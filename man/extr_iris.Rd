@@ -2,15 +2,18 @@
 % Please edit documentation in R/extr_iris.R
 \name{extr_iris}
 \alias{extr_iris}
-\title{ck Extract Data from EPA IRIS Database}
+\title{Extract Data from EPA IRIS Database}
 \usage{
-extr_iris(casrn = NULL, verbose = TRUE)
+extr_iris(casrn = NULL, verbose = TRUE, delay = 0)
 }
 \arguments{
 \item{casrn}{A vector CASRN for the search.}
 
 \item{verbose}{A logical value indicating whether to print detailed messages.
 Default is TRUE.}
+
+\item{delay}{Numeric value indicating the delay in seconds between requests
+to avoid overwhelming the server. Default is 0 seconds.}
 }
 \value{
 A data frame containing the extracted data.
@@ -22,9 +25,7 @@ and parses the HTML content from the response.
 }
 \examples{
 \donttest{
-extr_iris(casrn = c("1332-21-4", "50-00-0"))
+Sys.sleep(3) # To avoid rate limiting due to previous examples
+extr_iris(casrn = c("1332-21-4", "50-00-0"), delay = 2)
 }
-}
-\seealso{
-\href{https://cfpub.epa.gov/ncea/iris/search/}{EPA IRIS database}
 }

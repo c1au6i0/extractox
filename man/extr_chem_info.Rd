@@ -4,7 +4,7 @@
 \alias{extr_chem_info}
 \title{Query Chemical Information from IUPAC Names}
 \usage{
-extr_chem_info(iupac_names, verbose = TRUE, delay = 0)
+extr_chem_info(iupac_names, verbose = TRUE, domain = "compound", delay = 0)
 }
 \arguments{
 \item{iupac_names}{A character vector of IUPAC names. These are standardized
@@ -13,6 +13,9 @@ database.}
 
 \item{verbose}{A logical value indicating whether to print detailed messages.
 Default is TRUE.}
+
+\item{domain}{A character string specifying the PubChem domain to query.
+One of \code{"compound"} or \code{substance}. Default is \code{compound}.}
 
 \item{delay}{A numeric value indicating the delay (in seconds) between API
 requests. This controls the time between successive PubChem queries.

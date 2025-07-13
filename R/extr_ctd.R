@@ -190,7 +190,7 @@ extr_ctd <- function(
 #' @return A data frame containing the queried tetramer data in CSV format.
 #' @seealso \href{https://ctdbase.org}{Comparative Toxicogenomics Database}
 #' @references
-#' - Comparative Toxicogenomics Database: \url{http://ctdbase.org}
+#' - Comparative Toxicogenomics Database: \url{https://ctdbase.org}
 #' - Davis, A. P., Grondin, C. J., Johnson, R. J., Sciaky, D., McMorran, R.,
 #'   Wiegers, T. C., & Mattingly, C. J. (2019).
 #' The Comparative Toxicogenomics Database: update 2019. Nucleic acids research,

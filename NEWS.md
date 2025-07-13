@@ -1,5 +1,5 @@
-# extractox 2.0.0
- 
+# extractox 1.1.0 
+
 ## Major Changes & Enhancements
  * Automated Server Compatibility: Functions connecting to EPA servers (e.g., `extr_comptox`,
   `extr_iris`, `extr_pprtv`) now automatically handle connection issues that can occur on systems with
@@ -8,20 +8,20 @@
   environment. This ensures reliability without requiring manual user intervention.
 
 ## Minor Enhancements
-* Sandboxed Execution for Testing: Introduced a sandboxing feature (`with_extr_sandbox`) to
-      isolate execution environments during testing, preventing interference with the user's cache.
-
+* `extr_chem_info` now accepts the argument `domain` to specify the PubChem domain (`substance` 
+  or `compound`). 
+* `extr_tox` now accepts a `delay` parameter to control the delay between requests, 
+  helping to avoid rate-limiting errors.
 * Request Throttling**: Added a `delay` parameter to PubChem functions to allow for a pause
   between requests, helping to avoid rate-limiting errors.
 * Verbose Option: A `verbose` option has been added to several functions for more detailed
   output during execution.
 
 ## Bug Fixes
-
 * Testing: Corrected various tests, including a fix for an incorrect row count expectation in
       the PubChem test.
-* Data Extraction: Fixed an issue in `extr_pubchem` to ensure the correct CAS number is
-      extracted.
+* Fixed `extr_chem_info` duplicated name in outout columns (#47).
+
 * Function Cleanup: Refined the `extr_comptox` function, removing unnecessary requirements and
       cleaning up the code.
 

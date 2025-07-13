@@ -50,7 +50,7 @@ test_that("Valid inputs", {
 
   expect_equal(names(out), col_names)
   expect_equal(out$comptox_main_data$input, ids)
-  expect_equal(ncol(out$comptox_main_data), 63)
+  expect_equal(ncol(out$comptox_main_data), 64)
 })
 
 Sys.sleep(5)

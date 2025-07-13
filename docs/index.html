@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extract Tox Info from Various Databases">
-<meta name="description" content="Extract toxicological and chemical information from databases maintained by scientific agencies and resources, including the Comparative Toxicogenomics Database &lt;https://ctdbase.org/&gt;, the Integrated Chemical Environment &lt;https://ice.ntp.niehs.nih.gov/&gt;, PubChem &lt;https://pubchem.ncbi.nlm.nih.gov/&gt;, various EPA databases and others.">
-<meta property="og:description" content="Extract toxicological and chemical information from databases maintained by scientific agencies and resources, including the Comparative Toxicogenomics Database &lt;https://ctdbase.org/&gt;, the Integrated Chemical Environment &lt;https://ice.ntp.niehs.nih.gov/&gt;, PubChem &lt;https://pubchem.ncbi.nlm.nih.gov/&gt;, various EPA databases and others.">
+<meta name="description" content="Extract toxicological and chemical information from databases maintained by scientific agencies and resources, including the Comparative Toxicogenomics Database &lt;https://ctdbase.org/&gt;, the Integrated Chemical Environment &lt;https://ice.ntp.niehs.nih.gov/&gt;, the PubChem &lt;https://pubchem.ncbi.nlm.nih.gov/&gt;, and others EPA databases s.">
+<meta property="og:description" content="Extract toxicological and chemical information from databases maintained by scientific agencies and resources, including the Comparative Toxicogenomics Database &lt;https://ctdbase.org/&gt;, the Integrated Chemical Environment &lt;https://ice.ntp.niehs.nih.gov/&gt;, the PubChem &lt;https://pubchem.ncbi.nlm.nih.gov/&gt;, and others EPA databases s.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,19 +66,21 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install the package <code>extractox</code> from CRAN.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># From CRAN</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"extractox"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># From CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"extractox"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="development-version">Development Version<a class="anchor" aria-label="anchor" href="#development-version"></a>
 </h3>
 <p>To get a bug fix or to use a feature from the development version, you can install the development version of <code>extractox</code> from GitHub.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Install pak if not already installed</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"pak"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>}</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># Install the package from GitHub</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"c1au6i0/extractox"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install pak if not already installed</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pak"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Install the package from GitHub</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"c1au6i0/extractox"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -89,86 +91,92 @@
 </h3>
 <p>The ICE database provides access to a variety of data related to chemical toxicity, exposure, and risk assessment. It includes data from high-throughput screening assays, in vivo studies, and computational models.</p>
 <p><code>extr_ice</code> provides access to NTP’s ICE database for toxicological and exposure-related data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(extractox)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># assays is null so all assays are retrieved</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>ice_data <span class="ot">&lt;-</span> <span class="fu">extr_ice</span>(<span class="at">casrn =</span> <span class="fu">c</span>(<span class="st">"50-00-0"</span>), <span class="at">assays =</span> <span class="cn">NULL</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">names</span>(ice_data)</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;  [1] "assay"                 "endpoint"              "substance_type"       </span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;  [4] "casrn"                 "qsar_ready_id"         "value"                </span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  [7] "unit"                  "species"               "receptor_species"     </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [10] "route"                 "sex"                   "strain"               </span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [13] "life_stage"            "tissue"                "lesion"               </span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [16] "location"              "assay_source"          "in_vitro_assay_format"</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [19] "reference"             "reference_url"         "dtxsid"               </span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; [22] "substance_name"        "pubmed_id"             "query"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/c1au6i0/extractox" class="external-link">extractox</a></span><span class="op">)</span></span>
+<span><span class="co"># assays is null so all assays are retrieved</span></span>
+<span><span class="va">ice_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_ice.html">extr_ice</a></span><span class="op">(</span>casrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"50-00-0"</span><span class="op">)</span>, assays <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ice_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "assay"                 "endpoint"              "substance_type"       </span></span>
+<span><span class="co">#&gt;  [4] "casrn"                 "qsar_ready_id"         "value"                </span></span>
+<span><span class="co">#&gt;  [7] "unit"                  "species"               "receptor_species"     </span></span>
+<span><span class="co">#&gt; [10] "route"                 "sex"                   "strain"               </span></span>
+<span><span class="co">#&gt; [13] "life_stage"            "tissue"                "lesion"               </span></span>
+<span><span class="co">#&gt; [16] "location"              "assay_source"          "in_vitro_assay_format"</span></span>
+<span><span class="co">#&gt; [19] "reference"             "reference_url"         "dtxsid"               </span></span>
+<span><span class="co">#&gt; [22] "substance_name"        "pubmed_id"             "query"</span></span></code></pre></div>
 <p>There are more than <strong>2000 possible assays</strong> in ICE. The <code><a href="reference/extr_ice_assay_names.html">extr_ice_assay_names()</a></code> function allows to search for assay names that match a pattern you’re interested in. Please note that searches are case sensitive and accept regexp.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">extr_ice_assay_names</span>(<span class="st">"Rat Acute"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="co"># keep empty to retrieve all</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; [1] "Rat Acute Oral Toxicity"         "Rat Acute Inhalation Toxicity"  </span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [3] "Rat Acute Dermal Toxicity"       "CATMoS, Rat Acute Oral Toxicity"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/extr_ice_assay_names.html">extr_ice_assay_names</a></span><span class="op">(</span><span class="st">"Rat Acute"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># keep empty to retrieve all</span></span>
+<span><span class="co">#&gt; [1] "Rat Acute Oral Toxicity"         "Rat Acute Inhalation Toxicity"  </span></span>
+<span><span class="co">#&gt; [3] "Rat Acute Dermal Toxicity"       "CATMoS, Rat Acute Oral Toxicity"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="epas-iris">EPA’s IRIS<a class="anchor" aria-label="anchor" href="#epas-iris"></a>
 </h3>
 <p>The IRIS database contains information on the health effects of exposure to various substances found in the environment. It provides qualitative and quantitative health risk information.</p>
 <p><code>extr_iris</code> provides access to EPA’s IRIS database and accepts queries CASRN or IUPAC names of chemicals.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>iris_info <span class="ot">&lt;-</span> <span class="fu">extr_iris</span>(<span class="fu">c</span>(<span class="st">"glyphosate"</span>, <span class="st">"50-00-0"</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">names</span>(iris_info)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; [1] "chemical_name"                 "casrn"                        </span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; [3] "exposure_route"                "assessment_type"              </span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [5] "critical_effect_or_tumor_type" "woe_characterization"         </span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [7] "toxicity_value_type"           "toxicity_value"               </span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [9] "query"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">iris_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_iris.html">extr_iris</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"glyphosate"</span>, <span class="st">"50-00-0"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">iris_info</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "chemical_name"                 "casrn"                        </span></span>
+<span><span class="co">#&gt; [3] "exposure_route"                "assessment_type"              </span></span>
+<span><span class="co">#&gt; [5] "critical_effect_or_tumor_type" "woe_characterization"         </span></span>
+<span><span class="co">#&gt; [7] "toxicity_value_type"           "toxicity_value"               </span></span>
+<span><span class="co">#&gt; [9] "query"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="epas-pprtvs">EPA’s PPRTVs<a class="anchor" aria-label="anchor" href="#epas-pprtvs"></a>
 </h3>
 <p>The <code>extr_pprtv</code> function allows you to extract data for specified identifiers (CASRN or chemical names) from the EPA’s PPRTVs database. This function retrieves the file containing all the chemicals and processes it, but if has an argument (<code>force</code>) to allow users to use a cached file or force a fresh download.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Example usage to extract data for a specific CASRN</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>dat_pprtv_1 <span class="ot">&lt;-</span> <span class="fu">extr_pprtv</span>(<span class="at">ids =</span> <span class="st">"107-02-8"</span>, <span class="at">search_type =</span> <span class="st">"casrn"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Example usage to extract data for a chemical name</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>dat_pprtv_2 <span class="ot">&lt;-</span> <span class="fu">extr_pprtv</span>(<span class="at">ids =</span> <span class="st">"Acrolein"</span>, <span class="at">search_type =</span> <span class="st">"name"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example usage to extract data for a specific CASRN</span></span>
+<span><span class="va">dat_pprtv_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_pprtv.html">extr_pprtv</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="st">"107-02-8"</span>, search_type <span class="op">=</span> <span class="st">"casrn"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example usage to extract data for a chemical name</span></span>
+<span><span class="va">dat_pprtv_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_pprtv.html">extr_pprtv</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="st">"Acrolein"</span>, search_type <span class="op">=</span> <span class="st">"name"</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="epas-comptox">EPA’s CompTox<a class="anchor" aria-label="anchor" href="#epas-comptox"></a>
 </h3>
 <p>The CompTox Chemistry Dashboard provides access to data on chemical structures, properties, and associated bioactivity data. It integratesdata from various sources to support chemical safety assessments.</p>
 <p><code>extr_comptox</code> extracts data from CompTox using either CASRN or IUPAC names of chemicals and returns a <strong>list of dataframes</strong>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>info_comptox <span class="ot">&lt;-</span> <span class="fu">extr_comptox</span>(<span class="at">ids =</span> <span class="fu">c</span>(<span class="st">"Aspirin"</span>, <span class="st">"50-00-0"</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">names</span>(info_comptox)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; [1] "comptox_cover_sheet"           "comptox_main_data"            </span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; [3] "comptox_abstract_sifter"       "comptox_synonym_identifier"   </span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; [5] "comptox_related_relationships" "comptox_toxcast_assays_ac50"  </span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [7] "comptox_toxval_details"        "comptox_chemical_properties"</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">info_comptox</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_comptox.html">extr_comptox</a></span><span class="op">(</span>ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Aspirin"</span>, <span class="st">"50-00-0"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">info_comptox</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "comptox_cover_sheet"           "comptox_main_data"            </span></span>
+<span><span class="co">#&gt; [3] "comptox_abstract_sifter"       "comptox_synonym_identifier"   </span></span>
+<span><span class="co">#&gt; [5] "comptox_related_relationships" "comptox_toxcast_assays_ac50"  </span></span>
+<span><span class="co">#&gt; [7] "comptox_toxval_details"        "comptox_chemical_properties"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="whos-iarc">WHO’s IARC<a class="anchor" aria-label="anchor" href="#whos-iarc"></a>
 </h3>
 <p>The IARC Monographs database contains evaluations of the carcinogenic risks of various substances to humans. It provides detailed information about Monographs, including publication volumes and years, evaluation years, and additional relevant details.</p>
 <p>The function <code>extr_monograph</code> provides access to the WHO IARC Monographs database and accepts queries using CASRN or the names of chemicals.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extr_monograph</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">search_type =</span> <span class="st">"casrn"</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">ids =</span> <span class="fu">c</span>(<span class="st">"105-74-8"</span>, <span class="st">"120-58-1"</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>)</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">str</span>(dat)</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    2 obs. of  8 variables:</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;  $ casrn                  : chr  "105-74-8" "120-58-1"</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt;  $ group                  : chr  "3" "3"</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;  $ volume                 : chr  "36, Sup 7, 71" "10, Sup 7"</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt;  $ volume_publication_year: chr  "1999" "1987"</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt;  $ evaluation_year        : int  1998 1987</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt;  $ additional_information : chr  "" ""</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt;  $ query                  : chr  "105-74-8" "120-58-1"</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co"># Example usage for name search</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> <span class="fu">extr_monograph</span>(</span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  <span class="at">search_type =</span> <span class="st">"name"</span>,</span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>  <span class="at">ids =</span> <span class="fu">c</span>(<span class="st">"Aloe"</span>, <span class="st">"Schistosoma"</span>, <span class="st">"Styrene"</span>)</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>)</span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; ℹ Extracting WHO IARC monographs...</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; Last updated: 2024-11-29 5:08pm (CET)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_monograph.html">extr_monograph</a></span><span class="op">(</span></span>
+<span>  search_type <span class="op">=</span> <span class="st">"casrn"</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"105-74-8"</span>, <span class="st">"120-58-1"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    2 obs. of  8 variables:</span></span>
+<span><span class="co">#&gt;  $ casrn                  : chr  "105-74-8" "120-58-1"</span></span>
+<span><span class="co">#&gt;  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"</span></span>
+<span><span class="co">#&gt;  $ group                  : chr  "3" "3"</span></span>
+<span><span class="co">#&gt;  $ volume                 : chr  "36, Sup 7, 71" "10, Sup 7"</span></span>
+<span><span class="co">#&gt;  $ volume_publication_year: chr  "1999" "1987"</span></span>
+<span><span class="co">#&gt;  $ evaluation_year        : int  1998 1987</span></span>
+<span><span class="co">#&gt;  $ additional_information : chr  "" ""</span></span>
+<span><span class="co">#&gt;  $ query                  : chr  "105-74-8" "120-58-1"</span></span>
+<span></span>
+<span><span class="co"># Example usage for name search</span></span>
+<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_monograph.html">extr_monograph</a></span><span class="op">(</span></span>
+<span>  search_type <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Aloe"</span>, <span class="st">"Schistosoma"</span>, <span class="st">"Styrene"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Extracting WHO IARC monographs...</span></span>
+<span><span class="co">#&gt; Last updated: 2024-11-29 5:08pm (CET)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="nihs-pubchem">NIH’s PubChem<a class="anchor" aria-label="anchor" href="#nihs-pubchem"></a>
@@ -176,34 +184,39 @@
 <p>PubChem provides information on chemical structures, identifiers, chemical and physical properties, biological activities, safety and toxicity information, patents, literature citations, and more.</p>
 <p>A series of functions that rely on the <code>webchem</code> package are used to extract chemical information, Globally Harmonized System (<code>GHS</code>) classification data, or flavor classification (<code>FEMA</code>) from PubChem.</p>
 <p>The function <code>extr_chem_info</code> retrieves chemical information of IUPAC-named chemicals. A warning is displayed if the chemical is not found.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>chem_info <span class="ot">&lt;-</span> <span class="fu">extr_chem_info</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">iupac_names =</span> <span class="fu">c</span>(<span class="st">"Formaldehyde"</span>, <span class="st">"Aflatoxin B1"</span>),</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">names</span>(chem_info)</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;  [1] "cid"                         "iupac_name"                 </span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;  [3] "casrn"                       "cid_all"                    </span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;  [5] "casrn_all"                   "molecular_formula"          </span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;  [7] "molecular_weight"            "canonical_smiles"           </span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;  [9] "isomeric_smiles"             "inchi"                      </span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; [11] "inchi_key"                   "iupac_name"                 </span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; [13] "x_log_p"                     "exact_mass"                 </span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; [15] "monoisotopic_mass"           "tpsa"                       </span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; [17] "complexity"                  "charge"                     </span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; [19] "h_bond_donor_count"          "h_bond_acceptor_count"      </span></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; [21] "rotatable_bond_count"        "heavy_atom_count"           </span></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; [23] "isotope_atom_count"          "atom_stereo_count"          </span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; [25] "defined_atom_stereo_count"   "undefined_atom_stereo_count"</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; [27] "bond_stereo_count"           "defined_bond_stereo_count"  </span></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; [29] "undefined_bond_stereo_count" "covalent_unit_count"        </span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; [31] "volume3d"                    "x_steric_quadrupole3d"      </span></span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; [33] "y_steric_quadrupole3d"       "z_steric_quadrupole3d"      </span></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; [35] "feature_count3d"             "feature_acceptor_count3d"   </span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; [37] "feature_donor_count3d"       "feature_anion_count3d"      </span></span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; [39] "feature_cation_count3d"      "feature_ring_count3d"       </span></span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; [41] "feature_hydrophobe_count3d"  "conformer_model_rmsd3d"     </span></span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; [43] "effective_rotor_count3d"     "conformer_count3d"          </span></span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; [45] "fingerprint2d"               "query"</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">chem_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_chem_info.html">extr_chem_info</a></span><span class="op">(</span></span>
+<span>  iupac_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Formaldehyde"</span>, <span class="st">"Aflatoxin B1"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">chem_info</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "cid"                         "iupac_name"                 </span></span>
+<span><span class="co">#&gt;  [3] "casrn"                       "cid_all"                    </span></span>
+<span><span class="co">#&gt;  [5] "casrn_all"                   "molecular_formula"          </span></span>
+<span><span class="co">#&gt;  [7] "molecular_weight"            "smiles"                     </span></span>
+<span><span class="co">#&gt;  [9] "connectivity_smiles"         "inchi"                      </span></span>
+<span><span class="co">#&gt; [11] "inchi_key"                   "iupac_name_2"               </span></span>
+<span><span class="co">#&gt; [13] "x_log_p"                     "exact_mass"                 </span></span>
+<span><span class="co">#&gt; [15] "monoisotopic_mass"           "tpsa"                       </span></span>
+<span><span class="co">#&gt; [17] "complexity"                  "charge"                     </span></span>
+<span><span class="co">#&gt; [19] "h_bond_donor_count"          "h_bond_acceptor_count"      </span></span>
+<span><span class="co">#&gt; [21] "rotatable_bond_count"        "heavy_atom_count"           </span></span>
+<span><span class="co">#&gt; [23] "isotope_atom_count"          "atom_stereo_count"          </span></span>
+<span><span class="co">#&gt; [25] "defined_atom_stereo_count"   "undefined_atom_stereo_count"</span></span>
+<span><span class="co">#&gt; [27] "bond_stereo_count"           "defined_bond_stereo_count"  </span></span>
+<span><span class="co">#&gt; [29] "undefined_bond_stereo_count" "covalent_unit_count"        </span></span>
+<span><span class="co">#&gt; [31] "volume3d"                    "x_steric_quadrupole3d"      </span></span>
+<span><span class="co">#&gt; [33] "y_steric_quadrupole3d"       "z_steric_quadrupole3d"      </span></span>
+<span><span class="co">#&gt; [35] "feature_count3d"             "feature_acceptor_count3d"   </span></span>
+<span><span class="co">#&gt; [37] "feature_donor_count3d"       "feature_anion_count3d"      </span></span>
+<span><span class="co">#&gt; [39] "feature_cation_count3d"      "feature_ring_count3d"       </span></span>
+<span><span class="co">#&gt; [41] "feature_hydrophobe_count3d"  "conformer_model_rmsd3d"     </span></span>
+<span><span class="co">#&gt; [43] "effective_rotor_count3d"     "conformer_count3d"          </span></span>
+<span><span class="co">#&gt; [45] "fingerprint2d"               "title"                      </span></span>
+<span><span class="co">#&gt; [47] "patent_count"                "patent_family_count"        </span></span>
+<span><span class="co">#&gt; [49] "literature_count"            "annotation_types"           </span></span>
+<span><span class="co">#&gt; [51] "annotation_type_count"       "source_categories"          </span></span>
+<span><span class="co">#&gt; [53] "query"</span></span></code></pre></div>
 <p>Two functions are used to extract specific sections of PubChem chemical information using CASRN:</p>
 <ul>
 <li>
@@ -211,14 +224,9 @@
 <li>
 <code>extr_pubchem_fema</code> extracts FEMA data.</li>
 </ul>
-<!-- --><div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>ghs_info <span class="ot">&lt;-</span> <span class="fu">extr_pubchem_ghs</span>(<span class="at">casrn =</span> <span class="fu">c</span>(<span class="st">"50-00-0"</span>, <span class="st">"64-17-5"</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>fema_info <span class="ot">&lt;-</span> <span class="fu">extr_pubchem_fema</span>(<span class="at">casrn =</span> <span class="fu">c</span>(<span class="st">"50-00-0"</span>, <span class="st">"123-68-2"</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="tox-info">Tox Info<a class="anchor" aria-label="anchor" href="#tox-info"></a>
-</h3>
-<p>The function <code>extr_tox</code> is a wrapper used to call all the above-mentioned functions and retrieve a list of dataframes.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>info_tox <span class="ot">&lt;-</span> <span class="fu">extr_tox</span>(<span class="at">casrn =</span> <span class="fu">c</span>(<span class="st">"Aspirin"</span>, <span class="st">"50-00-0"</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ghs_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_pubchem_ghs.html">extr_pubchem_ghs</a></span><span class="op">(</span>casrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"50-00-0"</span>, <span class="st">"64-17-5"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">fema_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_pubchem_fema.html">extr_pubchem_fema</a></span><span class="op">(</span>casrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"50-00-0"</span>, <span class="st">"123-68-2"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="mdis-ctd">MDI’s CTD<a class="anchor" aria-label="anchor" href="#mdis-ctd"></a>
@@ -226,59 +234,61 @@
 <p>The CTP provides information about the interactions between chemicals, genes, and diseases. It helps in understanding the effects of environmental exposures on human health.</p>
 <p>A series of functions interact with the CTP database.</p>
 <p><code>extr_ctd</code> extracts information related to chemical-gene or pathway associations.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>input_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"50-00-0"</span>, <span class="st">"64-17-5"</span>, <span class="st">"methanal"</span>, <span class="st">"ethanol"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>ctd_association <span class="ot">&lt;-</span> <span class="fu">extr_ctd</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="at">input_terms =</span> input_terms,</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="at">category =</span> <span class="st">"chem"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">"genes_curated"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="at">input_term_search_type =</span> <span class="st">"directAssociations"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="at">action_types =</span> <span class="st">"ANY"</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  <span class="at">ontology =</span> <span class="fu">c</span>(<span class="st">"go_bp"</span>, <span class="st">"go_cc"</span>),</span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>)</span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="fu">names</span>(ctd_association)</span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  </span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   </span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; [9] "query"</span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co"># Get expresssion data</span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>ctd_expression <span class="ot">&lt;-</span> <span class="fu">extr_ctd</span>(</span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  <span class="at">input_terms =</span> input_terms,</span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">"cgixns"</span>,</span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>  <span class="at">category =</span> <span class="st">"chem"</span>,</span>
-<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>  <span class="at">action_types =</span> <span class="st">"expression"</span>,</span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>)</span>
-<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="fu">names</span>(ctd_expression)</span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt;  [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  </span></span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt;  [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   </span></span>
-<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt;  [9] "query"         NA              NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">input_terms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"50-00-0"</span>, <span class="st">"64-17-5"</span>, <span class="st">"methanal"</span>, <span class="st">"ethanol"</span><span class="op">)</span></span>
+<span><span class="va">ctd_association</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_ctd.html">extr_ctd</a></span><span class="op">(</span></span>
+<span>  input_terms <span class="op">=</span> <span class="va">input_terms</span>,</span>
+<span>  category <span class="op">=</span> <span class="st">"chem"</span>,</span>
+<span>  report_type <span class="op">=</span> <span class="st">"genes_curated"</span>,</span>
+<span>  input_term_search_type <span class="op">=</span> <span class="st">"directAssociations"</span>,</span>
+<span>  action_types <span class="op">=</span> <span class="st">"ANY"</span>,</span>
+<span>  ontology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"go_bp"</span>, <span class="st">"go_cc"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ctd_association</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  </span></span>
+<span><span class="co">#&gt; [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   </span></span>
+<span><span class="co">#&gt; [9] "query"</span></span>
+<span></span>
+<span><span class="co"># Get expresssion data</span></span>
+<span><span class="va">ctd_expression</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_ctd.html">extr_ctd</a></span><span class="op">(</span></span>
+<span>  input_terms <span class="op">=</span> <span class="va">input_terms</span>,</span>
+<span>  report_type <span class="op">=</span> <span class="st">"cgixns"</span>,</span>
+<span>  category <span class="op">=</span> <span class="st">"chem"</span>,</span>
+<span>  action_types <span class="op">=</span> <span class="st">"expression"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ctd_expression</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  </span></span>
+<span><span class="co">#&gt;  [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   </span></span>
+<span><span class="co">#&gt;  [9] "query"         NA              NA</span></span></code></pre></div>
 <p>Tetramers are computationally generated information units that interrelate four data types from the CTP: a chemical, gene product, phenotype, and disease. They help in understanding the complex relationships between these entities and their combined impact on human health.</p>
 <p><code>extr_tetramer</code> extracts info related to tetramers from CTD.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>tetramer_data <span class="ot">&lt;-</span> <span class="fu">extr_tetramer</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">chem =</span> <span class="fu">c</span>(<span class="st">"50-00-0"</span>, <span class="st">"ethanol"</span>),</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">disease =</span> <span class="st">""</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="at">gene =</span> <span class="st">""</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="at">go =</span> <span class="st">""</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="at">input_term_search_type =</span> <span class="st">"directAssociations"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="at">qt_match_type =</span> <span class="st">"equals"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>)</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="fu">names</span>(tetramer_data)</span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt;  [1] "chemical"                "chemical_id"            </span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt;  [3] "gene"                    "gene_id"                </span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;  [5] "phenotype"               "phenotype_id"           </span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt;  [7] "disease"                 "disease_id"             </span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt;  [9] "evidence_strength_score" "query"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tetramer_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extr_tetramer.html">extr_tetramer</a></span><span class="op">(</span></span>
+<span>  chem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"50-00-0"</span>, <span class="st">"ethanol"</span><span class="op">)</span>,</span>
+<span>  disease <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  gene <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  go <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  input_term_search_type <span class="op">=</span> <span class="st">"directAssociations"</span>,</span>
+<span>  qt_match_type <span class="op">=</span> <span class="st">"equals"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tetramer_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "chemical"                "chemical_id"            </span></span>
+<span><span class="co">#&gt;  [3] "gene"                    "gene_id"                </span></span>
+<span><span class="co">#&gt;  [5] "phenotype"               "phenotype_id"           </span></span>
+<span><span class="co">#&gt;  [7] "disease"                 "disease_id"             </span></span>
+<span><span class="co">#&gt;  [9] "evidence_strength_score" "query"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="important-note-for-linux-users">Important Note for Linux Users<a class="anchor" aria-label="anchor" href="#important-note-for-linux-users"></a>
+<h2 id="important-note-regarding-openssl">Important Note regarding OpenSSL<a class="anchor" aria-label="anchor" href="#important-note-regarding-openssl"></a>
 </h2>
-<p>Please note that functions that pull data from EPA servers may encounter issues on some Linux systems. This is because these servers do not accept secure legacy renegotiation. On Linux system, those functions depend on <code>curl</code> and <code>OpenSSL</code>, which have known problems with unsafe legacy renegotiation in newer versions. One workaround is to downgrade to <code>curl v7.78.0</code> and <code>OpenSSL v1.1.1</code>. However, please be aware that using these older versions might introduce potential security vulnerabilities. Refer to <a href="https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c" class="external-link">this gist</a> for instructions on how to downgrade <code>curl</code> and <code>OpenSSL</code> on Ubuntu.</p>
+<p>Please note that functions that pull data from EPA servers may encounter issues on systems. This is because these servers do not accept secure legacy renegotiation. On Linux system, those functions depend on <code>curl</code> and <code>OpenSSL</code>, which have known problems with unsafe legacy renegotiation in newer versions. By using <a href="https://github.com/luciorq/condathis" class="external-link"><code>condathis</code></a>, the current package installs a specific <code>OpenSSL</code> version in an isolated environment in order to comunicate with the EPA servers.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -309,8 +319,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Claudio Zanettini <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0001-5043-8033" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Lucio Queiroz <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6090-1834" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Claudio Zanettini <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0001-5043-8033" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Lucio Queiroz <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6090-1834" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -332,7 +342,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
