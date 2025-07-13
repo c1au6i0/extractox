@@ -1,18 +1,17 @@
 #' Extract Data from EPA PPRTVs
 #'
-#' Extracts data for specified identifiers (CASRN or chemical names) from the EPA's
-#' Provisional Peer-Reviewed Toxicity Values (PPRTVs) database. The function
-#' retrieves and processes data, with options to use cached files or force a
-#' fresh download.
+#' Extracts data for specified identifiers (CASRN or chemical names) from the
+#' EPA's Provisional Peer-Reviewed Toxicity Values (PPRTVs) database. The
+#' function retrieves and processes data, with options to use cached files
+#' or force a fresh download.
 #'
 #' @param ids Character vector of identifiers to search (e.g., CASRN or chemical
 #'   names).
-#' @param search_type Character string specifying the type of identifier: "casrn"
-#'    or "name".
-#'   Default is "casrn". If `search_type` is "name", the function performs a
-#'   partial match search for the chemical name. NOTE: Since partial mached is
-#'   use, multiple seraches might match the same chemical, therefore chemical ids
-#'   might not be  uniques.
+#' @param search_type Character string specifying the type of identifier:
+#'   "casrn" or "name". Default is "casrn". If `search_type` is "name", the
+#'   function performs a partial match search for the chemical name. NOTE:
+#'   Since partial mached is use, multiple seraches might match the same
+#'   chemical, therefore chemical ids might not be  uniques.
 #' @param verbose Logical indicating whether to display progress messages.
 #'   Default is TRUE.
 #' @param force Logical indicating whether to force a fresh download of the
@@ -22,27 +21,33 @@
 #'   This is was introduced for debugging purposes.
 #' @return A data frame with extracted information matching the specified
 #'   identifiers, or NULL if no matches are found.
-#' @seealso \href{https://www.epa.gov/pprtv/provisional-peer-reviewed-toxicity-values-pprtvs-assessments}{EPA PPRTVs}
+#' @seealso \href{https://www.epa.gov/pprtv/provisional-peer-reviewed-toxicity-values-pprtvs-assessments}{EPA PPRTVs} # nolint
 #' @export
 #' @examples
 #' \donttest{
-#' with_extr_sandbox({ # this is to write on tempdir as for CRAN policies
+#' condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies # nolint
+#'
 #'   # Extract data for a specific CASRN
+#'   Sys.sleep(4) # Sleep to avoid overwhelming the server
 #'   extr_pprtv(ids = "107-02-8", search_type = "casrn", verbose = TRUE)
 #'
+#'   Sys.sleep(4) # Sleep to avoid overwhelming the server
 #'   # Extract data for a chemical name
-#'   extr_pprtv(
+#'   out <- extr_pprtv(
 #'     ids = "Acrolein", search_type = "name", verbose = TRUE,
-#'     force = FALSE
+#'     force = TRUE
 #'   )
+#'   print(out)
 #'
+#'   Sys.sleep(3) # Sleep to avoid overwhelming the server
 #'   # Extract data for multiple identifiers
-#'   extr_pprtv(
+#'   out2 <- extr_pprtv(
 #'     ids = c("107-02-8", "79-10-7", "42576-02-3"),
 #'     search_type = "casrn",
 #'     verbose = TRUE,
-#'     force = FALSE
+#'     force = TRUE
 #'   )
+#'   print(out2)
 #' })
 #' }
 extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,

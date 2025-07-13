@@ -23,6 +23,8 @@
 #'     Default is TRUE.
 #' @param force Logical indicating whether to force a fresh download of the EPA
 #'    PPRTV database. Default is TRUE.
+#' @param delay Numeric value indicating the delay in seconds between requests
+#'    to avoid overwhelming the server. Default is 3 seconds.
 #' @return A list of data frames containing toxicological information retrieved
 #'   from each database:
 #'   \describe{
@@ -40,9 +42,12 @@
 #' @export
 #' @examples
 #' \donttest{
-#' extr_tox(casrn = c("100-00-5", "107-02-8"))
+#' condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies # nolint
+#'   Sys.sleep(4) # To avoid overwhelming the server
+#'   extr_tox(casrn = c("100-00-5", "107-02-8"), delay = 4)
+#' })
 #' }
-extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
+extr_tox <- function(casrn, verbose = TRUE, force = TRUE, delay = 2) {
   if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
@@ -57,12 +62,14 @@ extr_tox <- function(casrn, verbose = TRUE, force = TRUE) {
     verbose = verbose
   )
 
-  iris_filt <- extr_iris(casrn = casrn, verbose = verbose)
+  iris_filt <- extr_iris(casrn = casrn, verbose = verbose, delay = delay)
 
   extracted_monographs <- extr_monograph(
     ids = casrn, search_type = "casrn",
     verbose = verbose
   )
+
+  Sys.sleep(delay)
 
   extracted_pprtv <- extr_pprtv(ids = casrn, verbose = verbose)
 

@@ -15,7 +15,7 @@ ECOTOXr::websearch_comptox function."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,6 +85,7 @@ properties, identifiers, and predictive data. It was inspired by the
 <span>  mass_error <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  verify_ssl <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  delay <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,16 +96,17 @@ properties, identifiers, and predictive data. It was inspired by the
 
 <dl><dt id="arg-ids">ids<a class="anchor" aria-label="anchor" href="#arg-ids"></a></dt>
 <dd><p>A character vector containing the items to be searched within the
-CompTox Chemistry Dashboard. These can be chemical names, CAS Registry Numbers
-(CASRN), InChIKeys, or DSSTox substance identifiers (DTXSID).</p></dd>
+CompTox Chemistry Dashboard. These can be chemical names, CAS Registry
+Numbers (CASRN), InChIKeys, or DSSTox substance identifiers (DTXSID).</p></dd>
 
 
 <dt id="arg-download-items">download_items<a class="anchor" aria-label="anchor" href="#arg-download-items"></a></dt>
 <dd><p>A character vector of items to be downloaded.
-This includes a comprehensive set of chemical properties, identifiers, predictive
-data, and other relevant information. By Default, it download all the info</p><dl><dt>CASRN</dt>
-<dd><p>The Chemical Abstracts Service Registry Number, a unique numerical
-identifier for chemical substances.</p></dd>
+This includes a comprehensive set of chemical properties, identifiers,
+predictive data, and other relevant information. By Default, it downloads
+all the info.</p><dl><dt>CASRN</dt>
+<dd><p>The Chemical Abstracts Service Registry Number, a unique
+numerical identifier for chemical substances.</p></dd>
 
 <dt>INCHIKEY</dt>
 <dd><p>The hashed version of the full International Chemical
@@ -119,23 +121,25 @@ Identifier (InChI) string.</p></dd>
 representation of the chemical structure.</p></dd>
 
 <dt>INCHI_STRING</dt>
-<dd><p>The full International Chemical Identifier (InChI) string.</p></dd>
+<dd><p>The full International Chemical Identifier (InChI)
+string.</p></dd>
 
 <dt>MS_READY_SMILES</dt>
 <dd><p>The SMILES representation of the chemical structure,
 prepared for mass spectrometry analysis.</p></dd>
 
 <dt>QSAR_READY_SMILES</dt>
-<dd><p>The SMILES representation of the chemical structure,
-prepared for quantitative structure-activity relationship (QSAR) modeling.</p></dd>
+<dd><p>The SMILES representation of the chemical
+structure, prepared for quantitative structure-activity relationship
+(QSAR) modeling.</p></dd>
 
 <dt>MOLECULAR_FORMULA</dt>
-<dd><p>The chemical formula representing the number and type
-of atoms in a molecule.</p></dd>
+<dd><p>The chemical formula representing the number and
+type of atoms in a molecule.</p></dd>
 
 <dt>AVERAGE_MASS</dt>
-<dd><p>The average mass of the molecule, calculated based on the
-isotopic distribution of the elements.</p></dd>
+<dd><p>The average mass of the molecule, calculated based on
+the isotopic distribution of the elements.</p></dd>
 
 <dt>MONOISOTOPIC_MASS</dt>
 <dd><p>The mass of the molecule calculated using the most
@@ -157,23 +161,23 @@ abundant isotope of each element.</p></dd>
 <dd><p>Toxicological values related to the chemical.</p></dd>
 
 <dt>NUMBER_OF_PUBMED_ARTICLES</dt>
-<dd><p>The number of articles related to the chemical
-in PubMed.</p></dd>
+<dd><p>The number of articles related to the
+chemical in PubMed.</p></dd>
 
 <dt>PUBCHEM_DATA_SOURCES</dt>
 <dd><p>Sources of data from PubChem.</p></dd>
 
 <dt>CPDAT_COUNT</dt>
-<dd><p>The number of entries in the Chemical and Product Categories
-Database (CPDat).</p></dd>
+<dd><p>The number of entries in the Chemical and Product
+Categories Database (CPDat).</p></dd>
 
 <dt>IRIS_LINK</dt>
-<dd><p>Link to the EPA's Integrated Risk Information System (IRIS)
-entry for the chemical.</p></dd>
+<dd><p>Link to the EPA's Integrated Risk Information System
+(IRIS) entry for the chemical.</p></dd>
 
 <dt>PPRTV_LINK</dt>
-<dd><p>Link to the EPA's Provisional Peer-Reviewed Toxicity Values
-(PPRTV) entry for the chemical.</p></dd>
+<dd><p>Link to the EPA's Provisional Peer-Reviewed Toxicity
+Values (PPRTV) entry for the chemical.</p></dd>
 
 <dt>WIKIPEDIA_ARTICLE</dt>
 <dd><p>Link to the Wikipedia article for the chemical.</p></dd>
@@ -185,11 +189,12 @@ entry for the chemical.</p></dd>
 <dd><p>Information related to the abstract shifter.</p></dd>
 
 <dt>TOXPRINT_FINGERPRINT</dt>
-<dd><p>The ToxPrint chemoinformatics fingerprint of the chemical.</p></dd>
+<dd><p>The ToxPrint chemoinformatics fingerprint of
+the chemical.</p></dd>
 
 <dt>ACTOR_REPORT</dt>
-<dd><p>The Aggregated Computational Toxicology Resource (ACTOR)
-report for the chemical.</p></dd>
+<dd><p>The Aggregated Computational Toxicology Resource
+(ACTOR) report for the chemical.</p></dd>
 
 <dt>SYNONYM_IDENTIFIER</dt>
 <dd><p>Identifiers for synonyms of the chemical.</p></dd>
@@ -198,8 +203,8 @@ report for the chemical.</p></dd>
 <dd><p>Information on related chemicals.</p></dd>
 
 <dt>ASSOCIATED_TOXCAST_ASSAYS</dt>
-<dd><p>Assays associated with the chemical
-in the ToxCast database.</p></dd>
+<dd><p>Assays associated with the chemical in
+the ToxCast database.</p></dd>
 
 <dt>TOXVAL_DETAILS</dt>
 <dd><p>Details of toxicological values.</p></dd>
@@ -208,12 +213,12 @@ in the ToxCast database.</p></dd>
 <dd><p>Details of the chemical properties.</p></dd>
 
 <dt>BIOCONCENTRATION_FACTOR_TEST_PRED</dt>
-<dd><p>Predicted bioconcentration factor from
-tests.</p></dd>
+<dd><p>Predicted bioconcentration factor
+from tests.</p></dd>
 
 <dt>BOILING_POINT_DEGC_TEST_PRED</dt>
-<dd><p>Predicted boiling point in degrees Celsius
-from tests.</p></dd>
+<dd><p>Predicted boiling point in degrees
+Celsius from tests.</p></dd>
 
 <dt>48HR_DAPHNIA_LC50_MOL/L_TEST_PRED</dt>
 <dd><p>Predicted 48-hour LC50 for Daphnia
@@ -226,23 +231,23 @@ in mol/L from tests.</p></dd>
 <dd><p>Predicted developmental toxicity from tests.</p></dd>
 
 <dt>96HR_FATHEAD_MINNOW_MOL/L_TEST_PRED</dt>
-<dd><p>Predicted 96-hour LC50 for fathead
-minnow in mol/L from tests.</p></dd>
+<dd><p>Predicted 96-hour LC50 for
+fathead minnow in mol/L from tests.</p></dd>
 
 <dt>FLASH_POINT_DEGC_TEST_PRED</dt>
 <dd><p>Predicted flash point in degrees Celsius
 from tests.</p></dd>
 
 <dt>MELTING_POINT_DEGC_TEST_PRED</dt>
-<dd><p>Predicted melting point in degrees Celsius
-from tests.</p></dd>
+<dd><p>Predicted melting point in degrees
+Celsius from tests.</p></dd>
 
 <dt>AMES_MUTAGENICITY_TEST_PRED</dt>
 <dd><p>Predicted Ames mutagenicity from tests.</p></dd>
 
 <dt>ORAL_RAT_LD50_MOL/KG_TEST_PRED</dt>
-<dd><p>Predicted oral LD50 for rats in mol/kg
-from tests.</p></dd>
+<dd><p>Predicted oral LD50 for rats in
+mol/kg from tests.</p></dd>
 
 <dt>SURFACE_TENSION_DYN/CM_TEST_PRED</dt>
 <dd><p>Predicted surface tension in dyn/cm
@@ -253,8 +258,8 @@ from tests.</p></dd>
 in mW/m×K from tests.</p></dd>
 
 <dt>TETRAHYMENA_PYRIFORMIS_IGC50_MOL/L_TEST_PRED</dt>
-<dd><p>Predicted IGC50 for Tetrahymena
-pyriformis in mol/L from tests.</p></dd>
+<dd><p>Predicted IGC50 for
+Tetrahymena pyriformis in mol/L from tests.</p></dd>
 
 <dt>VISCOSITY_CP_CP_TEST_PRED</dt>
 <dd><p>Predicted viscosity in cP from tests.</p></dd>
@@ -268,14 +273,15 @@ tests.</p></dd>
 from tests.</p></dd>
 
 <dt>ATMOSPHERIC_HYDROXYLATION_RATE_\(AOH\)_CM3/MOLECULE\*SEC_OPERA_PRED</dt>
-<dd><p>Predicted
+<dd><p>Predicted # nolint
 atmospheric hydroxylation rate in cm³/molecule\*sec from OPERA.</p></dd>
 
 <dt>BIOCONCENTRATION_FACTOR_OPERA_PRED</dt>
-<dd><p>Predicted bioconcentration factor from OPERA.</p></dd>
+<dd><p>Predicted bioconcentration factor
+from OPERA.</p></dd>
 
 <dt>BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED</dt>
-<dd><p>Predicted biodegradation
+<dd><p>Predicted biodegradation # nolint
 half-life in days from OPERA.</p></dd>
 
 <dt>BOILING_POINT_DEGC_OPERA_PRED</dt>
@@ -283,8 +289,8 @@ half-life in days from OPERA.</p></dd>
 Celsius from OPERA.</p></dd>
 
 <dt>HENRYS_LAW_ATM-M3/MOLE_OPERA_PRED</dt>
-<dd><p>Predicted Henry's law constant
-in atm-m³/mole from OPERA.</p></dd>
+<dd><p>Predicted Henry's law constant in
+atm-m³/mole from OPERA.</p></dd>
 
 <dt>OPERA_KM_DAYS_OPERA_PRED</dt>
 <dd><p>Predicted Km in days from OPERA.</p></dd>
@@ -294,16 +300,16 @@ in atm-m³/mole from OPERA.</p></dd>
 partition coefficient (log Koa) from OPERA.</p></dd>
 
 <dt>SOIL_ADSORPTION_COEFFICIENT_KOC_L/KG_OPERA_PRED</dt>
-<dd><p>Predicted soil adsorption
-coefficient (Koc) in L/kg from OPERA.</p></dd>
+<dd><p>Predicted soil
+adsorption coefficient (Koc) in L/kg from OPERA.</p></dd>
 
 <dt>OCTANOL_WATER_PARTITION_LOGP_OPERA_PRED</dt>
-<dd><p>Predicted octanol-water partition
-coefficient (log P) from OPERA.</p></dd>
+<dd><p>Predicted octanol-water
+partition coefficient (log P) from OPERA.</p></dd>
 
 <dt>MELTING_POINT_DEGC_OPERA_PRED</dt>
-<dd><p>Predicted melting point in degrees Celsius
-from OPERA.</p></dd>
+<dd><p>Predicted melting point in degrees
+Celsius from OPERA.</p></dd>
 
 <dt>OPERA_PKAA_OPERA_PRED</dt>
 <dd><p>Predicted pKa (acidic) from OPERA.</p></dd>
@@ -316,7 +322,7 @@ from OPERA.</p></dd>
 OPERA.</p></dd>
 
 <dt>WATER_SOLUBILITY_MOL/L_OPERA_PRED</dt>
-<dd><p>Predicted water solubility in mol/L
+<dd><p>Predicted water solubility in mol/L # nolint
 from OPERA.</p></dd>
 
 <dt>EXPOCAST_MEDIAN_EXPOSURE_PREDICTION_MG/KG-BW/DAY</dt>
@@ -337,13 +343,14 @@ exposure from ExpoCast in mg/kg-bw/day.</p></dd>
 
 
 <dt id="arg-mass-error">mass_error<a class="anchor" aria-label="anchor" href="#arg-mass-error"></a></dt>
-<dd><p>Numeric value indicating the mass error tolerance for searches
-involving mass data. Default is <code>0</code>.</p></dd>
+<dd><p>Numeric value indicating the mass error tolerance for
+searches involving mass data. Default is <code>0</code>. Not used if libcurl depends
+on OpenSSL.</p></dd>
 
 
 <dt id="arg-verify-ssl">verify_ssl<a class="anchor" aria-label="anchor" href="#arg-verify-ssl"></a></dt>
 <dd><p>Logical value indicating whether SSL certificates should be
-verified. Default is <code>FALSE</code>. Note that this argument is not used on linux OS.</p></dd>
+verified. Default is <code>FALSE</code>. Not used if libcurl depends on OpenSSL.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -351,8 +358,14 @@ verified. Default is <code>FALSE</code>. Note that this argument is not used on 
 Default is TRUE.</p></dd>
 
 
+<dt id="arg-delay">delay<a class="anchor" aria-label="anchor" href="#arg-delay"></a></dt>
+<dd><p>Number of seconds to delay between the initial request and the
+subsequent request to download the Excel file.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments passed to <code><a href="https://httr2.r-lib.org/reference/req_options.html" class="external-link">httr2::req_options()</a></code>.</p></dd>
+<dd><p>Additional arguments passed to <code><a href="https://httr2.r-lib.org/reference/req_options.html" class="external-link">httr2::req_options()</a></code>. Not used if
+libcurl depends on OpenSSL.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -361,19 +374,19 @@ Default is TRUE.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Please note that this function, which pulls data from EPA servers, may encounter
-issues on some Linux systems. This is because those servers do not accept secure
-legacy renegotiation. On Linux systems, the current function depends on <code>curl</code>
-and <code>OpenSSL</code>, which have known problems with unsafe legacy renegotiation
-in newer versions. One workaround is to downgrade to <code>curl v7.78.0</code> and
-<code>OpenSSL v1.1.1</code>. However, please be aware that using these older versions
-might introduce potential security vulnerabilities. Refer to
-<a href="https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c" class="external-link">this gist</a>
-for instructions on how to downgrade <code>curl</code> and <code>OpenSSL</code> on Ubuntu.</p>
+    <p>This function is designed to handle potential connection issues with
+EPA servers on Linux systems. These servers may not support modern security
+protocols (unsafe legacy renegotiation), causing errors with newer versions
+of <code>libcurl</code> when linked with <code>OpenSSL</code>.
+To ensure reliability, the function automatically detects if your system's
+<code>libcurl</code> is likely to be affected. If so, it uses the <code>{condathis}</code>
+package to download and run the request with a known-compatible version of
+<code>curl</code> (<code>7.78.0</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub" class="external-link">CompTox Chemicals Dashboard Resource Hub</a></p></div>
+    <div class="dont-index"><p><a href="https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub" class="external-link">CompTox # nolint
+Chemicals Dashboard Resource Hub</a></p></div>
     </div>
 
     <div class="section level2">
@@ -389,7 +402,7 @@ for instructions on how to downgrade <code>curl</code> and <code>OpenSSL</code> 
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_cover_sheet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2025_02_07_21_38_43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2025_07_13_17_21_35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Search term count                    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Found count                          2</span>
@@ -483,16 +496,16 @@ for instructions on how to downgrade <code>curl</code> and <code>OpenSSL</code> 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 103 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    dtxsid        dtxcid      type         name    value units source description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID5020108 DTXCID50108 predicted    Henry'… 8.31… atm-… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID5020108 DTXCID50108 predicted    liquid… 0.92  min   OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID5020108 DTXCID50108 predicted    Water … 0.02… mol/L TEST   <span style="color: #949494;">"</span>The &lt;a hr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID5020108 DTXCID50108 predicted    Water … 0.02… mol/L EPISU… <span style="color: #949494;">"</span>&lt;a href='…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID7020637 DTXCID30637 predicted    LogD5.5 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID7020637 DTXCID30637 predicted    LogD7.4 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    Oxfor… <span style="color: #949494;">"</span>Until 201…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID5020108 DTXCID50108 experimental Meltin… 122.0 °C    MolMa… <span style="color: #949494;">"</span>MolMall p…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID5020108 DTXCID50108 experimental Meltin… 134.0 °C    Tokyo… <span style="color: #949494;">"</span>Tokyo Che…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID7020637 DTXCID30637 predicted    LogD5.5 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID7020637 DTXCID30637 predicted    LogD7.4 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID7020637 DTXCID30637 predicted    Boilin… -19.… °C    Perce… <span style="color: #949494;">"</span>ACD/Labs …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID7020637 DTXCID30637 experimental LogKow… 0.35  Log1… PhysP… <span style="color: #949494;">"</span>The PHYSP…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID7020637 DTXCID30637 experimental Henry'… 3.37… atm-… PhysP… <span style="color: #949494;">"</span>The PHYSP…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID7020637 DTXCID30637 experimental Boilin… -21.… °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID7020637 DTXCID30637 experimental Boilin… -19.1 °C    PhysP… <span style="color: #949494;">"</span>The PHYSP…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID7020637 DTXCID30637 experimental Meltin… -92.… °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID7020637 DTXCID30637 predicted    Density 0.685 g/cm… Perce… <span style="color: #949494;">"</span>ACD/Labs …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 93 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
@@ -507,7 +520,7 @@ for instructions on how to downgrade <code>curl</code> and <code>OpenSSL</code> 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>

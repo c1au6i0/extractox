@@ -6,7 +6,9 @@
 <url><loc>https://c1au6i0.github.io/extractox/index.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/news/index.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/check_internet.html</loc></url>
+<url><loc>https://c1au6i0.github.io/extractox/reference/check_need_libcurl_condathis.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/check_status_code.html</loc></url>
+<url><loc>https://c1au6i0.github.io/extractox/reference/condathis_downgrade_libcurl.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_casrn_from_cid.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_chem_info.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_comptox.html</loc></url>
@@ -16,6 +18,7 @@
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_ice_assay_names.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_iris.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_iris_.html</loc></url>
+<url><loc>https://c1au6i0.github.io/extractox/reference/extr_iris_openssl_.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_monograph.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_pprtv.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/extr_pubchem_fema.html</loc></url>
@@ -30,6 +33,7 @@
 <url><loc>https://c1au6i0.github.io/extractox/reference/search_and_match.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/set_ssl.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/with_extr_sandbox.html</loc></url>
+<url><loc>https://c1au6i0.github.io/extractox/reference/with_sandbox_dir.html</loc></url>
 <url><loc>https://c1au6i0.github.io/extractox/reference/write_dataframes_to_excel.html</loc></url>
 </urlset>
 

@@ -4,18 +4,36 @@
 \alias{extr_pubchem_ghs}
 \title{Extract GHS Codes from PubChem}
 \usage{
-extr_pubchem_ghs(casrn, verbose = TRUE)
+extr_pubchem_ghs(casrn, verbose = TRUE, delay = 0)
 }
 \arguments{
 \item{casrn}{Character vector of CAS Registry Numbers (CASRN).}
 
-\item{verbose}{A logical value indicating whether to print detailed messages. Default is TRUE.}
+\item{verbose}{A logical value indicating whether to print detailed messages.
+Default is TRUE.}
+
+\item{delay}{A numeric value indicating the delay (in seconds) between API
+requests. This controls the time between successive PubChem queries.
+Default is 0. See Details for more info.}
 }
 \value{
 A dataframe containing GHS information.
 }
 \description{
-This function extracts GHS (Globally Harmonized System) codes from PubChem. It relies on the \code{webchem} package to interact with PubChem.
+This function extracts GHS (Globally Harmonized System) codes from PubChem.
+It relies on the \code{webchem} package to interact with PubChem.
+}
+\details{
+The function performs two queries to PubChem:
+\enumerate{
+\item The first query retrieves the PubChem Compound Identifier (CID) for each
+IUPAC name.
+\item The second query retrieves additional information using the
+obtained CIDs.
+In cases of multiple rapid successive requests, the PubChem server may
+deny access. Introducing a delay between requests (using the \code{delay}
+parameter) can help prevent this issue.
+}
 }
 \examples{
 \donttest{

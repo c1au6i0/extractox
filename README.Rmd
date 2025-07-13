@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/c1au6i0/extractox/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
-[![DEV version](https://img.shields.io/badge/devel%20version-1.0.0.9000-blue.svg)](https://github.com/c1au6i0/extractox)
+[![DEV version](https://img.shields.io/badge/devel%20version-1.1.0-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying various 
@@ -196,15 +196,6 @@ fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"), verbose = FALSE
 ```
 
 
-### Tox Info
-
-The function `extr_tox` is a wrapper used to call all the above-mentioned 
-functions and retrieve a list of dataframes.
-
-```{r}
-info_tox <- extr_tox(casrn = c("Aspirin", "50-00-0"), verbose = FALSE)
-```
-
 ### MDI's CTD
 
 The CTP provides information about the interactions between chemicals, genes, 
@@ -268,17 +259,17 @@ names(tetramer_data)
 ```
 
 
-## Important Note for Linux Users
+## Important Note regarding OpenSSL
 
-Please note that functions that pull data from EPA servers may encounter issues
-on some Linux systems. This is because these servers do not accept secure legacy
-renegotiation. On Linux system, those functions depend on `curl` and `OpenSSL`, 
-which have known problems with unsafe legacy renegotiation in newer versions. 
-One workaround is to downgrade to `curl v7.78.0` and `OpenSSL v1.1.1`. However,
-please be aware that using these older versions might introduce potential security
-vulnerabilities.
-Refer to [this gist](https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c) 
-for instructions on how to downgrade `curl` and `OpenSSL` on Ubuntu.
+
+Please note that functions that pull data from EPA servers may encounter
+issues on systems. This is because these servers do not
+accept secure legacy renegotiation. On Linux system, those functions
+depend on `curl` and `OpenSSL`, which have known problems with unsafe
+legacy renegotiation in newer versions. By using
+ [`condathis`](https://github.com/luciorq/condathis), the current package 
+ installs a specific `OpenSSL` version in an isolated environment in
+ order to comunicate with the EPA servers.
 
 
 

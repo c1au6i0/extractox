@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,28 @@
       <small>Source: <a href="https://github.com/c1au6i0/extractox/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="extractox-110">extractox 1.1.0<a class="anchor" aria-label="anchor" href="#extractox-110"></a></h2>
+<div class="section level3">
+<h3 id="major-changes--enhancements-1-1-0">Major Changes &amp; Enhancements<a class="anchor" aria-label="anchor" href="#major-changes--enhancements-1-1-0"></a></h3>
+<ul><li>Automated Server Compatibility: Functions connecting to EPA servers (e.g., <code>extr_comptox</code>, <code>extr_iris</code>, <code>extr_pprtv</code>) now automatically handle connection issues that can occur on systems with modern <code>libcurl</code> and <code>OpenSSL</code>. The functions detect problematic configurations and use the <a href="https://github.com/luciorq/condathis" class="external-link">condathis</a> package to perform requests with a compatible version of <code>curl</code> in an isolated environment. This ensures reliability without requiring manual user intervention.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-enhancements-1-1-0">Minor Enhancements<a class="anchor" aria-label="anchor" href="#minor-enhancements-1-1-0"></a></h3>
+<ul><li>
+<code>extr_chem_info</code> now accepts the argument <code>domain</code> to specify the PubChem domain (<code>substance</code> or <code>compound</code>).</li>
+<li>
+<code>extr_tox</code> now accepts a <code>delay</code> parameter to control the delay between requests, helping to avoid rate-limiting errors.</li>
+<li>Request Throttling**: Added a <code>delay</code> parameter to PubChem functions to allow for a pause between requests, helping to avoid rate-limiting errors.</li>
+<li>Verbose Option: A <code>verbose</code> option has been added to several functions for more detailed output during execution.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-1-1-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-0"></a></h3>
+<ul><li><p>Testing: Corrected various tests, including a fix for an incorrect row count expectation in the PubChem test.</p></li>
+<li><p>Fixed <code>extr_chem_info</code> duplicated name in outout columns (<a href="https://github.com/c1au6i0/extractox/issues/47" class="external-link">#47</a>).</p></li>
+<li><p>Function Cleanup: Refined the <code>extr_comptox</code> function, removing unnecessary requirements and cleaning up the code.</p></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="extractox-100">extractox 1.0.0<a class="anchor" aria-label="anchor" href="#extractox-100"></a></h2><p class="text-muted">CRAN release: 2025-01-07</p>
 <div class="section level3">
@@ -84,7 +106,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>

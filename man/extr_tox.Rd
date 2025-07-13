@@ -4,7 +4,7 @@
 \alias{extr_tox}
 \title{Extract Toxicological Information from Multiple Databases}
 \usage{
-extr_tox(casrn, verbose = TRUE, force = TRUE)
+extr_tox(casrn, verbose = TRUE, force = TRUE, delay = 2)
 }
 \arguments{
 \item{casrn}{A character vector of CAS Registry Numbers (CASRN) representing
@@ -15,6 +15,9 @@ Default is TRUE.}
 
 \item{force}{Logical indicating whether to force a fresh download of the EPA
 PPRTV database. Default is TRUE.}
+
+\item{delay}{Numeric value indicating the delay in seconds between requests
+to avoid overwhelming the server. Default is 3 seconds.}
 }
 \value{
 A list of data frames containing toxicological information retrieved
@@ -54,6 +57,9 @@ Chemicals Dashboard.
 }
 \examples{
 \donttest{
-extr_tox(casrn = c("100-00-5", "107-02-8"))
+condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies # nolint
+  Sys.sleep(4) # To avoid overwhelming the server
+  extr_tox(casrn = c("100-00-5", "107-02-8"), delay = 4)
+})
 }
 }
