@@ -13,18 +13,20 @@ search_and_match(dat, ids, search_type, col_names, chemical_col = "chemical")
 
 \item{search_type}{The type of search: "casrn" or "name".}
 
-\item{col_names}{Column names to be used when creating a new dataframe in case of no matches.}
+\item{col_names}{Column names to be used when creating a new dataframe in
+case of no matches.}
 
-\item{chemical_col}{The name of the column in dat where chemical names are stored.}
+\item{chemical_col}{The name of the column in dat where chemical names
+are stored.}
 }
 \value{
 A dataframe with search results.
 }
 \description{
-This function searches for matches in a dataframe based on a given list of ids
-and search type, then combines the results into a single dataframe, making sure
-that NA rows are added for any missing ids. The column \code{query} is a the end of
-the dataframe.
+This function searches for matches in a dataframe based on a given list of
+ids and search type, then combines the results into a single dataframe,
+making sure that NA rows are added for any missing ids. The column
+\code{query} is a the end of the dataframe.
 }
 \details{
 This function is used in \code{extr_pprtv} and \code{extr_monograph}.

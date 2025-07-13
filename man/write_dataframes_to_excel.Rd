@@ -12,14 +12,16 @@ write_dataframes_to_excel(df_list, filename)
 \item{filename}{The name of the Excel file to create.}
 }
 \value{
-No return value. The function prints a message indicating the completion of the Excel file writing.
+No return value. The function prints a message indicating
+the completion of the Excel file writing.
 }
 \description{
-This function creates an Excel file with each dataframe in a list as a separate sheet.
+This function creates an Excel file with each dataframe in a list
+as a separate sheet.
 }
 \examples{
 \donttest{
-tox_dat <- extr_tox("50-00-0")
+tox_dat <- extr_comptox("50-00-0")
 temp_file <- tempfile(fileext = ".xlsx")
 write_dataframes_to_excel(tox_dat, filename = temp_file)
 }

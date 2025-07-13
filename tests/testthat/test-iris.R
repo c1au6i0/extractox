@@ -19,7 +19,7 @@ test_that("extr_iris_ fetches data for multiple CASRN", {
   ids_search <- c("50-00-0", "1332-21-4")
   expect_message(
     {
-      out <- extr_iris(ids_search, verbose = TRUE)
+      out <- extr_iris(ids_search, verbose = TRUE, delay = 4)
     },
     "Quering"
   )
@@ -39,7 +39,7 @@ test_that("extr_iris_ warn and fill with NA wrong CASRN", {
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
   expect_warning(
     {
-      out <- extr_iris(ids_search, verbose = TRUE)
+      out <- extr_iris(ids_search, verbose = TRUE, delay = 4)
     },
     "Chemicals.*found!"
   )
@@ -57,7 +57,7 @@ test_that("extr_iris_ cancer_types and verbose = FALSE work", {
 
   ids_search <- c("50-00-0", "1332-21-4", "bella", "ciao")
   expect_silent({
-    out <- extr_iris(ids_search, verbose = FALSE)
+    out <- extr_iris(ids_search, verbose = FALSE, delay = 4)
   })
 
   expect_equal(nrow(out), 6)

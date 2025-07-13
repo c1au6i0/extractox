@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
 [![DEV
-version](https://img.shields.io/badge/devel%20version-1.0.0.9000-blue.svg)](https://github.com/c1au6i0/extractox)
+version](https://img.shields.io/badge/devel%20version-1.1.0-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying
@@ -190,9 +190,9 @@ found.
     #>  [1] "cid"                         "iupac_name"                 
     #>  [3] "casrn"                       "cid_all"                    
     #>  [5] "casrn_all"                   "molecular_formula"          
-    #>  [7] "molecular_weight"            "canonical_smiles"           
-    #>  [9] "isomeric_smiles"             "inchi"                      
-    #> [11] "inchi_key"                   "iupac_name"                 
+    #>  [7] "molecular_weight"            "smiles"                     
+    #>  [9] "connectivity_smiles"         "inchi"                      
+    #> [11] "inchi_key"                   "iupac_name_2"               
     #> [13] "x_log_p"                     "exact_mass"                 
     #> [15] "monoisotopic_mass"           "tpsa"                       
     #> [17] "complexity"                  "charge"                     
@@ -209,7 +209,11 @@ found.
     #> [39] "feature_cation_count3d"      "feature_ring_count3d"       
     #> [41] "feature_hydrophobe_count3d"  "conformer_model_rmsd3d"     
     #> [43] "effective_rotor_count3d"     "conformer_count3d"          
-    #> [45] "fingerprint2d"               "query"
+    #> [45] "fingerprint2d"               "title"                      
+    #> [47] "patent_count"                "patent_family_count"        
+    #> [49] "literature_count"            "annotation_types"           
+    #> [51] "annotation_type_count"       "source_categories"          
+    #> [53] "query"
 
 Two functions are used to extract specific sections of PubChem chemical
 information using CASRN:
@@ -221,13 +225,6 @@ information using CASRN:
 
     ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"), verbose = FALSE)
     fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"), verbose = FALSE)
-
-### Tox Info
-
-The function `extr_tox` is a wrapper used to call all the
-above-mentioned functions and retrieve a list of dataframes.
-
-    info_tox <- extr_tox(casrn = c("Aspirin", "50-00-0"), verbose = FALSE)
 
 ### MDI’s CTD
 
@@ -295,15 +292,13 @@ health.
     #>  [7] "disease"                 "disease_id"             
     #>  [9] "evidence_strength_score" "query"
 
-## Important Note for Linux Users
+## Important Note regarding OpenSSL
 
 Please note that functions that pull data from EPA servers may encounter
-issues on some Linux systems. This is because these servers do not
-accept secure legacy renegotiation. On Linux system, those functions
-depend on `curl` and `OpenSSL`, which have known problems with unsafe
-legacy renegotiation in newer versions. One workaround is to downgrade
-to `curl v7.78.0` and `OpenSSL v1.1.1`. However, please be aware that
-using these older versions might introduce potential security
-vulnerabilities. Refer to [this
-gist](https://gist.github.com/c1au6i0/5cc2d87966340a31032ffebf1cfb657c)
-for instructions on how to downgrade `curl` and `OpenSSL` on Ubuntu.
+issues on systems. This is because these servers do not accept secure
+legacy renegotiation. On Linux system, those functions depend on `curl`
+and `OpenSSL`, which have known problems with unsafe legacy
+renegotiation in newer versions. By using
+[`condathis`](https://github.com/luciorq/condathis), the current package
+installs a specific `OpenSSL` version in an isolated environment in
+order to comunicate with the EPA servers.

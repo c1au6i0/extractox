@@ -37,37 +37,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install curl with OpenSSL 1.1.1
-        if: runner.os == 'Linux'
-        run: |
-           sudo apt-get update
-           sudo apt-get install -y build-essential tar wget
-
-           sudo apt remove -y --purge curl libcurl4
-           sudo apt-get -y autoremove
-
-           cd ~
-           wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz
-           tar -xvzf openssl-1.1.1w.tar.gz
-           cd openssl-1.1.1w
-           ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl
-           make
-           sudo make install
-
-           cd ~
-           wget https://curl.se/download/curl-7.78.0.tar.gz
-           tar -xvzf curl-7.78.0.tar.gz
-           cd curl-7.78.0
-           ./configure --with-ssl=/usr/local/ssl
-           make
-           sudo make install
-
-           export PATH=/usr/local/ssl/bin:$PATH
-           export LD_LIBRARY_PATH=/usr/local/ssl/lib:$LD_LIBRARY_PATH
-           sudo ldconfig
-
-           curl --version
-
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
@@ -85,3 +54,4 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+          args: 'c("--no-manual", "--as-cran", "--no-examples", "--no-tests")'

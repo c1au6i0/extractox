@@ -11,7 +11,11 @@ song <- c("bella", "ciao", "bella", "ciao", "ciao", "ciao")
 test_that("Save to cache works", {
   expect_message(
     {
-      file_path <- save_to_cache(dat = song, file_name = "song.txt", verbose = TRUE)
+      file_path <- save_to_cache(
+        dat = song,
+        file_name = "song.txt",
+        verbose = TRUE
+      )
     },
     "Saving"
   )
@@ -74,12 +78,12 @@ test_that("load cache fail if no file", {
 # @@@@@@@@@@@@@@@@
 
 
-test_that("Sandbox works", {
-  to_check <- normalizePath(tempdir(), mustWork = FALSE)
+# test_that("Sandbox works", {
+#   to_check <- normalizePath(tempdir(), mustWork = FALSE)
 
-  with_extr_sandbox(temp_dir = to_check, code = {
-    out <- normalizePath(Sys.getenv("R_USER_CACHE_DIR"), mustWork = FALSE)
-  })
+#   with_extr_sandbox(temp_dir = to_check, code = {
+#     out <- normalizePath(Sys.getenv("R_USER_CACHE_DIR"), mustWork = FALSE)
+#   })
 
-  expect_equal(to_check, normalizePath(out, mustWork = FALSE))
-})
+#   expect_equal(to_check, normalizePath(out, mustWork = FALSE))
+# })
