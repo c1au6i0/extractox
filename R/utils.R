@@ -169,7 +169,7 @@ search_and_match <- function(dat,
 #' @export
 #' @examples
 #' \donttest{
-#' tox_dat <- extr_tox("50-00-0")
+#' tox_dat <- extr_comptox("50-00-0")
 #' temp_file <- tempfile(fileext = ".xlsx")
 #' write_dataframes_to_excel(tox_dat, filename = temp_file)
 #' }

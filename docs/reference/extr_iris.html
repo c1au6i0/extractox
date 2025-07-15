@@ -79,9 +79,19 @@ to avoid overwhelming the server. Default is 0 seconds.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Quering <span style="color: #00BB00;">1332-21-4</span> to EPA IRIS database...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FUN(X[[i]], ...):</span> Failed to perform the request: Failed to perform HTTP request. <span style="font-weight: bold;">Caused by</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">error in `curl::curl_fetch_memory()`:</span> <span style="color: #BBBB00;">!</span> Server returned nothing (no headers, no</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> data) [cfpub.epa.gov]: Empty reply from server</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Quering <span style="color: #00BB00;">50-00-0</span> to EPA IRIS database...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   chemical_name casrn     exposure_route assessment_type critical_effect_or_tu…¹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Asbestos      1332-21-4 Inhalation     Cancer          Lung cancer and mesoth…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Formaldehyde  50-00-0   Oral           Noncancer       Reduced weight gain, h…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Formaldehyde  50-00-0   Inhalation     Cancer          Nasopharyngeal cancer,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Formaldehyde  50-00-0   Inhalation     Noncancer       Decreased pulmonary fu…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated name: ¹​critical_effect_or_tumor_type</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: woe_characterization &lt;chr&gt;, toxicity_value_type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toxicity_value &lt;chr&gt;, query &lt;chr&gt;</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

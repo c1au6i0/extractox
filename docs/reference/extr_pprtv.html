@@ -132,10 +132,54 @@ identifiers, or NULL if no matches are found.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading data from <span style="color: #0000BB; font-style: italic;">&lt;https://cfpub.epa.gov/ncea/pprtv/atoz.cfm&gt;</span>.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in httr2::req_perform(httr2::req_url_query(httr2::request(url),     !!!url_query_param, multi = "explore")):</span> Failed to perform HTTP request.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `curl::curl_fetch_memory()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Server returned nothing (no headers, no data) [cfpub.epa.gov]:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> Empty reply from server</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Saving data in the cache <span style="color: #0000BB;">/var/folders/bp/fpwcfq1563l21rz5gdcsfcsw0000gn/T//RtmpmUobyS/tmp-cache130d4cb73182/R/extractox/epa_pprtvs.rds</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting EPA PPRTVs.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading data from <span style="color: #0000BB; font-style: italic;">&lt;https://cfpub.epa.gov/ncea/pprtv/atoz.cfm&gt;</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Overwriting cache.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting EPA PPRTVs.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   pprtv_substance_id chemical    casrn last_revision</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               1555 Acrolein 107-02-8          2002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                          pprtv_assessment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 https://cfpub.epa.gov/ncea/pprtv/documents/Acrolein.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                 iris_link</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rf_c_value rf_d_value           woe     date_downloaded    query</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   See IRIS   See IRIS Not available 2025-07-14 22:15:49 Acrolein</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading data from <span style="color: #0000BB; font-style: italic;">&lt;https://cfpub.epa.gov/ncea/pprtv/atoz.cfm&gt;</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Overwriting cache.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting EPA PPRTVs.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   pprtv_substance_id     chemical      casrn last_revision</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               1555     Acrolein   107-02-8          2002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               1594      Bifenox 42576-02-3          2006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               1556 Acrylic Acid    79-10-7          2010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             pprtv_assessment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    https://cfpub.epa.gov/ncea/pprtv/documents/Acrolein.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     https://cfpub.epa.gov/ncea/pprtv/documents/Bifenox.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 https://cfpub.epa.gov/ncea/pprtv/documents/AcrylicAcid.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                 iris_link</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           Not available</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      rf_c_value         rf_d_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      See IRIS           See IRIS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Not available 9 x 10-3 mg/kg-day</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      See IRIS           See IRIS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       woe     date_downloaded</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                           Not available 2025-07-14 22:15:55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Inadequate information to assess carcinogenic potential 2025-07-14 22:15:55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Inadequate information to assess carcinogenic potential 2025-07-14 22:15:55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        query</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   107-02-8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 42576-02-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    79-10-7</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
