@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
 [![DEV
-version](https://img.shields.io/badge/devel%20version-1.1.0-blue.svg)](https://github.com/c1au6i0/extractox)
+version](https://img.shields.io/badge/devel%20version-1.2.0-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying
