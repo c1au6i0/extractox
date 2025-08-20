@@ -407,27 +407,40 @@ extr_comptox_openssl_ <- function(ids,
   }
 
   # Remove newlines for Windows compatibility
-  # check windows
   json_string <- gsub("\n", " ", json_string)
 
-  curl_res <- condathis::run("curl",
-    "-X",
-    "POST",
-    base_url,
-    "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",
-    "-H", "Accept: */*",
-    "-H", "Accept-Encoding: deflate, gzip",
-    "-H", "Content-Type: application/json",
-    "-d",
-    json_string,
-    env_name = "openssl-linux-env",
-    verbose = "silent"
+  error_result <- NULL
+
+  curl_result <- tryCatch(
+    {
+      condathis::run(
+        "curl",
+        "-X", "POST",
+        base_url,
+        "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",
+        "-H", "Accept: */*",
+        "-H", "Accept-Encoding: deflate, gzip",
+        "-H", "Content-Type: application/json",
+        "-d", json_string,
+        env_name = "openssl-linux-env",
+        verbose = "silent"
+      )
+    },
+    error = function(e) {
+      error_result <<- e
+      NULL
+    }
   )
+
+  if (is.null(curl_result)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result)}") # nolint
+  }
 
   base_url_down <-
     "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
 
-  full_url_down <- paste0(base_url_down, curl_res$stdout)
+
+  full_url_down <- paste0(base_url_down, curl_result$stdout)
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Getting info from CompTox...")
@@ -451,17 +464,27 @@ extr_comptox_openssl_ <- function(ids,
     "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0" # nolint
   )
 
-  curl_res_2 <- condathis::run("curl",
-    arg_call,
-    full_url_down,
-    other_headers,
-    env_name = "openssl-linux-env",
-    error = "continue",
-    verbose = "silent"
-    # stdout = xlsx_file
+  error_result_2 <- NULL
+
+  curl_res_2 <- tryCatch(
+    {
+      condathis::run(
+        "curl",
+        arg_call,
+        full_url_down,
+        other_headers,
+        env_name = "openssl-linux-env",
+        verbose = "silent"
+        # stdout = xlsx_file
+      )
+    },
+    error = function(e) {
+      error_result_2 <<- e
+      NULL
+    }
   )
 
-  if (curl_res_2$stderr != "") {
-    cli::cli_abort("Failed to perform the request: {curl_res_2$stderr}")
+  if (is.null(curl_res_2)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result_2)}") # nolint
   }
 }

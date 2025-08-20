@@ -187,10 +187,24 @@ extr_iris_openssl_ <- function(
     full_url <- shQuote(full_url, type = "cmd2")
   }
 
-  curl_res <- condathis::run("curl",
-    full_url,
-    env_name = "openssl-linux-env", verbose = "silent"
+  error_result <- NULL
+
+  curl_res <- tryCatch(
+    {
+      condathis::run("curl",
+        full_url,
+        env_name = "openssl-linux-env", verbose = "silent"
+      )
+    },
+    error = function(e) {
+      error_result <<- e
+      NULL
+    }
   )
+  if (is.null(curl_res)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result_2)}") # nolint
+  }
+
 
   dat <- curl_res$stdout |>
     rvest::read_html() |>
