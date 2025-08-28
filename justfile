@@ -15,7 +15,7 @@ github_org := 'c1aud6io'
    R -q -e 'devtools::load_all(); usethis::use_tidy_description();';
    R -q -e 'devtools::load_all(); devtools::document();';
    R -q -e 'devtools::load_all(); devtools::run_examples();';
-   R -q -e 'rmarkdown::render("README.Rmd", output_format = "md_document");';
+   R -q -e 'devtools::load_all(); rmarkdown::render("README.Rmd", output_format = "md_document");';
    R -q -e 'devtools::load_all(); devtools::check(manual = TRUE, remote = TRUE);';
    R -q -e 'devtools::load_all(); pkgdown::build_site()'
 

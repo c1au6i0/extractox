@@ -33,8 +33,6 @@ chemical, toxicological, and biological databases:
   Health Organization (WHO).
 * PubChem of the National Center for Biotechnology Information/National Institutes
   Of Health (NCBI, NIH).
-* the Comparative Toxicogenomics Database (CTP) of the  MDI Biological Laboratory 
-  and NC State University.
 
 The package facilitates interaction with APIs, providing curated and user-friendly 
 outputs.
@@ -194,70 +192,6 @@ Two functions are used to extract specific sections of PubChem chemical informat
 ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"), verbose = FALSE)
 fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"), verbose = FALSE)
 ```
-
-
-### MDI's CTD
-
-The CTP provides information about the interactions between chemicals, genes, 
-and diseases. It helps in understanding the effects of environmental exposures 
-on human health.
-
-A series of functions interact with the CTP database.
-
-`extr_ctd` extracts information related to chemical-gene or pathway associations.
-
-```{r}
-input_terms <- c("50-00-0", "64-17-5", "methanal", "ethanol")
-ctd_association <- extr_ctd(
-  input_terms = input_terms,
-  category = "chem",
-  report_type = "genes_curated",
-  input_term_search_type = "directAssociations",
-  action_types = "ANY",
-  ontology = c("go_bp", "go_cc"),
-  verbose = FALSE
-)
-
-names(ctd_association)
-
-# Get expresssion data
-ctd_expression <- extr_ctd(
-  input_terms = input_terms,
-  report_type = "cgixns",
-  category = "chem",
-  action_types = "expression",
-  verbose = FALSE
-)
-
-names(ctd_expression)
-```
-
-
-Tetramers are computationally generated information units that interrelate four
-data types from the CTP: a chemical, gene product, phenotype, and disease. They
-help in understanding the complex relationships between these entities and their 
-combined impact on human health.
-
-`extr_tetramer` extracts info related to tetramers from CTD.
-
-```{r echo=FALSE}
-Sys.sleep(3)
-```
-
-```{r}
-tetramer_data <- extr_tetramer(
-  chem = c("50-00-0", "ethanol"),
-  disease = "",
-  gene = "",
-  go = "",
-  input_term_search_type = "directAssociations",
-  qt_match_type = "equals",
-  verbose = FALSE
-)
-
-names(tetramer_data)
-```
-
 
 ## Important Note regarding OpenSSL
 

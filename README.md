@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
 [![DEV
-version](https://img.shields.io/badge/devel%20version-1.2.0-blue.svg)](https://github.com/c1au6i0/extractox)
+version](https://img.shields.io/badge/devel%20version-1.2.0.900-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying
@@ -25,8 +25,6 @@ various chemical, toxicological, and biological databases:
     World Health Organization (WHO).
 -   PubChem of the National Center for Biotechnology
     Information/National Institutes Of Health (NCBI, NIH).
--   the Comparative Toxicogenomics Database (CTP) of the MDI Biological
-    Laboratory and NC State University.
 
 The package facilitates interaction with APIs, providing curated and
 user-friendly outputs. To communicate with Pubchem, `extractox` relies
@@ -225,72 +223,6 @@ information using CASRN:
 
     ghs_info <- extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"), verbose = FALSE)
     fema_info <- extr_pubchem_fema(casrn = c("50-00-0", "123-68-2"), verbose = FALSE)
-
-### MDI’s CTD
-
-The CTP provides information about the interactions between chemicals,
-genes, and diseases. It helps in understanding the effects of
-environmental exposures on human health.
-
-A series of functions interact with the CTP database.
-
-`extr_ctd` extracts information related to chemical-gene or pathway
-associations.
-
-    input_terms <- c("50-00-0", "64-17-5", "methanal", "ethanol")
-    ctd_association <- extr_ctd(
-      input_terms = input_terms,
-      category = "chem",
-      report_type = "genes_curated",
-      input_term_search_type = "directAssociations",
-      action_types = "ANY",
-      ontology = c("go_bp", "go_cc"),
-      verbose = FALSE
-    )
-
-    names(ctd_association)
-    #> [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  
-    #> [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   
-    #> [9] "query"
-
-    # Get expresssion data
-    ctd_expression <- extr_ctd(
-      input_terms = input_terms,
-      report_type = "cgixns",
-      category = "chem",
-      action_types = "expression",
-      verbose = FALSE
-    )
-
-    names(ctd_expression)
-    #>  [1] "chemical_name" "chemical_id"   "casrn"         "gene_symbol"  
-    #>  [5] "gene_id"       "organism"      "organism_id"   "pubmed_ids"   
-    #>  [9] "query"         NA              NA
-
-Tetramers are computationally generated information units that
-interrelate four data types from the CTP: a chemical, gene product,
-phenotype, and disease. They help in understanding the complex
-relationships between these entities and their combined impact on human
-health.
-
-`extr_tetramer` extracts info related to tetramers from CTD.
-
-    tetramer_data <- extr_tetramer(
-      chem = c("50-00-0", "ethanol"),
-      disease = "",
-      gene = "",
-      go = "",
-      input_term_search_type = "directAssociations",
-      qt_match_type = "equals",
-      verbose = FALSE
-    )
-
-    names(tetramer_data)
-    #>  [1] "chemical"                "chemical_id"            
-    #>  [3] "gene"                    "gene_id"                
-    #>  [5] "phenotype"               "phenotype_id"           
-    #>  [7] "disease"                 "disease_id"             
-    #>  [9] "evidence_strength_score" "query"
 
 ## Important Note regarding OpenSSL
 
