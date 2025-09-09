@@ -1,5 +1,4 @@
 library(testthat)
-
 Sys.sleep(5)
 
 # Test 1: Check if the function works with a valid chemical name input

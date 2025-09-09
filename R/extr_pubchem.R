@@ -224,6 +224,11 @@ extr_chem_info <- function(
 
   Sys.sleep(delay)
   all_prop <- webchem::pc_prop(iupac_cid_cas_unique$cid)
+
+  if (nrow(all_prop) < 1) {
+    cli::cli_abort("PubChem did not return any information. Server might be down or overloaded.")
+  }
+
   all_prop$CID <- as.numeric(all_prop$CID)
 
   # get the original query value
