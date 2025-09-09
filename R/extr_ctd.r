@@ -85,14 +85,53 @@ extr_ctd <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
+  
+  result <- tryCatch(
+    expr = {
+      extr_ctd_out(
+        input_terms = input_terms,
+        category = category,
+        report_type = report_type,
+        input_term_search_type = input_term_search_type,
+        action_types = action_types,
+        ontology = ontology,
+        verify_ssl = verify_ssl,
+        verbose = verbose,
+        ...
+      )
+    },
+    error = function(e) {
+      cli::cli_warn(
+        "CTD data extraction failed. Returning NULL. The error was: {e$message}"
+      )
+      return(NULL)
+    }
+  )
+  
+  return(result)
+}
+
+#' @inherit extr_ctd title description
+#' @keywords internal
+#' @noRd
+#' @inheritParams extr_ctd
+extr_ctd_out <- function(
+    input_terms,
+    category = "chem",
+    report_type = "genes_curated",
+    input_term_search_type = "directAssociations",
+    action_types = NULL,
+    ontology = NULL,
+    verify_ssl = FALSE,
+    verbose = TRUE,
+    ...) {
+  
   if (base::missing(input_terms)) {
     cli::cli_abort("The argument {.field {input_terms}} is required.")
   }
 
-
   base_url <- "https://ctdbase.org/tools/batchQuery.go"
   check_internet(verbose = verbose)
-
 
   col_names <- c(
     "chemical_name", "chemical_id", "casrn", "gene_symbol",
@@ -199,7 +238,7 @@ extr_ctd <- function(
 #'   R. J., Sciaky, D., Barkalow, F., Strong, M., Planchart, A.,
 #'   & Mattingly, C. J. (2023). CTD tetramers: A new online tool that computationally
 #'   links curated chemicals, genes, phenotypes, and diseases to inform molecular
-#'    mechanisms for environmental health. Toxicological Sciences, 195(2), 155–168.
+#'   mechanisms for environmental health. Toxicological Sciences, 195(2), 155–168.
 #' \doi{10.1093/toxsci/kfad069}
 #' @export
 #' @examples
@@ -224,6 +263,47 @@ extr_tetramer <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
+  
+  result <- tryCatch(
+    expr = {
+      extr_tetramer_out(
+        chem = chem,
+        disease = disease,
+        gene = gene,
+        go = go,
+        input_term_search_type = input_term_search_type,
+        qt_match_type = qt_match_type,
+        verify_ssl = verify_ssl,
+        verbose = verbose,
+        ...
+      )
+    },
+    error = function(e) {
+      cli::cli_warn(
+        "CTD tetramer data extraction failed. Returning NULL. The error was: {e$message}"
+      )
+      return(NULL)
+    }
+  )
+  
+  return(result)
+}
+
+#' @inherit extr_tetramer title description
+#' @keywords internal
+#' @noRd
+#' @inheritParams extr_tetramer
+extr_tetramer_out <- function(
+    chem,
+    disease = "",
+    gene = "",
+    go = "",
+    input_term_search_type = "directAssociations",
+    qt_match_type = "equals",
+    verify_ssl = FALSE,
+    verbose = TRUE,
+    ...) {
+  
   if (base::missing(chem)) {
     cli::cli_abort("The argument {.field {chem}} is required.")
   }
