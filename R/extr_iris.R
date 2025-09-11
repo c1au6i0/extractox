@@ -17,6 +17,19 @@
 #' extr_iris(casrn = c("1332-21-4", "50-00-0"), delay = 2)
 #' }
 extr_iris <- function(casrn = NULL, verbose = TRUE, delay = 0) {
+  result <- with_graceful_exit(
+    extr_iris_out,
+    casrn = casrn,
+    verbose = verbose,
+    delay = delay,
+    what = "IRIS data extraction"
+  )
+
+  return(result)
+}
+
+
+extr_iris_out <- function(casrn = NULL, verbose = TRUE, delay = 0) {
   cancer_types <- c("non_cancer", "cancer")
 
   if (base::missing(casrn)) {

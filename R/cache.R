@@ -154,6 +154,3 @@ with_sandbox_dir <- function(code, .local_envir = base::parent.frame()) {
   rlang::eval_bare(expr = code, env = .local_envir)
   return(invisible(NULL))
 }
-
-
-

@@ -189,3 +189,28 @@ write_dataframes_to_excel <- function(df_list, filename) {
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   cli::cli_alert_info("Excel file written in {filename}...")
 }
+
+#' Execute a function and exit gracefully on error
+#'
+#' Internal helper to standardize error handling for exported wrappers.
+#' It executes the provided function with arguments and, if an error occurs,
+#' issues a warning and returns NULL (instead of throwing), enabling callers
+#' to handle failures uniformly.
+#'
+#' @param .f A function to execute.
+#' @param ... Arguments passed on to `.f`.
+#' @param what A short description used in the warning message. If NULL,
+#'   defaults to the function name.
+#' @return The value returned by `.f(...)`, or NULL if an error occurs.
+#' @keywords internal
+#' @noRd
+with_graceful_exit <- function(.f, ..., what = NULL) {
+  if (is.null(what)) what <- deparse(substitute(.f))
+  tryCatch(
+    .f(...),
+    error = function(e) {
+      cli::cli_warn("{what} failed. Returning NULL. The error was: {e$message}")
+      NULL
+    }
+  )
+}

@@ -85,36 +85,24 @@ extr_ctd <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  
-  result <- tryCatch(
-    expr = {
-      extr_ctd_out(
-        input_terms = input_terms,
-        category = category,
-        report_type = report_type,
-        input_term_search_type = input_term_search_type,
-        action_types = action_types,
-        ontology = ontology,
-        verify_ssl = verify_ssl,
-        verbose = verbose,
-        ...
-      )
-    },
-    error = function(e) {
-      cli::cli_warn(
-        "CTD data extraction failed. Returning NULL. The error was: {e$message}"
-      )
-      return(NULL)
-    }
+  result <- with_graceful_exit(
+    extr_ctd_out,
+    input_terms = input_terms,
+    category = category,
+    report_type = report_type,
+    input_term_search_type = input_term_search_type,
+    action_types = action_types,
+    ontology = ontology,
+    verify_ssl = verify_ssl,
+    verbose = verbose,
+    ...,
+    what = "CTD data extraction"
   )
-  
+
   return(result)
 }
 
-#' @inherit extr_ctd title description
-#' @keywords internal
-#' @noRd
-#' @inheritParams extr_ctd
+
 extr_ctd_out <- function(
     input_terms,
     category = "chem",
@@ -125,7 +113,6 @@ extr_ctd_out <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  
   if (base::missing(input_terms)) {
     cli::cli_abort("The argument {.field {input_terms}} is required.")
   }
@@ -263,36 +250,24 @@ extr_tetramer <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  
-  result <- tryCatch(
-    expr = {
-      extr_tetramer_out(
-        chem = chem,
-        disease = disease,
-        gene = gene,
-        go = go,
-        input_term_search_type = input_term_search_type,
-        qt_match_type = qt_match_type,
-        verify_ssl = verify_ssl,
-        verbose = verbose,
-        ...
-      )
-    },
-    error = function(e) {
-      cli::cli_warn(
-        "CTD tetramer data extraction failed. Returning NULL. The error was: {e$message}"
-      )
-      return(NULL)
-    }
+  result <- with_graceful_exit(
+    extr_tetramer_out,
+    chem = chem,
+    disease = disease,
+    gene = gene,
+    go = go,
+    input_term_search_type = input_term_search_type,
+    qt_match_type = qt_match_type,
+    verify_ssl = verify_ssl,
+    verbose = verbose,
+    ...,
+    what = "CTD tetramer data extraction"
   )
-  
+
   return(result)
 }
 
-#' @inherit extr_tetramer title description
-#' @keywords internal
-#' @noRd
-#' @inheritParams extr_tetramer
+
 extr_tetramer_out <- function(
     chem,
     disease = "",
@@ -303,7 +278,6 @@ extr_tetramer_out <- function(
     verify_ssl = FALSE,
     verbose = TRUE,
     ...) {
-  
   if (base::missing(chem)) {
     cli::cli_abort("The argument {.field {chem}} is required.")
   }
