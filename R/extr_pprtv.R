@@ -67,7 +67,7 @@ extr_pprtv <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
 
 
 extr_pprtv_out <- function(ids, search_type = "casrn", verbose = TRUE, force = TRUE,
-                       get_all = FALSE) {
+                           get_all = FALSE) {
   if (all(base::missing(ids), !isTRUE(get_all))) {
     cli::cli_abort("The argument {.field ids} is required.")
   }

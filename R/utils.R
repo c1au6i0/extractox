@@ -221,10 +221,12 @@ with_graceful_exit <- function(.f, ..., what = NULL) {
 #'
 #' @keywords internal
 #' @noRd
-httr2_backoff <- function(resp, i, base = 1, cap = 30, jitter = 0.2) {
+httr2_backoff <- function(i) {
+  base <- 1; cap <- 30; jitter <- 0.2
   wait <- min(cap, base * 2^(i - 1)) * stats::runif(1, 1 - jitter, 1 + jitter)
   return(wait)
 }
+
 
 #' Retry wrapper for condathis::run (curl calls)
 #'
@@ -247,9 +249,14 @@ condathis_run_retry <- function(cmd, ..., env_name, verbose = "silent",
   for (i in seq_len(max_tries)) {
     res <- tryCatch(
       condathis::run(cmd, ..., env_name = env_name, verbose = verbose),
-      error = function(e) { last_err <<- e; NULL }
+      error = function(e) {
+        last_err <<- e
+        NULL
+      }
     )
-    if (!is.null(res)) return(res)
+    if (!is.null(res)) {
+      return(res)
+    }
     if (i < max_tries) {
       wait <- min(cap, base * 2^(i - 1)) * stats::runif(1, 1 - jitter, 1 + jitter)
       Sys.sleep(wait)
