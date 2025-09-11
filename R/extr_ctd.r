@@ -160,6 +160,7 @@ extr_ctd_out <- function(
       httr2::request(base_url) |>
         httr2::req_url_query(!!!params) |>
         httr2::req_options(!!!libcurl_opt) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_perform()
     },
     error = function(e) {
@@ -367,6 +368,7 @@ extr_tetramer_ <- function(
       httr2::request(base_url) |>
         httr2::req_url_query(!!!params) |>
         httr2::req_options(!!!libcurl_opt) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_perform()
     },
     error = function(e) {

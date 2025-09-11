@@ -106,7 +106,7 @@ extr_iris_ <- function(casrn = NULL,
   resp <- tryCatch(
     {
       httr2::request(base_url = base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_url_query(!!!query_params, .multi = "explode") |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_perform()
@@ -204,7 +204,7 @@ extr_iris_openssl_ <- function(
 
   curl_res <- tryCatch(
     {
-      condathis::run("curl",
+      condathis_run_retry("curl",
         full_url,
         env_name = "openssl-linux-env", verbose = "silent"
       )

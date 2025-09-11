@@ -66,7 +66,7 @@ extr_ice_out <- function(casrn,
   resp <- tryCatch(
     {
       httr2::request(base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_body_json(list(chemids = casrn, assays = assays),
           auto_unbox = FALSE
         ) |>

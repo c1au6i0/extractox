@@ -400,7 +400,7 @@ extr_comptox_ <- function(ids,
   post_result <- tryCatch(
     {
       httr2::request(base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_body_json(params) |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_method("POST") |>
@@ -433,6 +433,7 @@ extr_comptox_ <- function(ids,
   resp <- tryCatch(
     {
       httr2::request(paste0(base_url_down, response_body)) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_perform()
     },
