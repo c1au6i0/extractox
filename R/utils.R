@@ -222,7 +222,9 @@ with_graceful_exit <- function(.f, ..., what = NULL) {
 #' @keywords internal
 #' @noRd
 httr2_backoff <- function(i) {
-  base <- 1; cap <- 30; jitter <- 0.2
+  base <- 1
+  cap <- 30
+  jitter <- 0.2
   wait <- min(cap, base * 2^(i - 1)) * stats::runif(1, 1 - jitter, 1 + jitter)
   return(wait)
 }
