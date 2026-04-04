@@ -1,4 +1,23 @@
 
+# extractox 1.2.1
+
+## Bug Fixes
+
+* Updated `extr_comptox` tests to reflect a CompTox API change: `comptox_main_data`
+  now returns 63 columns instead of 64.
+* Updated `extr_casrn_from_cid` test to reflect current PubChem data (row count
+  updated from 42 to 29).
+* Fixed `extr_tox` test: replaced incorrect `expect_no_warning()` with
+  `suppressWarnings()`; the function intentionally warns via `with_graceful_exit()`
+  when an individual sub-service (e.g. ICE) fails transiently. The data.frame check
+  is now resilient to `NULL` elements from transiently unavailable services.
+* Fixed `extr_monograph` test: corrected `expect()` call to `expect_equal()` when
+  checking the count of missing values.
+* Added missing `skip_on_cran()` and `skip_if_offline()` guards to
+  `extr_monograph` tests that make live API calls.
+* Renamed test file `test_monograph.R` to `test-monograph.R` to follow the
+  `test-*.R` convention required for automatic discovery by testthat.
+
 # extractox 1.2.0 
 
 ## Major Changes & Enhancements

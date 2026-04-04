@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/extractox)](https://CRAN.R-project.org/package=extractox)
 [![DEV
-version](https://img.shields.io/badge/devel%20version-1.2.0.900-blue.svg)](https://github.com/c1au6i0/extractox)
+version](https://img.shields.io/badge/devel%20version-1.2.1.9000-blue.svg)](https://github.com/c1au6i0/extractox)
 <!-- badges: end -->
 
 `extractox` is a comprehensive R package designed to simplify querying
@@ -66,6 +66,7 @@ exposure-related data.
     # assays is null so all assays are retrieved
     ice_data <- extr_ice(casrn = c("50-00-0"), assays = NULL, verbose = FALSE)
     names(ice_data)
+
     #>  [1] "assay"                 "endpoint"              "substance_type"       
     #>  [4] "casrn"                 "qsar_ready_id"         "value"                
     #>  [7] "unit"                  "species"               "receptor_species"     
@@ -81,6 +82,7 @@ match a pattern you’re interested in. Please note that searches are case
 sensitive and accept regexp.
 
     extr_ice_assay_names("Rat Acute", verbose = FALSE) # keep empty to retrieve all
+
     #> [1] "Rat Acute Oral Toxicity"         "Rat Acute Inhalation Toxicity"  
     #> [3] "Rat Acute Dermal Toxicity"       "CATMoS, Rat Acute Oral Toxicity"
 
@@ -95,6 +97,7 @@ CASRN or IUPAC names of chemicals.
 
     iris_info <- extr_iris(c("glyphosate", "50-00-0"), verbose = FALSE)
     names(iris_info)
+
     #> [1] "chemical_name"                 "casrn"                        
     #> [3] "exposure_route"                "assessment_type"              
     #> [5] "critical_effect_or_tumor_type" "woe_characterization"         
@@ -127,6 +130,7 @@ names of chemicals and returns a **list of dataframes**.
 
     info_comptox <- extr_comptox(ids = c("Aspirin", "50-00-0"), verbose = FALSE)
     names(info_comptox)
+
     #> [1] "comptox_cover_sheet"           "comptox_main_data"            
     #> [3] "comptox_abstract_sifter"       "comptox_synonym_identifier"   
     #> [5] "comptox_related_relationships" "comptox_toxcast_assays_ac50"  
@@ -148,6 +152,13 @@ database and accepts queries using CASRN or the names of chemicals.
       verbose = FALSE
     )
     str(dat)
+
+    # Example usage for name search
+    dat2 <- extr_monograph(
+      search_type = "name",
+      ids = c("Aloe", "Schistosoma", "Styrene")
+    )
+
     #> 'data.frame':    2 obs. of  8 variables:
     #>  $ casrn                  : chr  "105-74-8" "120-58-1"
     #>  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"
@@ -157,12 +168,6 @@ database and accepts queries using CASRN or the names of chemicals.
     #>  $ evaluation_year        : int  1998 1987
     #>  $ additional_information : chr  "" ""
     #>  $ query                  : chr  "105-74-8" "120-58-1"
-
-    # Example usage for name search
-    dat2 <- extr_monograph(
-      search_type = "name",
-      ids = c("Aloe", "Schistosoma", "Styrene")
-    )
     #> ℹ Extracting WHO IARC monographs...
     #> Last updated: 2024-11-29 5:08pm (CET)
 
@@ -185,6 +190,7 @@ found.
       verbose = FALSE
     )
     names(chem_info)
+
     #>  [1] "cid"                         "iupac_name"                 
     #>  [3] "casrn"                       "cid_all"                    
     #>  [5] "casrn_all"                   "molecular_formula"          
