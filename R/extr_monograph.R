@@ -25,16 +25,16 @@
 #' @export
 #' @examples
 #' \donttest{
-#'   dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"), verbose = FALSE)
-#'   str(dat)
+#' dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"), verbose = FALSE)
+#' str(dat)
 #'
-#'   # Example usage for name search
-#'   dat2 <- extr_monograph(
-#'     search_type = "name",
-#'     ids = c("Aloe", "Schistosoma", "Styrene"),
-#'     verbose = FALSE
-#'   )
-#'   str(dat2)
+#' # Example usage for name search
+#' dat2 <- extr_monograph(
+#'   search_type = "name",
+#'   ids = c("Aloe", "Schistosoma", "Styrene"),
+#'   verbose = FALSE
+#' )
+#' str(dat2)
 #' }
 extr_monograph <- function(ids,
                            search_type = "casrn",

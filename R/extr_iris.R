@@ -167,10 +167,11 @@ extr_iris_ <- function(casrn = NULL,
 #' @keywords internal
 #' @noRd
 extr_iris_openssl_ <- function(
-    casrn,
-    cancer_types = c("non_cancer", "cancer"),
-    delay = 0,
-    verbose = TRUE) {
+  casrn,
+  cancer_types = c("non_cancer", "cancer"),
+  delay = 0,
+  verbose = TRUE
+) {
   Sys.sleep(delay)
   base_url <- "https://cfpub.epa.gov/ncea/iris/search/basic/?"
 

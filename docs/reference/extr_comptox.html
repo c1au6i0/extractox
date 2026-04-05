@@ -15,7 +15,7 @@ ECOTOXr::websearch_comptox function."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -400,7 +400,7 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Getting info from CompTox...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_cover_sheet</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2025_09_20_13_52_37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   search_datestamp  x2026_04_05_16_59_46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Search term count                    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Found count                          2</span>
@@ -408,14 +408,14 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Duplicate count                      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_main_data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 64</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   input   found_by      preferred_name dtxcid   casrn inchikey iupac_name smiles</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aspirin Approved Name Aspirin        DTXCID5… 50-7… BSYNRYM… 2-(Acetyl… CC(=O…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 50-00-0 CASRN         Formaldehyde   DTXCID3… 50-0… WSFSSNU… Formaldeh… C=O   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 56 more variables: inchi_string &lt;chr&gt;, ms_ready_smiles &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 63</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   input   found_by dtxsid preferred_name dtxcid casrn inchikey iupac_name smiles</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aspirin Approve… DTXSI… Aspirin        DTXCI… 50-7… BSYNRYM… 2-(Acetyl… CC(=O…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 50-00-0 CASRN    DTXSI… Formaldehyde   DTXCI… 50-0… WSFSSNU… Formaldeh… C=O   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 54 more variables: inchi_string &lt;chr&gt;, ms_ready_smiles &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   qsar_ready_smiles &lt;chr&gt;, molecular_formula &lt;chr&gt;, average_mass &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   monoisotopic_mass &lt;dbl&gt;, qc_level &lt;dbl&gt;, safety_data &lt;chr&gt;, expocast &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   monoisotopic_mass &lt;dbl&gt;, qc_level &lt;dbl&gt;, safety_data &lt;lgl&gt;, expocast &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   data_sources &lt;dbl&gt;, toxval_data &lt;chr&gt;, number_of_pubmed_articles &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   pubchem_data_sources &lt;chr&gt;, cpdat_count &lt;chr&gt;, iris_link &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   pprtv_link &lt;lgl&gt;, wikipedia_article &lt;chr&gt;, qc_notes &lt;chr&gt;,</span></span>
@@ -432,15 +432,24 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   searched_chemical identifier                                          pc_codes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aspirin           Synonym data is too big for the Excel cell - Refer… PC-1290…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Formaldehyde      NSC 298885|UN 2209|Formalin 40|Superlysoform|Forma… PC-0430…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aspirin           50-78-2|Aspirin|2-(ACETYLOXYBENZOIC) ACID|2-(Acety… PC-1290…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Formaldehyde      50-00-0|Formaldehyde|Fannoform|Floguard 1015|Forma… PC-0430…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_related_relationships</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   input   dtxsid        preferred_name has_relationship_with related_dtxsid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aspirin DTXSID5020108 Aspirin        Tested Chemical       DTXSID5020108 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 50-00-0 DTXSID7020637 Formaldehyde   Tested Chemical       DTXSID7020637 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 277 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    input   dtxsid        preferred_name has_relationship_with  related_dtxsid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Aspirin DTXSID5020108 Aspirin        Searched Chemical      DTXSID5020108  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Aspirin DTXSID5020108 Aspirin        Transformation Product DTXSID5021708  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Aspirin DTXSID5020108 Aspirin        Predecessor: Component DTXSID0020109  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Aspirin DTXSID5020108 Aspirin        Predecessor: Component DTXSID701336718</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Aspirin DTXSID5020108 Aspirin        Predecessor: Component DTXSID401392325</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Aspirin DTXSID5020108 Aspirin        Predecessor: Component DTXSID101392326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Aspirin DTXSID5020108 Aspirin        Predecessor: Component DTXSID701413792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 50-00-0 DTXSID7020637 Formaldehyde   Searched Chemical      DTXSID7020637  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 50-00-0 DTXSID7020637 Formaldehyde   Transformation Product DTXSID6029757  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 50-00-0 DTXSID7020637 Formaldehyde   Transformation Parent  DTXSID401386683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 267 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: related_preferred_name &lt;chr&gt;, related_casrn &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_toxcast_assays_ac50</span>
@@ -482,20 +491,20 @@ Chemicals Dashboard Resource Hub</a></p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   species_supercategory &lt;chr&gt;, sex &lt;chr&gt;, generation &lt;chr&gt;, …</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $comptox_chemical_properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 76 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 83 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    dtxsid        dtxcid      type         name    value units source description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID5020108 DTXCID50108 experimental Meltin… 136.0 °C    LKT L… <span style="color: #949494;">"</span>LKT Labor…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID7020637 DTXCID30637 predicted    LogD5.5 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID7020637 DTXCID30637 predicted    LogD7.4 0.35  Log1… OPERA… <span style="color: #949494;">"</span>OPERA is …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    NIOSH  <span style="color: #949494;">"</span>The NIOSH…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID5020108 DTXCID50108 experimental Boilin… 140.0 °C    Oxfor… <span style="color: #949494;">"</span>Until 201…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID5020108 DTXCID50108 experimental Meltin… 122.0 °C    MolMa… <span style="color: #949494;">"</span>MolMall p…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID5020108 DTXCID50108 experimental Meltin… 134.0 °C    Tokyo… <span style="color: #949494;">"</span>Tokyo Che…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID5020108 DTXCID50108 experimental Meltin… 135.0 °C    Jean-… <span style="color: #949494;">"</span>Jean-Clau…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID5020108 DTXCID50108 experimental Meltin… 135.0 °C    PhysP… <span style="color: #949494;">"</span>The PHYSP…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID5020108 DTXCID50108 predicted    Water … 0.02… mol/L EPISU… <span style="color: #949494;">"</span>&lt;a href='…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 66 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DTXSID7020637 DTXCID30637 experimental Androg… 0.0   Bina… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DTXSID7020637 DTXCID30637 experimental Androg… 0.0   Bina… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DTXSID7020637 DTXCID30637 experimental Androg… 0.0   Bina… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DTXSID7020637 DTXCID30637 experimental Atmos.… 9.37… cm^3… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DTXSID7020637 DTXCID30637 experimental pKa Ba… 1.15  Log1… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DTXSID7020637 DTXCID30637 experimental Boilin… -19.1 °C    OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DTXSID7020637 DTXCID30637 experimental Henry'… 3.37… atm-… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DTXSID7020637 DTXCID30637 experimental LogKow… 0.35  Log1… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DTXSID7020637 DTXCID30637 experimental Ready … 1.0   Bina… OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DTXSID7020637 DTXCID30637 experimental Water … 14.6… mol/L OPERA… OPERA v2.8…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 73 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -510,7 +519,7 @@ Chemicals Dashboard Resource Hub</a></p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

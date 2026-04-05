@@ -191,10 +191,11 @@ extr_casrn_from_cid_out <- function(pubchem_ids, verbose = TRUE) {
 #' extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #' }
 extr_chem_info <- function(
-    iupac_names,
-    verbose = TRUE,
-    domain = "compound",
-    delay = 0) {
+  iupac_names,
+  verbose = TRUE,
+  domain = "compound",
+  delay = 0
+) {
   result <- with_graceful_exit(
     extr_chem_info_out,
     iupac_names = iupac_names,
@@ -209,10 +210,11 @@ extr_chem_info <- function(
 
 
 extr_chem_info_out <- function(
-    iupac_names,
-    verbose = TRUE,
-    domain = "compound",
-    delay = 0) {
+  iupac_names,
+  verbose = TRUE,
+  domain = "compound",
+  delay = 0
+) {
   if (base::missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
