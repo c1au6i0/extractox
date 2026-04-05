@@ -15,4 +15,3 @@
 ^CRAN-SUBMISSION$
 justfile$
 ^revdep$
-^AGENTS\.md$

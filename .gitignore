@@ -10,3 +10,9 @@ inst/doc
 renv.lock  
 .Rprofile
 renv/*
+
+# Agent-related files
+AGENTS.md
+.claude/
+.opencode/
+.cursor/
