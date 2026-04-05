@@ -13,6 +13,7 @@ renv/*
 
 # Agent-related files
 AGENTS.md
+docs/AGENTS.html
 .claude/
 .opencode/
 .cursor/
