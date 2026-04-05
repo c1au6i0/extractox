@@ -1,5 +1,4 @@
 library(testthat)
-
 Sys.sleep(5)
 
 # Test 1: Check if the function works with a valid chemical name input
@@ -48,9 +47,14 @@ test_that("Valid inputs", {
     )
   )
 
+  out <- extr_comptox(
+    ids = ids,
+    verbose = FALSE
+  )
+
   expect_equal(names(out), col_names)
   expect_equal(out$comptox_main_data$input, ids)
-  expect_equal(ncol(out$comptox_main_data), 64)
+  expect_equal(ncol(out$comptox_main_data), 63)
 })
 
 Sys.sleep(5)

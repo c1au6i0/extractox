@@ -6,6 +6,8 @@ col_names <- c(
 )
 
 test_that("extr_monograph returns correct outs for CASRN search", {
+  skip_on_cran()
+  skip_if_offline()
   ids <- c("105-74-8", "120-58-1")
   out <- extr_monograph(ids = ids, search_type = "casrn", verbose = FALSE)
 
@@ -17,6 +19,8 @@ test_that("extr_monograph returns correct outs for CASRN search", {
 })
 
 test_that("extr_monograph returns correct outs for name search", {
+  skip_on_cran()
+  skip_if_offline()
   ids <- c("Aloe", "Schistosoma", "Styrene")
   out <- extr_monograph(ids = ids, search_type = "name", verbose = FALSE)
 
@@ -43,11 +47,13 @@ test_that("extr_monograph handles invalid search_type argument", {
 })
 
 test_that("extr_monograph outputs verbose messages when enabled", {
+  skip_on_cran()
+  skip_if_offline()
   ids <- c("105-74-8", "bella", "ciao")
   expect_warning(
     out <- extr_monograph(ids = ids, search_type = "casrn", verbose = TRUE),
     "Chemicals.*found!"
   )
 
-  expect(sum(is.na(out$agent)), 2)
+  expect_equal(sum(is.na(out$agent)), 2)
 })

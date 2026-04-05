@@ -103,6 +103,18 @@ create_na_df <- function(missing_chem) {
 #' extr_casrn_from_cid(cids)
 #' }
 extr_casrn_from_cid <- function(pubchem_ids, verbose = TRUE) {
+  result <- with_graceful_exit(
+    extr_casrn_from_cid_out,
+    pubchem_ids = pubchem_ids,
+    verbose = verbose,
+    what = "PubChem CASRN extraction"
+  )
+
+  return(result)
+}
+
+
+extr_casrn_from_cid_out <- function(pubchem_ids, verbose = TRUE) {
   if (base::missing(pubchem_ids)) {
     cli::cli_abort("The argument {.field pubchem_ids} is required.")
   }
@@ -183,6 +195,24 @@ extr_chem_info <- function(
     verbose = TRUE,
     domain = "compound",
     delay = 0) {
+  result <- with_graceful_exit(
+    extr_chem_info_out,
+    iupac_names = iupac_names,
+    verbose = verbose,
+    domain = domain,
+    delay = delay,
+    what = "PubChem chemical info extraction"
+  )
+
+  return(result)
+}
+
+
+extr_chem_info_out <- function(
+    iupac_names,
+    verbose = TRUE,
+    domain = "compound",
+    delay = 0) {
   if (base::missing(iupac_names)) {
     cli::cli_abort("The argument {.field {iupac_names}} is required.")
   }
@@ -224,6 +254,11 @@ extr_chem_info <- function(
 
   Sys.sleep(delay)
   all_prop <- webchem::pc_prop(iupac_cid_cas_unique$cid)
+
+  if (nrow(all_prop) < 1) {
+    cli::cli_abort("PubChem did not return any information. Server might be down or overloaded.")
+  }
+
   all_prop$CID <- as.numeric(all_prop$CID)
 
   # get the original query value
@@ -271,6 +306,19 @@ extr_chem_info <- function(
 #' extr_pubchem_fema(c("83-67-0", "1490-04-6"))
 #' }
 extr_pubchem_fema <- function(casrn, verbose = TRUE, delay = 0) {
+  result <- with_graceful_exit(
+    extr_pubchem_fema_out,
+    casrn = casrn,
+    verbose = verbose,
+    delay = delay,
+    what = "PubChem FEMA extraction"
+  )
+
+  return(result)
+}
+
+
+extr_pubchem_fema_out <- function(casrn, verbose = TRUE, delay = 0) {
   extr_pubchem_section(
     casrn = casrn,
     section = "FEMA Flavor Profile",
@@ -278,7 +326,6 @@ extr_pubchem_fema <- function(casrn, verbose = TRUE, delay = 0) {
     delay = delay
   )
 }
-
 
 #' Extract GHS Codes from PubChem
 #'
@@ -300,6 +347,19 @@ extr_pubchem_fema <- function(casrn, verbose = TRUE, delay = 0) {
 #' extr_pubchem_ghs(casrn = c("50-00-0", "64-17-5"))
 #' }
 extr_pubchem_ghs <- function(casrn, verbose = TRUE, delay = 0) {
+  result <- with_graceful_exit(
+    extr_pubchem_ghs_out,
+    casrn = casrn,
+    verbose = verbose,
+    delay = delay,
+    what = "PubChem GHS extraction"
+  )
+
+  return(result)
+}
+
+
+extr_pubchem_ghs_out <- function(casrn, verbose = TRUE, delay = 0) {
   extr_pubchem_section(
     casrn = casrn,
     section = "GHS Classification",

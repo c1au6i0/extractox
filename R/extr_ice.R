@@ -27,6 +27,25 @@ extr_ice <- function(casrn,
                      verify_ssl = FALSE,
                      verbose = TRUE,
                      ...) {
+  result <- with_graceful_exit(
+    extr_ice_out,
+    casrn = casrn,
+    assays = assays,
+    verify_ssl = verify_ssl,
+    verbose = verbose,
+    ...,
+    what = "ICE data extraction"
+  )
+
+  return(result)
+}
+
+
+extr_ice_out <- function(casrn,
+                         assays = NULL,
+                         verify_ssl = FALSE,
+                         verbose = TRUE,
+                         ...) {
   if (base::missing(casrn)) {
     cli::cli_abort("The argument {.field {casrn}} is required.")
   }
@@ -47,7 +66,7 @@ extr_ice <- function(casrn,
   resp <- tryCatch(
     {
       httr2::request(base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_body_json(list(chemids = casrn, assays = assays),
           auto_unbox = FALSE
         ) |>

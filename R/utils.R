@@ -64,7 +64,7 @@ download_db <- function(url,
         )
       )
 
-    req <- condathis::run("curl", "-o", dat_file, url_to_use, "-v",
+    req <- condathis_run_retry("curl", "-o", dat_file, url_to_use, "-v",
       env_name = "openssl-linux-env",
       verbose = FALSE
     )
@@ -77,6 +77,7 @@ download_db <- function(url,
     )
   } else {
     req <- httr2::request(url) |>
+      httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
       httr2::req_url_query(
         !!!url_query_param,
         multi = "explore"
@@ -188,4 +189,80 @@ write_dataframes_to_excel <- function(df_list, filename) {
   # Save the workbook
   openxlsx::saveWorkbook(wb, filename, overwrite = TRUE)
   cli::cli_alert_info("Excel file written in {filename}...")
+}
+
+#' Execute a function and exit gracefully on error
+#'
+#' Internal helper to standardize error handling for exported wrappers.
+#' It executes the provided function with arguments and, if an error occurs,
+#' issues a warning and returns NULL (instead of throwing), enabling callers
+#' to handle failures uniformly.
+#'
+#' @param .f A function to execute.
+#' @param ... Arguments passed on to `.f`.
+#' @param what A short description used in the warning message. If NULL,
+#'   defaults to the function name.
+#' @return The value returned by `.f(...)`, or NULL if an error occurs.
+#' @keywords internal
+#' @noRd
+with_graceful_exit <- function(.f, ..., what = NULL) {
+  if (is.null(what)) what <- deparse(substitute(.f))
+  tryCatch(
+    .f(...),
+    error = function(e) {
+      cli::cli_warn("{what} failed. Returning NULL. The error was: {e$message}")
+      NULL
+    }
+  )
+}
+
+
+#' Jittered exponential backoff for httr2::req_retry
+#'
+#' @keywords internal
+#' @noRd
+httr2_backoff <- function(i) {
+  base <- 1
+  cap <- 30
+  jitter <- 0.2
+  wait <- min(cap, base * 2^(i - 1)) * stats::runif(1, 1 - jitter, 1 + jitter)
+  return(wait)
+}
+
+
+#' Retry wrapper for condathis::run (curl calls)
+#'
+#' Retries command execution with exponential backoff and jitter.
+#'
+#' @param cmd Command to execute (e.g., "curl").
+#' @param ... Command arguments (vectors are supported as passed by callers).
+#' @param env_name Conda environment name to run under.
+#' @param verbose Verbosity for condathis::run (default: "silent").
+#' @param max_tries Maximum number of attempts (default: 5).
+#' @param base Initial backoff seconds (default: 1).
+#' @param cap Maximum backoff seconds cap (default: 30).
+#' @param jitter Jitter proportion (0.2 => ±20%) (default: 0.2).
+#' @return Result from condathis::run on success; otherwise throws the last error.
+#' @keywords internal
+#' @noRd
+condathis_run_retry <- function(cmd, ..., env_name, verbose = "silent",
+                                max_tries = 5, base = 1, cap = 30, jitter = 0.2) {
+  last_err <- NULL
+  for (i in seq_len(max_tries)) {
+    res <- tryCatch(
+      condathis::run(cmd, ..., env_name = env_name, verbose = verbose),
+      error = function(e) {
+        last_err <<- e
+        NULL
+      }
+    )
+    if (!is.null(res)) {
+      return(res)
+    }
+    if (i < max_tries) {
+      wait <- min(cap, base * 2^(i - 1)) * stats::runif(1, 1 - jitter, 1 + jitter)
+      Sys.sleep(wait)
+    }
+  }
+  stop(last_err)
 }

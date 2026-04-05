@@ -149,34 +149,21 @@
 #' # Example usage of the function:
 #' extr_comptox(ids = c("Aspirin", "50-00-0"))
 #' }
+#'
 extr_comptox <- function(ids,
                          download_items = c(
-                           "CASRN",
-                           "INCHIKEY",
-                           "IUPAC_NAME",
-                           "SMILES",
-                           "INCHI_STRING",
-                           "MS_READY_SMILES",
-                           "QSAR_READY_SMILES",
-                           "MOLECULAR_FORMULA",
-                           "AVERAGE_MASS",
-                           "MONOISOTOPIC_MASS",
-                           "QC_LEVEL",
-                           "SAFETY_DATA",
-                           "EXPOCAST",
-                           "DATA_SOURCES",
-                           "TOXVAL_DATA",
+                           "CASRN", "INCHIKEY", "IUPAC_NAME", "SMILES",
+                           "INCHI_STRING", "MS_READY_SMILES",
+                           "QSAR_READY_SMILES", "MOLECULAR_FORMULA",
+                           "AVERAGE_MASS", "MONOISOTOPIC_MASS",
+                           "QC_LEVEL", "SAFETY_DATA", "EXPOCAST",
+                           "DATA_SOURCES", "TOXVAL_DATA",
                            "NUMBER_OF_PUBMED_ARTICLES",
-                           "PUBCHEM_DATA_SOURCES",
-                           "CPDAT_COUNT",
-                           "IRIS_LINK",
-                           "PPRTV_LINK",
-                           "WIKIPEDIA_ARTICLE",
-                           "QC_NOTES",
-                           "ABSTRACT_SHIFTER",
-                           "TOXPRINT_FINGERPRINT",
-                           "ACTOR_REPORT",
-                           "SYNONYM_IDENTIFIER",
+                           "PUBCHEM_DATA_SOURCES", "CPDAT_COUNT",
+                           "IRIS_LINK", "PPRTV_LINK",
+                           "WIKIPEDIA_ARTICLE", "QC_NOTES",
+                           "ABSTRACT_SHIFTER", "TOXPRINT_FINGERPRINT",
+                           "ACTOR_REPORT", "SYNONYM_IDENTIFIER",
                            "RELATED_RELATIONSHIP",
                            "ASSOCIATED_TOXCAST_ASSAYS",
                            "TOXVAL_DETAILS",
@@ -197,7 +184,7 @@ extr_comptox <- function(ids,
                            "VISCOSITY_CP_CP_TEST_PRED",
                            "VAPOR_PRESSURE_MMHG_TEST_PRED",
                            "WATER_SOLUBILITY_MOL/L_TEST_PRED",
-                           "ATMOSPHERIC_HYDROXYLATION_RATE_(AOH)_CM3/MOLECULE*SEC_OPERA_PRED", # nolint: line_length_linter.
+                           "ATMOSPHERIC_HYDROXYLATION_RATE_(AOH)_CM3/MOLECULE*SEC_OPERA_PRED",
                            "BIOCONCENTRATION_FACTOR_OPERA_PRED",
                            "BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED",
                            "BOILING_POINT_DEGC_OPERA_PRED",
@@ -212,8 +199,7 @@ extr_comptox <- function(ids,
                            "VAPOR_PRESSURE_MMHG_OPERA_PRED",
                            "WATER_SOLUBILITY_MOL/L_OPERA_PRED",
                            "EXPOCAST_MEDIAN_EXPOSURE_PREDICTION_MG/KG-BW/DAY",
-                           "NHANES",
-                           "TOXCAST_NUMBER_OF_ASSAYS/TOTAL",
+                           "NHANES", "TOXCAST_NUMBER_OF_ASSAYS/TOTAL",
                            "TOXCAST_PERCENT_ACTIVE"
                          ),
                          mass_error = 0,
@@ -221,6 +207,99 @@ extr_comptox <- function(ids,
                          verbose = TRUE,
                          delay = 7,
                          ...) {
+  result <- with_graceful_exit(
+    extr_comptox_out,
+    ids = ids,
+    download_items = download_items,
+    mass_error = mass_error,
+    verify_ssl = verify_ssl,
+    verbose = verbose,
+    delay = delay,
+    ...,
+    what = "CompTox data extraction"
+  )
+
+  return(result)
+}
+
+#' @inherit extr_comptox title description
+#' @keywords internal
+#' @noRd
+#' @inheritParams extr_comptox
+#' @param  xlsx_file Path to file to write with results.
+#' @param  base_url Comptox url.
+extr_comptox_out <- function(ids,
+                             download_items = c(
+                               "CASRN",
+                               "INCHIKEY",
+                               "IUPAC_NAME",
+                               "SMILES",
+                               "INCHI_STRING",
+                               "MS_READY_SMILES",
+                               "QSAR_READY_SMILES",
+                               "MOLECULAR_FORMULA",
+                               "AVERAGE_MASS",
+                               "MONOISOTOPIC_MASS",
+                               "QC_LEVEL",
+                               "SAFETY_DATA",
+                               "EXPOCAST",
+                               "DATA_SOURCES",
+                               "TOXVAL_DATA",
+                               "NUMBER_OF_PUBMED_ARTICLES",
+                               "PUBCHEM_DATA_SOURCES",
+                               "CPDAT_COUNT",
+                               "IRIS_LINK",
+                               "PPRTV_LINK",
+                               "WIKIPEDIA_ARTICLE",
+                               "QC_NOTES",
+                               "ABSTRACT_SHIFTER",
+                               "TOXPRINT_FINGERPRINT",
+                               "ACTOR_REPORT",
+                               "SYNONYM_IDENTIFIER",
+                               "RELATED_RELATIONSHIP",
+                               "ASSOCIATED_TOXCAST_ASSAYS",
+                               "TOXVAL_DETAILS",
+                               "CHEMICAL_PROPERTIES_DETAILS",
+                               "BIOCONCENTRATION_FACTOR_TEST_PRED",
+                               "BOILING_POINT_DEGC_TEST_PRED",
+                               "48HR_DAPHNIA_LC50_MOL/L_TEST_PRED",
+                               "DENSITY_G/CM^3_TEST_PRED",
+                               "DEVTOX_TEST_PRED",
+                               "96HR_FATHEAD_MINNOW_MOL/L_TEST_PRED",
+                               "FLASH_POINT_DEGC_TEST_PRED",
+                               "MELTING_POINT_DEGC_TEST_PRED",
+                               "AMES_MUTAGENICITY_TEST_PRED",
+                               "ORAL_RAT_LD50_MOL/KG_TEST_PRED",
+                               "SURFACE_TENSION_DYN/CM_TEST_PRED",
+                               "THERMAL_CONDUCTIVITY_MW/(M*K)_TEST_PRED",
+                               "TETRAHYMENA_PYRIFORMIS_IGC50_MOL/L_TEST_PRED",
+                               "VISCOSITY_CP_CP_TEST_PRED",
+                               "VAPOR_PRESSURE_MMHG_TEST_PRED",
+                               "WATER_SOLUBILITY_MOL/L_TEST_PRED",
+                               "ATMOSPHERIC_HYDROXYLATION_RATE_(AOH)_CM3/MOLECULE*SEC_OPERA_PRED", # nolint: line_length_linter.
+                               "BIOCONCENTRATION_FACTOR_OPERA_PRED",
+                               "BIODEGRADATION_HALF_LIFE_DAYS_DAYS_OPERA_PRED",
+                               "BOILING_POINT_DEGC_OPERA_PRED",
+                               "HENRYS_LAW_ATM-M3/MOLE_OPERA_PRED",
+                               "OPERA_KM_DAYS_OPERA_PRED",
+                               "OCTANOL_AIR_PARTITION_COEFF_LOGKOA_OPERA_PRED",
+                               "SOIL_ADSORPTION_COEFFICIENT_KOC_L/KG_OPERA_PRED",
+                               "OCTANOL_WATER_PARTITION_LOGP_OPERA_PRED",
+                               "MELTING_POINT_DEGC_OPERA_PRED",
+                               "OPERA_PKAA_OPERA_PRED",
+                               "OPERA_PKAB_OPERA_PRED",
+                               "VAPOR_PRESSURE_MMHG_OPERA_PRED",
+                               "WATER_SOLUBILITY_MOL/L_OPERA_PRED",
+                               "EXPOCAST_MEDIAN_EXPOSURE_PREDICTION_MG/KG-BW/DAY",
+                               "NHANES",
+                               "TOXCAST_NUMBER_OF_ASSAYS/TOTAL",
+                               "TOXCAST_PERCENT_ACTIVE"
+                             ),
+                             mass_error = 0,
+                             verify_ssl = FALSE,
+                             verbose = TRUE,
+                             delay = 7,
+                             ...) {
   if (base::missing(ids)) {
     cli::cli_abort("The argument {.field ids} is required.")
   }
@@ -229,8 +308,7 @@ extr_comptox <- function(ids,
   xlsx_file <- tempfile(fileext = ".xlsx")
 
 
-  base_url <-
-    "https://comptox.epa.gov/dashboard-api/batchsearch/export/?lb2ljny4"
+  base_url <- "https://comptox.epa.gov/dashboard-api/batchsearch/export/?lb2ljny4"
 
   download_items <- c("DTXCID", download_items)
 
@@ -322,7 +400,7 @@ extr_comptox_ <- function(ids,
   post_result <- tryCatch(
     {
       httr2::request(base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_body_json(params) |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_method("POST") |>
@@ -355,6 +433,7 @@ extr_comptox_ <- function(ids,
   resp <- tryCatch(
     {
       httr2::request(paste0(base_url_down, response_body)) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_perform()
     },
@@ -397,37 +476,48 @@ extr_comptox_openssl_ <- function(ids,
     mass_error,
     paste(shQuote(download_items, type = "cmd"), collapse = ", "),
     paste(ids, collapse = "\\n")
-    # Double backslashes for R to produce
-    # \n in the output
+    # Double backslashes for R to produce \n in the output
   )
-
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Sending request to CompTox...")
   }
 
   # Remove newlines for Windows compatibility
-  # check windows
   json_string <- gsub("\n", " ", json_string)
 
-  curl_res <- condathis::run("curl",
-    "-X",
-    "POST",
-    base_url,
-    "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",
-    "-H", "Accept: */*",
-    "-H", "Accept-Encoding: deflate, gzip",
-    "-H", "Content-Type: application/json",
-    "-d",
-    json_string,
-    env_name = "openssl-linux-env",
-    verbose = "silent"
+  error_result <- NULL
+
+  curl_result <- tryCatch(
+    {
+      condathis::run(
+        "curl",
+        "--silent", "--show-error",
+        "-X", "POST",
+        base_url,
+        "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",
+        "-H", "Accept: */*",
+        "-H", "Accept-Encoding: deflate, gzip",
+        "-H", "Content-Type: application/json",
+        "-d", json_string,
+        env_name = "openssl-linux-env",
+        verbose = "silent"
+      )
+    },
+    error = function(e) {
+      error_result <<- e
+      NULL
+    }
   )
+
+  if (is.null(curl_result)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result)}")
+  }
 
   base_url_down <-
     "https://comptox.epa.gov/dashboard-api/batchsearch/export/content/"
 
-  full_url_down <- paste0(base_url_down, curl_res$stdout)
+  full_url_down <- paste0(base_url_down, curl_result$stdout)
 
   if (isTRUE(verbose)) {
     cli::cli_alert_info("Getting info from CompTox...")
@@ -435,12 +525,10 @@ extr_comptox_openssl_ <- function(ids,
   Sys.sleep(delay)
 
   arg_call <- c(
+    "--silent", "--show-error",
     "-f",
-    "-s",
-    "-S",
     "-L",
     "--create-dirs",
-    "--silent",
     "-o",
     xlsx_file,
     "--compressed"
@@ -448,20 +536,29 @@ extr_comptox_openssl_ <- function(ids,
 
   other_headers <- c(
     "-H",
-    "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0" # nolint
+    "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0"
   )
 
-  curl_res_2 <- condathis::run("curl",
-    arg_call,
-    full_url_down,
-    other_headers,
-    env_name = "openssl-linux-env",
-    error = "continue",
-    verbose = "silent"
-    # stdout = xlsx_file
+  error_result_2 <- NULL
+
+  curl_res_2 <- tryCatch(
+    {
+      condathis::run(
+        "curl",
+        arg_call,
+        full_url_down,
+        other_headers,
+        env_name = "openssl-linux-env",
+        verbose = "silent"
+      )
+    },
+    error = function(e) {
+      error_result_2 <<- e
+      NULL
+    }
   )
 
-  if (curl_res_2$stderr != "") {
-    cli::cli_abort("Failed to perform the request: {curl_res_2$stderr}")
+  if (is.null(curl_res_2)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result_2)}")
   }
 }

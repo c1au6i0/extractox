@@ -24,14 +24,15 @@
 #' @seealso \url{https://monographs.iarc.who.int/list-of-classifications/}
 #' @export
 #' @examples
-#' {
-#'   dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"))
+#' \donttest{
+#'   dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"), verbose = FALSE)
 #'   str(dat)
 #'
 #'   # Example usage for name search
 #'   dat2 <- extr_monograph(
 #'     search_type = "name",
-#'     ids = c("Aloe", "Schistosoma", "Styrene")
+#'     ids = c("Aloe", "Schistosoma", "Styrene"),
+#'     verbose = FALSE
 #'   )
 #'   str(dat2)
 #' }

@@ -17,6 +17,19 @@
 #' extr_iris(casrn = c("1332-21-4", "50-00-0"), delay = 2)
 #' }
 extr_iris <- function(casrn = NULL, verbose = TRUE, delay = 0) {
+  result <- with_graceful_exit(
+    extr_iris_out,
+    casrn = casrn,
+    verbose = verbose,
+    delay = delay,
+    what = "IRIS data extraction"
+  )
+
+  return(result)
+}
+
+
+extr_iris_out <- function(casrn = NULL, verbose = TRUE, delay = 0) {
   cancer_types <- c("non_cancer", "cancer")
 
   if (base::missing(casrn)) {
@@ -93,7 +106,7 @@ extr_iris_ <- function(casrn = NULL,
   resp <- tryCatch(
     {
       httr2::request(base_url = base_url) |>
-        httr2::req_retry(max_tries = 2, backoff = ~3) |>
+        httr2::req_retry(max_tries = 5, backoff = httr2_backoff) |>
         httr2::req_url_query(!!!query_params, .multi = "explode") |>
         httr2::req_options(!!!libcurl_opt) |>
         httr2::req_perform()
@@ -187,10 +200,24 @@ extr_iris_openssl_ <- function(
     full_url <- shQuote(full_url, type = "cmd2")
   }
 
-  curl_res <- condathis::run("curl",
-    full_url,
-    env_name = "openssl-linux-env", verbose = "silent"
+  error_result <- NULL
+
+  curl_res <- tryCatch(
+    {
+      condathis_run_retry("curl",
+        full_url,
+        env_name = "openssl-linux-env", verbose = "silent"
+      )
+    },
+    error = function(e) {
+      error_result <<- e
+      NULL
+    }
   )
+  if (is.null(curl_res)) {
+    cli::cli_abort("Failed to perform the request: {conditionMessage(error_result_2)}") # nolint
+  }
+
 
   dat <- curl_res$stdout |>
     rvest::read_html() |>

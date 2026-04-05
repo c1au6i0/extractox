@@ -201,6 +201,7 @@ package to download and run the request with a known-compatible version of
 # Example usage of the function:
 extr_comptox(ids = c("Aspirin", "50-00-0"))
 }
+
 }
 \seealso{
 \href{https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-resource-hub}{CompTox # nolint

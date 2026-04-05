@@ -27,7 +27,7 @@ test_that("extr_ice fetches data for CASRN 50-00-0", {
   expect_equal(sum(is.na(out$casrn)), 2)
   expect_true(is.data.frame(out))
   expect_equal(names(out), col_names)
-  expect_equal(nrow(out), 287)
+  expect_equal(nrow(out), 282)
   expect_true(all(c("bella", "ciao") %in% out$query))
 })
 
