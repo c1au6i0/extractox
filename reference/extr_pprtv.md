@@ -92,7 +92,7 @@ condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
 #> ℹ Downloading data from <https://cfpub.epa.gov/ncea/pprtv/atoz.cfm>.
-#> ℹ Saving data in the cache /tmp/RtmpCIxL4G/tmp-cache1b802574ced7/R/extractox/epa_pprtvs.rds.
+#> ℹ Saving data in the cache /tmp/RtmputFl4Z/tmp-cache1e2d1310b5aa/R/extractox/epa_pprtvs.rds.
 #> ℹ Extracting EPA PPRTVs.
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
@@ -108,7 +108,7 @@ condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies
 #>                                                                 iris_link
 #> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364
 #>   rf_c_value rf_d_value           woe               date_downloaded    query
-#> 1   See IRIS   See IRIS Not available Sun, 05 Apr 2026 16:42:27 GMT Acrolein
+#> 1   See IRIS   See IRIS Not available Sun, 05 Apr 2026 17:12:38 GMT Acrolein
 #> ℹ Checking Internet Connection...
 #> ℹ Internet connection OK...
 #> ℹ Checking Internet Connection...
@@ -137,8 +137,8 @@ condathis::with_sandbox_dir({ # this is to write on tempdir as for CRAN policies
 #> 2 Inadequate information to assess carcinogenic potential
 #> 3 Inadequate information to assess carcinogenic potential
 #>                 date_downloaded      query
-#> 1 Sun, 05 Apr 2026 16:42:31 GMT   107-02-8
-#> 2 Sun, 05 Apr 2026 16:42:31 GMT 42576-02-3
-#> 3 Sun, 05 Apr 2026 16:42:31 GMT    79-10-7
+#> 1 Sun, 05 Apr 2026 17:12:44 GMT   107-02-8
+#> 2 Sun, 05 Apr 2026 17:12:44 GMT 42576-02-3
+#> 3 Sun, 05 Apr 2026 17:12:44 GMT    79-10-7
 # }
 ```

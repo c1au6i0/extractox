@@ -96,8 +96,8 @@ This is was introduced for debugging purposes.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">extr_monograph</span><span class="op">(</span>search_type <span class="op">=</span> <span class="st">"casrn"</span>, ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"105-74-8"</span>, <span class="st">"120-58-1"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">extr_monograph</span><span class="op">(</span>search_type <span class="op">=</span> <span class="st">"casrn"</span>, ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"105-74-8"</span>, <span class="st">"120-58-1"</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2 obs. of  8 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ casrn                  : chr  "105-74-8" "120-58-1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"</span>
@@ -108,13 +108,13 @@ This is was introduced for debugging purposes.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ additional_information : chr  "" ""</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ query                  : chr  "105-74-8" "120-58-1"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Example usage for name search</span></span></span>
-<span class="r-in"><span>  <span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu">extr_monograph</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    search_type <span class="op">=</span> <span class="st">"name"</span>,</span></span>
-<span class="r-in"><span>    ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Aloe"</span>, <span class="st">"Schistosoma"</span>, <span class="st">"Styrene"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Example usage for name search</span></span></span>
+<span class="r-in"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu">extr_monograph</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  search_type <span class="op">=</span> <span class="st">"name"</span>,</span></span>
+<span class="r-in"><span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Aloe"</span>, <span class="st">"Schistosoma"</span>, <span class="st">"Styrene"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	8 obs. of  8 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ casrn                  : chr  "" "" "" "" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ agent                  : chr  "Aloe vera, whole leaf extract" "Schistosoma haematobium (infection with)" "Schistosoma japonicum (infection with)" "Schistosoma mansoni (infection with)" ...</span>

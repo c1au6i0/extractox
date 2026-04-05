@@ -52,8 +52,8 @@ described.
 
 ``` r
 # \donttest{
-  dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"), verbose = FALSE)
-  str(dat)
+dat <- extr_monograph(search_type = "casrn", ids = c("105-74-8", "120-58-1"), verbose = FALSE)
+str(dat)
 #> 'data.frame':    2 obs. of  8 variables:
 #>  $ casrn                  : chr  "105-74-8" "120-58-1"
 #>  $ agent                  : chr  "Lauroyl peroxide" "Isosafrole"
@@ -64,13 +64,13 @@ described.
 #>  $ additional_information : chr  "" ""
 #>  $ query                  : chr  "105-74-8" "120-58-1"
 
-  # Example usage for name search
-  dat2 <- extr_monograph(
-    search_type = "name",
-    ids = c("Aloe", "Schistosoma", "Styrene"),
-    verbose = FALSE
-  )
-  str(dat2)
+# Example usage for name search
+dat2 <- extr_monograph(
+  search_type = "name",
+  ids = c("Aloe", "Schistosoma", "Styrene"),
+  verbose = FALSE
+)
+str(dat2)
 #> 'data.frame':    8 obs. of  8 variables:
 #>  $ casrn                  : chr  "" "" "" "" ...
 #>  $ agent                  : chr  "Aloe vera, whole leaf extract" "Schistosoma haematobium (infection with)" "Schistosoma japonicum (infection with)" "Schistosoma mansoni (infection with)" ...

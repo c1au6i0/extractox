@@ -391,7 +391,7 @@ extr_comptox(ids = c("Aspirin", "50-00-0"))
 #> ℹ Getting info from CompTox...
 #> $comptox_cover_sheet
 #> # A tibble: 4 × 2
-#>   search_datestamp  x2026_04_05_16_41_44
+#>   search_datestamp  x2026_04_05_17_10_27
 #>   <chr>                            <dbl>
 #> 1 Search term count                    2
 #> 2 Found count                          2
