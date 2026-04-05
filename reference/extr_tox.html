@@ -13,7 +13,7 @@ and the Integrated Risk Information System (IRIS) and other."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@ Chemicals Dashboard.</p></li>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="fu">condathis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/condathis/man/with_sandbox_dir.html" class="external-link">with_sandbox_dir</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># this is to write on tempdir as for CRAN policies # nolint</span></span></span>
+<span class="r-in"><span><span class="fu">condathis</span><span class="fu">::</span><span class="fu"><a href="https://luciorq.github.io/condathis/reference/with_sandbox_dir.html" class="external-link">with_sandbox_dir</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># this is to write on tempdir as for CRAN policies # nolint</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="co"># To avoid overwhelming the server</span></span></span>
 <span class="r-in"><span>  <span class="fu">extr_tox</span><span class="op">(</span>casrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"100-00-5"</span>, <span class="st">"107-02-8"</span><span class="op">)</span>, delay <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
@@ -139,14 +139,25 @@ Chemicals Dashboard.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to CompTox...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in condathis::run("curl", "-X", "POST", base_url, "-H", "User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.4.0",     "-H", "Accept: */*", "-H", "Accept-Encoding: deflate, gzip",     "-H", "Content-Type: application/json", "-d", json_string,     env_name = "openssl-linux-env", verbose = "silent"):</span> <span style="color: #BB0000;">✖</span> System command <span style="color: #00BB00;">curl</span> failed</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Status code: 56</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> % Total % Received % Xferd Average Speed Time Time Time Current</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> Dload Upload Total Spent Left Speed</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> 0 0 0 0 0 0 0 0 --:--:-- --:--:-- --:--:-- 0</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> 100 1989 0 0 100 1989 0 2242 --:--:-- --:--:-- --:--:-- 2242</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> curl: (56) OpenSSL SSL_read: Connection reset by peer, errno 104</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Getting info from CompTox...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sending request to ICE database...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Request succeeded with status code: 200</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Quering <span style="color: #00BB00;">100-00-5</span> to EPA IRIS database...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Quering <span style="color: #00BB00;">107-02-8</span> to EPA IRIS database...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Chemical <span style="color: #00BB00;">100-00-5</span> not found!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting WHO IARC monographs...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Last updated: 2024-11-29 5:08pm (CET)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading data from <span style="color: #0000BB; font-style: italic;">&lt;https://cfpub.epa.gov/ncea/pprtv/atoz.cfm&gt;</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Saving data in the cache <span style="color: #0000BB;">/tmp/RtmpbKCkTS/tmp-cache1c441505b7db/R/extractox/epa_pprtvs.rds</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting EPA PPRTVs.</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -159,7 +170,7 @@ Chemicals Dashboard.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

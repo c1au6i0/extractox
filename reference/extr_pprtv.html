@@ -13,7 +13,7 @@ or force a fresh download."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">extractox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,7 @@ identifiers, or NULL if no matches are found.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="fu">condathis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/condathis/man/with_sandbox_dir.html" class="external-link">with_sandbox_dir</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># this is to write on tempdir as for CRAN policies # nolint</span></span></span>
+<span class="r-in"><span><span class="fu">condathis</span><span class="fu">::</span><span class="fu"><a href="https://luciorq.github.io/condathis/reference/with_sandbox_dir.html" class="external-link">with_sandbox_dir</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># this is to write on tempdir as for CRAN policies # nolint</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Extract data for a specific CASRN</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="co"># Sleep to avoid overwhelming the server</span></span></span>
@@ -132,7 +132,7 @@ identifiers, or NULL if no matches are found.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading data from <span style="color: #0000BB; font-style: italic;">&lt;https://cfpub.epa.gov/ncea/pprtv/atoz.cfm&gt;</span>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Saving data in the cache <span style="color: #0000BB;">/tmp/RtmpMK5q2T/tmp-cache1c6355adc841/R/extractox/epa_pprtvs.rds</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Saving data in the cache <span style="color: #0000BB;">/tmp/RtmpbKCkTS/tmp-cache1c44400f3f83/R/extractox/epa_pprtvs.rds</span>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Extracting EPA PPRTVs.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
@@ -148,7 +148,7 @@ identifiers, or NULL if no matches are found.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                 iris_link</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 https://cfpub.epa.gov/ncea/iris2/chemicalLanding.cfm?substance_nmbr=364</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   rf_c_value rf_d_value           woe               date_downloaded    query</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   See IRIS   See IRIS Not available Wed, 16 Jul 2025 02:29:39 GMT Acrolein</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   See IRIS   See IRIS Not available Sun, 05 Apr 2026 11:38:13 GMT Acrolein</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Internet connection OK...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Checking Internet Connection...</span>
@@ -177,9 +177,9 @@ identifiers, or NULL if no matches are found.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Inadequate information to assess carcinogenic potential</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 Inadequate information to assess carcinogenic potential</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 date_downloaded      query</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Wed, 16 Jul 2025 02:29:43 GMT   107-02-8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Wed, 16 Jul 2025 02:29:43 GMT 42576-02-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Wed, 16 Jul 2025 02:29:43 GMT    79-10-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Sun, 05 Apr 2026 11:38:19 GMT   107-02-8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Sun, 05 Apr 2026 11:38:19 GMT 42576-02-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sun, 05 Apr 2026 11:38:19 GMT    79-10-7</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -192,7 +192,7 @@ identifiers, or NULL if no matches are found.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
