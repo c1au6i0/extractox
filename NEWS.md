@@ -1,8 +1,37 @@
 
 # extractox 1.2.1
 
+## Breaking Changes
+
+* `extr_ctd` and `extr_tetramer` have been **removed** from the package. The
+  CTD website now requires an ALTCHA CAPTCHA challenge that prevents automated
+  API access. All related source, documentation, and tests have been deleted.
+
+## New Features
+
+* **Graceful exit on error**: All exported HTTP-facing functions (`extr_comptox`,
+  `extr_ice`, `extr_iris`, `extr_pprtv`, `extr_casrn_from_cid`, `extr_chem_info`,
+  `extr_pubchem_fema`, `extr_pubchem_ghs`) now return `NULL` with a
+  `cli::cli_warn()` message on failure instead of throwing an error. This is
+  implemented via the new internal helper `with_graceful_exit()`.
+* **Jittered exponential backoff**: All `httr2` requests now use
+  `req_retry(max_tries = 5, backoff = httr2_backoff)` with a jittered exponential
+  backoff strategy (capped at 30 s, ±20% jitter). `condathis`/curl code paths use
+  an equivalent `condathis_run_retry()` helper.
+
 ## Bug Fixes
 
+* Fixed `condathis::run()` calls in `extr_comptox_openssl_()` and
+  `extr_iris_openssl_()`: errors are now caught via `tryCatch` and re-thrown with
+  a clear message rather than causing an uncontrolled crash.
+* Fixed `extr_chem_info`: now aborts with an informative message when PubChem
+  returns an empty response, rather than failing silently downstream.
+* Fixed the `httr2_backoff()` function signature to match the single-argument
+  `backoff` callback contract required by `httr2::req_retry()`.
+* Restored the correct CompTox batch export endpoint URL in `extr_comptox_out()`.
+* Fixed a typo (`s.` → `.`) in the `DESCRIPTION` field (#50).
+* Updated test expectations for `extr_ice` and `extr_casrn_from_cid` to match
+  current upstream API response sizes.
 * Updated `extr_comptox` tests to reflect a CompTox API change: `comptox_main_data`
   now returns 63 columns instead of 64.
 * Updated `extr_casrn_from_cid` test to reflect current PubChem data (row count
