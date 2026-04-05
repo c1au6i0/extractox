@@ -1,5 +1,5 @@
 Package: extractox
-Title: Extract Tox Info from Various Databases
+Title: Extract 'Tox' Info from Various Databases
 Version: 1.2.1
 Authors@R: c(
     person("Claudio", "Zanettini", , "claudio.zanettini@gmail.com", role = c("aut", "cre", "cph"),
@@ -9,9 +9,9 @@ Authors@R: c(
   )
 Description: Extract toxicological and chemical information from databases
     maintained by scientific agencies and resources, including the
-    Comparative Toxicogenomics Database <https://ctdbase.org/>, the
     Integrated Chemical Environment <https://ice.ntp.niehs.nih.gov/>, the
-    PubChem <https://pubchem.ncbi.nlm.nih.gov/>, and others EPA databases.
+    'PubChem' database <https://pubchem.ncbi.nlm.nih.gov/>, and other EPA
+    databases.
 License: MIT + file LICENSE
 URL: https://github.com/c1au6i0/extractox,
     https://c1au6i0.github.io/extractox/
