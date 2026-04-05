@@ -12,12 +12,12 @@
 Source:
 [`DESCRIPTION`](https://github.com/c1au6i0/extractox/blob/main/DESCRIPTION)
 
-Zanettini C, Queiroz L (2026). *extractox: Extract Tox Info from Various
-Databases*. R package version 1.2.1,
+Zanettini C, Queiroz L (2026). *extractox: Extract 'Tox' Info from
+Various Databases*. R package version 1.2.1,
 <https://github.com/c1au6i0/extractox>.
 
     @Manual{,
-      title = {extractox: Extract Tox Info from Various Databases},
+      title = {extractox: Extract 'Tox' Info from Various Databases},
       author = {Claudio Zanettini and Lucio Queiroz},
       year = {2026},
       note = {R package version 1.2.1},
