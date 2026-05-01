@@ -134,8 +134,8 @@ extr_chem_info(iupac_names = c("Formaldehyde", "Aflatoxin B1"))
 #> 1 AAADccB4OAAAAAAAAAAAAAAAAAAAASIEAAAwQAAAAAAQAEiBAAAAGgAAAAAADQSwmAMyDoAABACIAqDSCAACCAAgIAAIiAEGCMgcJzaMMRqiOiCl4BUMqQfI6PyOoAACCAAIAABAAAQQABAAAAAAAAAAAA==
 #> 2 AAADcQAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 #>          title patent_count patent_family_count literature_count
-#> 1 Aflatoxin B1        12177                7222            19467
-#> 2 Formaldehyde       837257              446046           148872
+#> 1 Aflatoxin B1        12177                7222            20046
+#> 2 Formaldehyde       837300              446054           151266
 #>                                                                                                                                                                                                                                                                                                                                                                        annotation_types
 #> 1                          Biological Test Results: Active|Associated Disorders and Diseases|Biological Test Results|Chemical and Physical Properties|Classification|Drug and Medication Information|Food Additives and Ingredients|Identification|Interactions and Pathways|Literature|Patents|Pharmacology and Biochemistry|Safety and Hazards|Spectral Information|Taxonomy|Toxicity
 #> 2 Agrochemical Information|Biological Test Results: Active|Associated Disorders and Diseases|Biological Test Results|Chemical and Physical Properties|Classification|Drug and Medication Information|Food Additives and Ingredients|Identification|Interactions and Pathways|Literature|Patents|Pharmacology and Biochemistry|Safety and Hazards|Spectral Information|Taxonomy|Toxicity
